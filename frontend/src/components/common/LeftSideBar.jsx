@@ -1,5 +1,9 @@
 import ServerCategoryBar from "../ServerCategoryBar.jsx";
 import ServerDisplayer from "../ServerDisplayer.jsx";
+import CategoryDisplayer from "../CategoryDisplayer.jsx";
+
+import mdiMenu from "../../assets/icon/mdiMenu.svg"
+import mdiArchive from "../../assets/icon/mdiArchive.svg"
 
 export default function LeftSideBar({title}) {
     return (
@@ -24,8 +28,8 @@ export default function LeftSideBar({title}) {
                     <ServerCategoryBar categoryName={"Servers"}/>
 
                     <div style={styles.serverCategoryList}>
-                        <ServerDisplayer title={"Bruhasdfasdfasdfasdfasdfasdfaqsdfhh"} isOwner={true} isSelected={true}/>
-                        <ServerDisplayer />
+                        <ServerDisplayer title={"Familia"} isOwner={true} isSelected={true}/>
+                        <ServerDisplayer title={"Parkour Coimbra"} />
                     </div>
                 </div>
 
@@ -33,7 +37,13 @@ export default function LeftSideBar({title}) {
                     <ServerCategoryBar categoryName={"Categories"}/>
 
                     <div style={styles.serverCategoryList}>
+                        <CategoryDisplayer title={"General"} icon={mdiMenu}/>
+                        <CategoryDisplayer title={"Archived"} icon={mdiArchive}/>
+                    </div>
 
+                    <div style={styles.serverCategoryList}>
+                        <CategoryDisplayer title={"Projeto 1"} icon={mdiMenu} isOwner={true}/>
+                        <CategoryDisplayer title={"Projeto 2"} icon={mdiMenu} isOwner={true}/>
                     </div>
                 </div>
             </div>
@@ -80,5 +90,4 @@ const styles = {
         flexDirection: "column",
         gap: "1rem"
     }
-
 }
