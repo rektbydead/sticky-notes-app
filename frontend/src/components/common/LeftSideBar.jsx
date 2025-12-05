@@ -22,12 +22,17 @@ const styles = {
     },
     sidebarTop: {
         display: "flex",
-        "align-items": "center",
+        alignItems: "center",
         margin: "auto",
-        "min-height": "60px",
-        "max-height": "60px",
-        "border-bottom": "1px solid #e0e0e0",
+        minHeight: "70px",
+        maxHeight: "70px",
+        borderBottom: "1px solid #e0e0e0",
         padding: "0.5rem",
+
+        color: "#1f2937",
+        lineHeight: "1.56",
+        fontSize: "19px",
+        fontWeight: "bold"
     },
     sidebarBottom: {
        padding: "1rem 0.5rem",

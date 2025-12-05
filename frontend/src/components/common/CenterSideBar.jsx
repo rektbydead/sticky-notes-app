@@ -2,7 +2,7 @@ export default function CenterSideBar({title}) {
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
-                { title }
+                Work Server {">"} Important Category
             </div>
 
             <div style={styles.sidebarBottom}>
@@ -22,11 +22,16 @@ const styles = {
     },
     sidebarTop: {
         display: "flex",
-        "align-items": "center",
-        "min-height": "60px",
-        "max-height": "60px",
-        "border-bottom": "thin solid #e0e0e0",
+        alignItems: "center",
+        minHeight: "70px",
+        maxHeight: "70px",
+        borderBottom: "1px solid #e0e0e0",
         padding: "0.5rem",
+
+        color: "#374151",
+        lineHeight: "1.50",
+        fontSize: "16px",
+        fontWeight: "bold"
     },
     sidebarBottom: {
         display: "flex",
