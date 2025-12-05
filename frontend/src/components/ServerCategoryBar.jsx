@@ -1,10 +1,10 @@
 import mdiPlus from "../assets/icon/mdiPlus.svg"
-import "../assets/css/ServerCategoryBar.css"
+import "../assets/css/ClickableIcon.css"
 
-export default function ServerCategoryBar() {
+export default function ServerCategoryBar({categoryName}) {
     return (
         <div style={styles.container}>
-            <span style={styles.title}> Personal </span>
+            <span style={styles.title}> {categoryName} </span>
 
             <div style={styles.add}>
                 <img

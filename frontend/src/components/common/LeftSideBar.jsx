@@ -1,4 +1,5 @@
 import ServerCategoryBar from "../ServerCategoryBar.jsx";
+import ServerDisplayer from "../ServerDisplayer.jsx";
 
 export default function LeftSideBar({title}) {
     return (
@@ -9,7 +10,32 @@ export default function LeftSideBar({title}) {
             </div>
 
             <div style={styles.sidebarBottom}>
-                <ServerCategoryBar/>
+
+                <div style={styles.serverCategory}>
+                    <ServerCategoryBar categoryName={"Personal"}/>
+
+                    <div style={styles.serverCategoryList}>
+                        <ServerDisplayer title={"Kids"} isOwner={true}/>
+                        <ServerDisplayer title={"Car"} isOwner={true} />
+                    </div>
+                </div>
+
+                <div style={styles.serverCategory}>
+                    <ServerCategoryBar categoryName={"Servers"}/>
+
+                    <div style={styles.serverCategoryList}>
+                        <ServerDisplayer title={"Bruhasdfasdfasdfasdfasdfasdfaqsdfhh"} isOwner={true} isSelected={true}/>
+                        <ServerDisplayer />
+                    </div>
+                </div>
+
+                <div style={styles.serverCategory}>
+                    <ServerCategoryBar categoryName={"Categories"}/>
+
+                    <div style={styles.serverCategoryList}>
+
+                    </div>
+                </div>
             </div>
         </div>
     )
@@ -37,6 +63,22 @@ const styles = {
         fontWeight: "bold"
     },
     sidebarBottom: {
-       padding: "1.5rem 1rem",
+        padding: "1.5rem 1rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem"
+    },
+    serverCategoryList: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        marginBottom: "1rem"
+    },
+    serverCategory: {
+        borderBottom: "1px solid #e0e0e0",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem"
     }
+
 }
