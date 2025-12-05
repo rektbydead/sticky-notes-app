@@ -1,3 +1,5 @@
+import ServerCategoryBar from "../ServerCategoryBar.jsx";
+
 export default function LeftSideBar({title}) {
     return (
         <div style={styles.sidebar}>
@@ -7,7 +9,7 @@ export default function LeftSideBar({title}) {
             </div>
 
             <div style={styles.sidebarBottom}>
-                asd
+                <ServerCategoryBar/>
             </div>
         </div>
     )
@@ -35,6 +37,6 @@ const styles = {
         fontWeight: "bold"
     },
     sidebarBottom: {
-       padding: "1rem 0.5rem",
+       padding: "1.5rem 1rem",
     }
 }

@@ -1,0 +1,10 @@
+.clickable-icon {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+}
+
+.clickable-icon:hover {
+    opacity: 0.6;
+}

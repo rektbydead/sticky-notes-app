@@ -1,4 +1,4 @@
-import './assets/App.css'
+import './assets/css/App.css'
 import LeftSideBar from "./components/common/LeftSideBar.jsx";
 import RightSideBar from "./components/common/RightSideBar.jsx";
 import CenterSideBar from "./components/common/CenterSideBar.jsx";
