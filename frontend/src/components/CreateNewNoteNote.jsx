@@ -22,6 +22,7 @@ const styles = {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        breakInside: "avoid",
 
         width: "100%",
         aspectRatio: "1/1",

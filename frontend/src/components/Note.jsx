@@ -1,16 +1,29 @@
 import "../assets/css/ClickableIcon.css"
-import mdiClock from "../assets/icon/mdiClock.svg";
+import mdiClock from "../assets/icon/mdiClock.svg"
+import mdiTrash from "../assets/icon/mdiTrash.svg"
+import mdiArchive from "../assets/icon/mdiArchive.svg";
 
 
 export default function Note({title, message, hour, personName}) {
     return (
-        <div style={styles.card}>
+        <div style={styles.card} className="clickable-icon">
             <div style={styles.header}>
                 <h3 style={styles.title}>{title}</h3>
 
                 <div style={styles.actions}>
-                    <span> a </span>
-                    <span> b </span>
+                    <img
+                        src={mdiArchive}
+                        alt="Archive"
+                        className="clickable-icon"
+                        style={styles.footerIcon}
+                    />
+
+                    <img
+                        src={mdiTrash}
+                        alt="Trash"
+                        className="clickable-icon"
+                        style={styles.footerIcon}
+                    />
                 </div>
             </div>
 
@@ -49,8 +62,8 @@ const styles = {
     },
     header: {
         display: "flex",
+        position: "relative",
         justifyContent: "space-between",
-        alignItems: "flex-start",
     },
     title: {
         margin: 0,
@@ -58,8 +71,14 @@ const styles = {
         fontWeight: 700,
     },
     actions: {
+        position: "absolute",
+        top: -13,
+        right: -13,
+
         display: "flex",
-        gap: "0.25rem",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "0.20rem",
     },
     iconBtn: {
         cursor: "pointer",
@@ -75,8 +94,8 @@ const styles = {
         gap: "0.35rem",
     },
     footerIcon: {
-      width: "15px",
-      height: "15px"
+      width: "20px",
+      height: "20px"
     },
     footerText: {
         fontSize: "12px",
