@@ -61,13 +61,12 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         "min-width": "250px",
-        "border-right": "1px solid #e0e0e0",
+        borderRight: "1px solid #e0e0e0",
         color: "black",
     },
     sidebarTop: {
         display: "flex",
         alignItems: "center",
-        margin: "auto",
         minHeight: "70px",
         height: "70px",
         maxHeight: "70px",
@@ -80,23 +79,25 @@ const styles = {
         fontWeight: "bold"
     },
     sidebarBottom: {
-        padding: "1.5rem 1rem",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
         height: "100%",
+        padding: "1.5rem 0",
+        overflow: "auto"
+    },
+    serverCategory: {
+        padding: "0 1rem",
+        borderBottom: "1px solid #e0e0e0",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem"
     },
     serverCategoryList: {
         display: "flex",
         flexDirection: "column",
         gap: "0.5rem",
         marginBottom: "1rem"
-    },
-    serverCategory: {
-        borderBottom: "1px solid #e0e0e0",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem"
     },
     userDisplayer: {
         padding: "0.5rem 1rem",
