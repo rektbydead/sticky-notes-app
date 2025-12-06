@@ -3,15 +3,24 @@ import Note from "../Note.jsx";
 import CreateNewNoteNote from "../CreateNewNoteNote.jsx";
 import CreateNewNoteButton from "../CreateNewNoteButton.jsx";
 import NoteSearchBox from "../NoteSearchBox.jsx";
+import {useState} from "react";
 
 export default function CenterSideBar({title}) {
+    const [searchValue, setSearchValue] = useState("");
+
+    /* note filtering example for future*/
+     const filteredNotes = [].filter((note) =>
+        note.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+        note.message.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
                 <span style={styles.sidebarTopTitle}> Work Server {">"} Important Category </span>
 
                 <div style={styles.sidebarTopCreateButton}>
-                    <NoteSearchBox/>
+                    <NoteSearchBox onSearch={setSearchValue}/>
                     <CreateNewNoteButton/>
                 </div>
             </div>
@@ -51,7 +60,7 @@ const styles = {
         minHeight: "70px",
         maxHeight: "70px",
         borderBottom: "1px solid #e0e0e0",
-        padding: "0.5rem",
+        padding: "0.5rem 1rem",
         gap: "1rem",
 
         color: "#374151",

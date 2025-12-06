@@ -60,7 +60,7 @@ const styles = {
         height: "70px",
         maxHeight: "70px",
         borderBottom: "1px solid #e0e0e0",
-        padding: "0.5rem",
+        padding: "0.5rem 1rem",
 
         color: "#1f2937",
         lineHeight: "1.56",

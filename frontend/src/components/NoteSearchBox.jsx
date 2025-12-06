@@ -3,7 +3,7 @@ import "../assets/css/NoteSearchBox.css"
 import mdiMagnify from "../assets/icon/mdiMagnify.svg";
 
 
-export default function SearchBox() {
+export default function NoteSearchBox({ onSearch }) {
     return (
         <div style={styles.wrapper} className="search-expand">
             <img src={mdiMagnify} alt="Search" style={styles.icon} />
@@ -12,6 +12,7 @@ export default function SearchBox() {
                 type="text"
                 placeholder="Search notes..."
                 style={styles.input}
+                onChange={(e) => onSearch(e.target.value)}
             />
         </div>
     );

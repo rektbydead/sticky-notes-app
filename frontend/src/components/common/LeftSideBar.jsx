@@ -10,8 +10,12 @@ export default function LeftSideBar({title}) {
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
+                <img style={styles.sidebarTopIcon}
+                    src="../../../public/pageIcon.webp"
+                    alt="Icon"
+                />
 
-                { title }
+                <span> { title } </span>
             </div>
 
             <div style={styles.sidebarBottom}>
@@ -71,12 +75,17 @@ const styles = {
         height: "70px",
         maxHeight: "70px",
         borderBottom: "1px solid #e0e0e0",
-        padding: "0.5rem",
+        padding: "0.5rem 1rem",
+        gap: "1rem",
 
         color: "#1f2937",
         lineHeight: "1.56",
         fontSize: "19px",
         fontWeight: "bold"
+    },
+    sidebarTopIcon: {
+        width: "40px",
+        height: "40px",
     },
     sidebarBottom: {
         display: "flex",
