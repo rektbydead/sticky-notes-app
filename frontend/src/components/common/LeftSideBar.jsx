@@ -4,6 +4,7 @@ import CategoryDisplayer from "../CategoryDisplayer.jsx";
 
 import mdiMenu from "../../assets/icon/mdiMenu.svg"
 import mdiArchive from "../../assets/icon/mdiArchive.svg"
+import UserDisplayer from "../UserDisplayer.jsx";
 
 export default function LeftSideBar({title}) {
     return (
@@ -46,6 +47,9 @@ export default function LeftSideBar({title}) {
                         <CategoryDisplayer title={"Projeto 2"} icon={mdiMenu} isOwner={true}/>
                     </div>
                 </div>
+
+
+                <UserDisplayer style={styles.userDisplayer} name={"Ruben Lousada"} email={"rlousada123456@gmail.com"}/>
             </div>
         </div>
     )
@@ -57,6 +61,7 @@ const styles = {
         height: "100vh",
         "border-right": "1px solid #e0e0e0",
         color: "black",
+        border: "1px solid red",
     },
     sidebarTop: {
         display: "flex",
@@ -76,7 +81,9 @@ const styles = {
         padding: "1.5rem 1rem",
         display: "flex",
         flexDirection: "column",
-        gap: "1rem"
+        gap: "1rem",
+        border: "1px solid blue",
+        height: "100%",
     },
     serverCategoryList: {
         display: "flex",
@@ -89,5 +96,8 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         gap: "1rem"
+    },
+    userDisplayer: {
+        marginTop: "auto"
     }
 }
