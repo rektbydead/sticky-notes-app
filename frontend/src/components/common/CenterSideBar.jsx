@@ -10,10 +10,17 @@ export default function CenterSideBar({title}) {
 
             <div style={styles.sidebarBottom}>
                 <Note message={"Afinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinuask dfhlkas dhjflkashj dfl;kash pkas dhjflkashj dfl;kas dhjflkashj dfl; kas dhjflkashj dfl;dkfgasdf ghdasfgh sdfh sdfh sdfhj sdr e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal kas dhjflkashj dfl; kas dhjflkashj dfl;  que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal qkas dhjfdhjflkashj dfl; ue nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkashj dfl; que nao ler e que gay"} title={"Quem ler esty que fode"}/>
+                <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjaasdfe que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkasrfy yhsdfhshj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkashj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal kas dhjl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal kas dhjflkashasdf sdfsadfg sdfh sdl;.k asdfhpl ashdf;klh sdfsad ;lfgjfhaspl dfghasjkl;dg hklajsdgh kljasdgh klj;asdgh kl;dgh kl;je nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
             </div>
         </div>
     )
@@ -42,13 +49,9 @@ const styles = {
         fontWeight: "bold"
     },
     sidebarBottom: {
-        display: "flex",
-        flexGrow: "1",
-        flexWrap: "wrap",
-        padding: "1rem 1rem",
-        background: "#f3f4f6",
-        alignItems: "flex-start",
+        padding: "1rem",
         overflowY: "auto",
-        gap: "1rem"
+        columnWidth: "200px",
+        columnGap: "0.5rem",
     }
 }

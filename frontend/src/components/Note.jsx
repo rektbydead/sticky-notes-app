@@ -33,24 +33,19 @@ export default function Note({title, message, hour, personName}) {
     )
 }
 
-
 const styles = {
     card: {
-        background: "#d1d5db",
-        padding: "1rem",
-        borderRadius: "8px",
-        width: "300px",
-
-        height: "auto",
-        flexGrow: 0,
-        flexShrink: 0,
-
         display: "flex",
         flexDirection: "column",
-        gap: "0.75rem",
+        gap: "1rem",
 
-        border: "1px solid red"
+        width: "100%",
+        breakInside: "avoid",
 
+        marginBottom: "0.5rem",
+        background: "#d1d5db",
+        borderRadius: "8px",
+        padding: "1rem",
     },
     header: {
         display: "flex",
