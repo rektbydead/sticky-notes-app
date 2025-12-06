@@ -49,7 +49,7 @@ export default function LeftSideBar({title}) {
                 </div>
 
 
-                <UserDisplayer style={styles.userDisplayer} name={"Ruben Lousada"} email={"rlousada123456@gmail.com"}/>
+                <UserDisplayer style={styles.userDisplayer} name={"Ruben Lousada"} email={"rlousada123456@gmail.com"} isOwner={true}/>
             </div>
         </div>
     )

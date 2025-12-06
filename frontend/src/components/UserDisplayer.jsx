@@ -2,12 +2,11 @@ import mdiDotsVertical from "../assets/icon/mdiDotsVertical.svg"
 
 import "../assets/css/ClickableIcon.css"
 
-export default function UserDisplayer({name, email, isSelected, isOwner, onClick}) {
+export default function UserDisplayer({name, email, isOwner, onClick}) {
     const firstLetter = name?.trim()?.charAt(0)?.toUpperCase() || "";
 
     return (
         <div style={styles.container}
-             className={`server-container ${isSelected ? "selected" : ""}`}
              onClick={onClick}
         >
             <div style={styles.titleContainer}>
@@ -16,16 +15,16 @@ export default function UserDisplayer({name, email, isSelected, isOwner, onClick
                 </div>
 
                 <div style={styles.title}>
-                    <span> {name} </span>
-                    <span> {email} </span>
+                    <span style={styles.name}> {name} </span>
+                    <span style={styles.email}> {email} </span>
                 </div>
             </div>
 
             {isOwner ?
-                (<div style={styles.trash}>
+                (<div style={styles.menuIcon}>
                     <img
                         src={mdiDotsVertical}
-                        alt="Trash"
+                        alt="Menu"
                         className="clickable-icon"
                         onClick={(e) => {
                             e.stopPropagation();
@@ -69,13 +68,25 @@ const styles = {
         fontWeight: 700,
         fontSize: "0.9rem",
     },
+    menuIcon: {
+        width: "20px",
+        height: "20px"
+    },
     title: {
-        fontSize: "12px",
-        color: "#1f2937",
-
+        lineHeight: "1.2",
         textOverflow: "ellipsis",
         overflow: "hidden",
         display: "block",
         maxWidth: "140px",
     },
+    name: {
+        fontSize: "14px",
+        color: "#1f2937",
+        border: "1px solid red"
+    },
+    email: {
+        fontSize: "10px",
+        color: "#6b7280",
+        border: "1px solid red"
+    }
 }
