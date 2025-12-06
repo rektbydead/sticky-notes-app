@@ -47,9 +47,10 @@ export default function LeftSideBar({title}) {
                         <CategoryDisplayer title={"Projeto 2"} icon={mdiMenu} isOwner={true}/>
                     </div>
                 </div>
+            </div>
 
-
-                <UserDisplayer style={styles.userDisplayer} name={"Ruben Lousada"} email={"rlousada123456@gmail.com"} isOwner={true}/>
+            <div style={styles.userDisplayer}>
+                <UserDisplayer  name={"Ruben Lousada"} email={"rlousada123456@gmail.com"} isOwner={true}/>
             </div>
         </div>
     )
@@ -57,17 +58,18 @@ export default function LeftSideBar({title}) {
 
 const styles = {
     sidebar: {
+        display: "flex",
+        flexDirection: "column",
         "min-width": "250px",
-        height: "100vh",
         "border-right": "1px solid #e0e0e0",
         color: "black",
-        border: "1px solid red",
     },
     sidebarTop: {
         display: "flex",
         alignItems: "center",
         margin: "auto",
         minHeight: "70px",
+        height: "70px",
         maxHeight: "70px",
         borderBottom: "1px solid #e0e0e0",
         padding: "0.5rem",
@@ -82,7 +84,6 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
-        border: "1px solid blue",
         height: "100%",
     },
     serverCategoryList: {
@@ -98,6 +99,8 @@ const styles = {
         gap: "1rem"
     },
     userDisplayer: {
-        marginTop: "auto"
+        padding: "0.5rem 1rem",
+        marginTop: "auto",
+        borderTop: "1px solid #e0e0e0",
     }
 }

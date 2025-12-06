@@ -10,7 +10,7 @@ export default function UserDisplayer({name, email, isOwner, onClick}) {
              onClick={onClick}
         >
             <div style={styles.titleContainer}>
-                <div style={{...styles.avatar, background: isOwner ? "##6366f1" : "#22c55e"}}>
+                <div style={{...styles.avatar, background: isOwner ? "#6366f1" : "#22c55e"}}>
                     {firstLetter}
                 </div>
 
@@ -49,7 +49,6 @@ const styles = {
         paddingLeft: "0.25rem",
         paddingTop: "0.25rem",
         paddingBottom: "0.25rem",
-        borderTop: "1px solid #e0e0e0",
     },
     titleContainer: {
         display: "flex",
@@ -73,7 +72,7 @@ const styles = {
         height: "20px"
     },
     title: {
-        lineHeight: "1.2",
+        lineHeight: "1",
         textOverflow: "ellipsis",
         overflow: "hidden",
         display: "block",
@@ -82,11 +81,9 @@ const styles = {
     name: {
         fontSize: "14px",
         color: "#1f2937",
-        border: "1px solid red"
     },
     email: {
         fontSize: "10px",
         color: "#6b7280",
-        border: "1px solid red"
     }
 }
