@@ -1,5 +1,6 @@
 import NoteCard from "../Note.jsx";
 import Note from "../Note.jsx";
+import CreateNewNoteNote from "../CreateNewNoteNote.jsx";
 
 export default function CenterSideBar({title}) {
     return (
@@ -21,6 +22,8 @@ export default function CenterSideBar({title}) {
                 <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
                 <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
                 <Note message={"AfiAfinal kas dhjflkashasdf sdfsadfg sdfh sdl;.k asdfhpl ashdf;klh sdfsad ;lfgjfhaspl dfghasjkl;dg hklajsdgh kljasdgh klj;asdgh kl;dgh kl;je nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+
+                <CreateNewNoteNote/>
             </div>
         </div>
     )
