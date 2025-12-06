@@ -1,0 +1,9 @@
+.search-expand {
+    max-width: 200px;
+    width: 100%;
+    transition: max-width 0.25s ease;
+}
+
+.search-expand:hover {
+    max-width: 100%; /* smoothly expands to full available width */
+}
