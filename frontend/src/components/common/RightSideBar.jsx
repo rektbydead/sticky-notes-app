@@ -15,7 +15,32 @@ export default function RightSideBar({title}) {
             </div>
 
             <div style={styles.sidebarBottom}>
+                <div style={styles.serverCategory}>
+                    <UserDisplayer
+                        name={"Ruben Lousada"}
+                        description={true ? "Owner" : "Member"}
+                        isOwner={true}
+                        hasMenu={false}
+                    />
 
+                    <UserDisplayer
+                        name={"Judeus Martim"}
+                        description={false ? "Owner" : "Member"}
+                        isOwner={false}
+                    />
+
+                    <UserDisplayer
+                        name={"Merdeu Fodar"}
+                        description={false ? "Owner" : "Member"}
+                        isOwner={false}
+                    />
+
+                    <UserDisplayer
+                        name={"Quem ler é gay"}
+                        description={false ? "Owner" : "Member"}
+                        isOwner={false}
+                    />
+                </div>
             </div>
 
             <div style={styles.userDisplayer}>
@@ -57,7 +82,6 @@ const styles = {
     },
     serverCategory: {
         padding: "0 1rem",
-        borderBottom: "1px solid #e0e0e0",
         display: "flex",
         flexDirection: "column",
         gap: "1rem"

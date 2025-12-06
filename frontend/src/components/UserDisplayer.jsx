@@ -2,7 +2,7 @@ import mdiDotsVertical from "../assets/icon/mdiDotsVertical.svg"
 
 import "../assets/css/ClickableIcon.css"
 
-export default function UserDisplayer({name, description, isOwner, onClick}) {
+export default function UserDisplayer({name, description, isOwner, onClick, hasMenu= true}) {
     const firstLetter = name?.trim()?.charAt(0)?.toUpperCase() || "";
 
     return (
@@ -20,7 +20,7 @@ export default function UserDisplayer({name, description, isOwner, onClick}) {
                 </div>
             </div>
 
-            {isOwner ?
+            {hasMenu ?
                 (<div style={styles.menuIcon}>
                     <img
                         src={mdiDotsVertical}
@@ -41,6 +41,7 @@ export default function UserDisplayer({name, description, isOwner, onClick}) {
 const styles = {
     container: {
         display: "flex",
+        flexGrow: 1,
         flexDirection: "row",
         alignItems: "center",
 
@@ -72,10 +73,11 @@ const styles = {
         height: "20px"
     },
     title: {
-        lineHeight: "1",
+        display: "flex",
+        flexDirection: "column",
+        lineHeight: "1.25",
         textOverflow: "ellipsis",
         overflow: "hidden",
-        display: "block",
         maxWidth: "140px",
     },
     name: {
