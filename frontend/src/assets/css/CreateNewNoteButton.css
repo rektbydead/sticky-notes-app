@@ -1,0 +1,28 @@
+.expand-button {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+
+    width: 36px;
+    padding: 6px;
+    transition: width 0.25s ease;
+}
+
+.expand-button:hover {
+    width: 125px;
+}
+
+.expand-text {
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    margin-left: 0;
+    transition: opacity 0.2s ease, max-width 0.25s ease, margin-left 0.25s ease;
+}
+
+.expand-button:hover .expand-text {
+    opacity: 1;
+    max-width: 200px;
+    margin-left: 6px;
+}

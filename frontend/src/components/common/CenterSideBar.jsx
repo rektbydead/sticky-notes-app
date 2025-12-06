@@ -1,12 +1,17 @@
 import NoteCard from "../Note.jsx";
 import Note from "../Note.jsx";
 import CreateNewNoteNote from "../CreateNewNoteNote.jsx";
+import CreateNewNoteButton from "../CreateNewNoteButton.jsx";
 
 export default function CenterSideBar({title}) {
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
                 Work Server {">"} Important Category
+
+                <div style={styles.sidebarTopCreateButton}>
+                    <CreateNewNoteButton/>
+                </div>
             </div>
 
             <div style={styles.sidebarBottom}>
@@ -49,7 +54,10 @@ const styles = {
         color: "#374151",
         lineHeight: "1.50",
         fontSize: "16px",
-        fontWeight: "bold"
+        fontWeight: "bold",
+    },
+    sidebarTopCreateButton: {
+        marginLeft: "auto",
     },
     sidebarBottom: {
         padding: "1rem",

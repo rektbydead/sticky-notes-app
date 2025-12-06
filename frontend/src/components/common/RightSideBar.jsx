@@ -1,10 +1,5 @@
 import UserDisplayer from "../UserDisplayer.jsx";
-import ServerCategoryBar from "../ServerCategoryBar.jsx";
-import ServerDisplayer from "../ServerDisplayer.jsx";
-import CategoryDisplayer from "../CategoryDisplayer.jsx";
-import mdiMenu from "../../assets/icon/mdiMenu.svg";
-import mdiArchive from "../../assets/icon/mdiArchive.svg";
-import InviteMembersButton from "../InviteMember.jsx";
+import InviteMembersButton from "../InviteMemberButton.jsx";
 
 export default function RightSideBar({title}) {
     return (
@@ -49,11 +44,6 @@ export default function RightSideBar({title}) {
         </div>
     )
 }
-footerIcon: {
-      width: "20px",
-      height: "20px"
-    },
-
 
 const styles = {
     sidebar: {
