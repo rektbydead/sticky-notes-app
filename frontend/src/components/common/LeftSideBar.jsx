@@ -11,7 +11,7 @@ export default function LeftSideBar({title}) {
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
                 <img style={styles.sidebarTopIcon}
-                    src="../../../public/pageIcon.webp"
+                    src="../../../public/pageIcon.png"
                     alt="Icon"
                 />
 
