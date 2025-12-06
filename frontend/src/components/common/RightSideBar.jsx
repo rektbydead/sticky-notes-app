@@ -1,3 +1,11 @@
+import UserDisplayer from "../UserDisplayer.jsx";
+import ServerCategoryBar from "../ServerCategoryBar.jsx";
+import ServerDisplayer from "../ServerDisplayer.jsx";
+import CategoryDisplayer from "../CategoryDisplayer.jsx";
+import mdiMenu from "../../assets/icon/mdiMenu.svg";
+import mdiArchive from "../../assets/icon/mdiArchive.svg";
+import InviteMembersButton from "../InviteMember.jsx";
+
 export default function RightSideBar({title}) {
     return (
         <div style={styles.sidebar}>
@@ -7,7 +15,11 @@ export default function RightSideBar({title}) {
             </div>
 
             <div style={styles.sidebarBottom}>
-                asd
+
+            </div>
+
+            <div style={styles.userDisplayer}>
+                <InviteMembersButton/>
             </div>
         </div>
     )
@@ -15,25 +27,54 @@ export default function RightSideBar({title}) {
 
 const styles = {
     sidebar: {
+        display: "flex",
+        flexDirection: "column",
         "min-width": "250px",
-        height: "100vh",
-        "border-left": "1px solid #e0e0e0",
+        borderLeft: "1px solid #e0e0e0",
         color: "black",
     },
     sidebarTop: {
         display: "flex",
         alignItems: "center",
-        margin: "auto",
         minHeight: "70px",
+        height: "70px",
         maxHeight: "70px",
         borderBottom: "1px solid #e0e0e0",
         padding: "0.5rem",
 
-        color: "#374151",
-        lineHeight: "1.50",
-        fontSize: "16px",
+        color: "#1f2937",
+        lineHeight: "1.56",
+        fontSize: "19px",
+        fontWeight: "bold"
     },
     sidebarBottom: {
-       padding: "1rem 0.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        height: "100%",
+        padding: "1.5rem 0",
+        overflow: "auto"
+    },
+    serverCategory: {
+        padding: "0 1rem",
+        borderBottom: "1px solid #e0e0e0",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem"
+    },
+    serverCategoryList: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        marginBottom: "1rem"
+    },
+    userDisplayer: {
+        padding: "0.5rem 1rem",
+        marginTop: "auto",
+        borderTop: "1px solid #e0e0e0",
+        display: "flex",
+        alignItems: "center",
+        minHeight: "60px",
+        maxHeight: "60px"
     }
 }

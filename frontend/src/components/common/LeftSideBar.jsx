@@ -50,7 +50,7 @@ export default function LeftSideBar({title}) {
             </div>
 
             <div style={styles.userDisplayer}>
-                <UserDisplayer  name={"Ruben Lousada"} email={"rlousada123456@gmail.com"} isOwner={true}/>
+                <UserDisplayer  name={"Ruben Lousada"} description={"rlousada123456@gmail.com"} isOwner={true}/>
             </div>
         </div>
     )
@@ -103,5 +103,10 @@ const styles = {
         padding: "0.5rem 1rem",
         marginTop: "auto",
         borderTop: "1px solid #e0e0e0",
+        display: "flex",
+        flexGrow: 1,
+        alignItems: "center",
+        minHeight: "60px",
+        maxHeight: "60px"
     }
 }

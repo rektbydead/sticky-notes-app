@@ -2,7 +2,7 @@ import mdiDotsVertical from "../assets/icon/mdiDotsVertical.svg"
 
 import "../assets/css/ClickableIcon.css"
 
-export default function UserDisplayer({name, email, isOwner, onClick}) {
+export default function UserDisplayer({name, description, isOwner, onClick}) {
     const firstLetter = name?.trim()?.charAt(0)?.toUpperCase() || "";
 
     return (
@@ -16,7 +16,7 @@ export default function UserDisplayer({name, email, isOwner, onClick}) {
 
                 <div style={styles.title}>
                     <span style={styles.name}> {name} </span>
-                    <span style={styles.email}> {email} </span>
+                    <span style={styles.email}> {description} </span>
                 </div>
             </div>
 
