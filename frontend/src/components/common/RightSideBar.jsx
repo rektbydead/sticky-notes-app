@@ -49,6 +49,11 @@ export default function RightSideBar({title}) {
         </div>
     )
 }
+footerIcon: {
+      width: "20px",
+      height: "20px"
+    },
+
 
 const styles = {
     sidebar: {

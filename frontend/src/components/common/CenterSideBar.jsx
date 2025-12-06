@@ -1,3 +1,6 @@
+import NoteCard from "../Note.jsx";
+import Note from "../Note.jsx";
+
 export default function CenterSideBar({title}) {
     return (
         <div style={styles.sidebar}>
@@ -6,7 +9,11 @@ export default function CenterSideBar({title}) {
             </div>
 
             <div style={styles.sidebarBottom}>
-                asd
+                <Note message={"Afinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+                <Note message={"AfiAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
             </div>
         </div>
     )
@@ -19,6 +26,7 @@ const styles = {
         width: "100%",
         height: "100vh",
         color: "black",
+        overflow: "hidden",
     },
     sidebarTop: {
         display: "flex",
@@ -35,8 +43,12 @@ const styles = {
     },
     sidebarBottom: {
         display: "flex",
-        "flex-grow": "1",
-        padding: "1rem 0.5rem",
-        background: "#f3f4f6"
+        flexGrow: "1",
+        flexWrap: "wrap",
+        padding: "1rem 1rem",
+        background: "#f3f4f6",
+        alignItems: "flex-start",
+        overflowY: "auto",
+        gap: "1rem"
     }
 }
