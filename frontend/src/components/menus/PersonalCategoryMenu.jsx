@@ -48,7 +48,7 @@ const styles = {
     dropdown: {
         position: 'absolute',
         top: '100%',
-        left: '0px',
+        right: '0px',
         marginBottom: '4px',
         backgroundColor: 'white',
         border: '1px solid #e5e7eb',
