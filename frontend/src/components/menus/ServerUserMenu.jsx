@@ -1,10 +1,10 @@
-import mdiKey from "../../assets/icon/mdiKey.svg"
-import mdiLogout from "../../assets/icon/mdiLogout.svg"
+import mdiCancel from "../../assets/icon/mdiCancel.svg"
+import mdiBroom from "../../assets/icon/mdiBroom.svg"
 import "../../assets/css/Menu.css"
 
 import {useEffect, useRef} from "react";
 
-export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
+export default function ServerUserMenu({ isOpen, onClose, triggerRef }) {
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -34,22 +34,22 @@ export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
                 className="menu-item"
                 onClick={(e) => {
                     e.stopPropagation();
-                    console.log("open change password menu logic")
+                    console.log("ban user logic")
                 }}
             >
-                <img src={mdiKey} alt="Key" style={styles.menuItemIcon} />
-                <span>Change Password</span>
+                <img src={mdiCancel} alt="Ban" style={styles.menuItemIcon} />
+                <span>Ban user</span>
             </div>
             <div
                 style={styles.menuItem}
                 className="menu-item"
                 onClick={(e) => {
                     e.stopPropagation();
-                    console.log("logout logic")
+                    console.log("clear all notes logic")
                 }}
             >
-                <img src={mdiLogout} alt="Logout" style={styles.menuItemIcon} />
-                <span>Logout</span>
+                <img src={mdiBroom} alt="Clear" style={styles.menuItemIcon} />
+                <span>Clear notes</span>
             </div>
         </div>
     );
@@ -58,8 +58,8 @@ export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
 const styles = {
     dropdown: {
         position: 'absolute',
-        bottom: '100%',
-        left: '0px',
+        top: '100%',
+        right: '0px',
         marginBottom: '4px',
         backgroundColor: 'white',
         border: '1px solid #e5e7eb',

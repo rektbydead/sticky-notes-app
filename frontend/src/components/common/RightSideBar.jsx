@@ -1,5 +1,7 @@
 import UserDisplayer from "../UserDisplayer.jsx";
 import InviteMembersButton from "../InviteMemberButton.jsx";
+import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
+import ServerUserMenu from "../menus/ServerUserMenu.jsx";
 
 export default function RightSideBar({title}) {
     return (
@@ -22,18 +24,27 @@ export default function RightSideBar({title}) {
                         name={"Judeus Martim"}
                         description={false ? "Owner" : "Member"}
                         isOwner={false}
+                        menuComponent={(isOpen, onClose, triggerRef) => (
+                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef} />
+                        )}
                     />
 
                     <UserDisplayer
                         name={"Merdeu Fodar"}
                         description={false ? "Owner" : "Member"}
                         isOwner={false}
+                        menuComponent={(isOpen, onClose, triggerRef) => (
+                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
+                        )}
                     />
 
                     <UserDisplayer
                         name={"Quem ler é gay"}
                         description={false ? "Owner" : "Member"}
                         isOwner={false}
+                        menuComponent={(isOpen, onClose, triggerRef) => (
+                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
+                        )}
                     />
                 </div>
             </div>

@@ -59,8 +59,8 @@ export default function LeftSideBar({title}) {
                     name={"Ruben Lousada"}
                     description={"rlousada123456@gmail.com"}
                     isOwner={true}
-                    menuComponent={(isOpen, onClose) => (
-                        <LoggedUserMenu isOpen={isOpen} onClose={onClose} />
+                    menuComponent={(isOpen, onClose, triggerRef) => (
+                        <LoggedUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
                     )}
                 />
             </div>
