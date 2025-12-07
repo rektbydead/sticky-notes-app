@@ -84,6 +84,7 @@ const styles = {
         overflowY: "auto",
         columnWidth: "200px",
         columnGap: "0.5rem",
-        backgroundColor: "#f5f5f5"
+        backgroundColor: "#f5f5f5",
+        height: "100%"
     }
 }

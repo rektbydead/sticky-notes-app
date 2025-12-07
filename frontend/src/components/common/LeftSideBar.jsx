@@ -5,6 +5,7 @@ import CategoryDisplayer from "../CategoryDisplayer.jsx";
 import mdiMenu from "../../assets/icon/mdiMenu.svg"
 import mdiArchive from "../../assets/icon/mdiArchive.svg"
 import UserDisplayer from "../UserDisplayer.jsx";
+import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
 
 export default function LeftSideBar({title}) {
     return (
@@ -54,7 +55,14 @@ export default function LeftSideBar({title}) {
             </div>
 
             <div style={styles.userDisplayer}>
-                <UserDisplayer  name={"Ruben Lousada"} description={"rlousada123456@gmail.com"} isOwner={true}/>
+                <UserDisplayer
+                    name={"Ruben Lousada"}
+                    description={"rlousada123456@gmail.com"}
+                    isOwner={true}
+                    menuComponent={(isOpen, onClose) => (
+                        <LoggedUserMenu isOpen={isOpen} onClose={onClose} />
+                    )}
+                />
             </div>
         </div>
     )

@@ -1,41 +1,46 @@
 import mdiDotsVertical from "../assets/icon/mdiDotsVertical.svg"
 
 import "../assets/css/ClickableIcon.css"
+import {useRef, useState} from "react";
 
-export default function UserDisplayer({name, description, isOwner, onClick, hasMenu= true}) {
-    const firstLetter = name?.trim()?.charAt(0)?.toUpperCase() || "";
+export default function UserDisplayer({name, description, isOwner, onClick, hasMenu = true, menuComponent}) {
+    const [menuOpen, setMenuOpen] = useState(false)
+    const triggerRef = useRef(null)
+    const firstLetter = name?.trim()?.charAt(0)?.toUpperCase() || ""
+
+    const handleMenuClick = (e) => {
+        e.stopPropagation();
+        setMenuOpen(!menuOpen);
+    };
 
     return (
-        <div style={styles.container}
-             onClick={onClick}
-        >
+        <div style={styles.container} onClick={onClick}>
             <div style={styles.titleContainer}>
                 <div style={{...styles.avatar, background: isOwner ? "#6366f1" : "#22c55e"}}>
                     {firstLetter}
                 </div>
 
                 <div style={styles.title}>
-                    <span style={styles.name}> {name} </span>
-                    <span style={styles.email}> {description} </span>
+                    <span style={styles.name}>{name}</span>
+                    <span style={styles.email}>{description}</span>
                 </div>
             </div>
 
-            {hasMenu ?
-                (<div style={styles.menuIcon}>
+            {hasMenu && menuComponent && (
+                <div style={styles.menuIcon}>
                     <img
+                        ref={triggerRef}
                         src={mdiDotsVertical}
                         alt="Menu"
                         className="clickable-icon"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            console.log("Trash clicked!");
-                        }}
+                        onClick={handleMenuClick}
                     />
-                </div>)
-                : null
-            }
+
+                    {menuComponent(menuOpen, () => setMenuOpen(false), triggerRef)}
+                </div>
+            )}
         </div>
-    )
+    );
 }
 
 const styles = {
@@ -69,6 +74,7 @@ const styles = {
         fontSize: "0.9rem",
     },
     menuIcon: {
+        position: 'relative',
         width: "20px",
         height: "20px"
     },
