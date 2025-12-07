@@ -6,6 +6,9 @@ import mdiMenu from "../../assets/icon/mdiMenu.svg"
 import mdiArchive from "../../assets/icon/mdiArchive.svg"
 import UserDisplayer from "../UserDisplayer.jsx";
 import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
+import ServerUserMenu from "../menus/ServerUserMenu.jsx";
+import ServerCategoryMenu from "../menus/ServerCategoryMenu.jsx";
+import PersonalCategoryMenu from "../menus/PersonalCategoryMenu.jsx";
 
 export default function LeftSideBar({title}) {
     return (
@@ -22,7 +25,12 @@ export default function LeftSideBar({title}) {
             <div style={styles.sidebarBottom}>
 
                 <div style={styles.serverCategory}>
-                    <ServerCategoryBar categoryName={"Personal"}/>
+                    <ServerCategoryBar
+                        categoryName={"Personal"}
+                        menuComponent={(isOpen, onClose, triggerRef) => (
+                            <PersonalCategoryMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
+                        )}
+                    />
 
                     <div style={styles.serverCategoryList}>
                         <ServerDisplayer title={"Kids"} isOwner={true}/>
@@ -31,7 +39,12 @@ export default function LeftSideBar({title}) {
                 </div>
 
                 <div style={styles.serverCategory}>
-                    <ServerCategoryBar categoryName={"Servers"}/>
+                    <ServerCategoryBar
+                        categoryName={"Server"}
+                        menuComponent={(isOpen, onClose, triggerRef) => (
+                            <ServerCategoryMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
+                        )}
+                    />
 
                     <div style={styles.serverCategoryList}>
                         <ServerDisplayer title={"Familia"} isOwner={true} isSelected={true}/>
@@ -101,7 +114,8 @@ const styles = {
         gap: "1rem",
         height: "100%",
         padding: "1.5rem 0",
-        overflow: "auto"
+        overflow: "auto",
+        overflowX: "hidden"
     },
     serverCategory: {
         padding: "0 1rem",
