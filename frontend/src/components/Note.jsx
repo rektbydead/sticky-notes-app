@@ -87,6 +87,7 @@ const styles = {
         margin: 0,
         fontSize: "14px",
         lineHeight: 1.4,
+        wordBreak: "break-word",
     },
     footer: {
         display: "flex",
