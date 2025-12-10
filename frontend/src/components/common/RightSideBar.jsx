@@ -96,7 +96,8 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         gap: "0.5rem",
-        marginBottom: "1rem"
+        marginBottom: "1rem",
+        overflowY: "auto",
     },
     userDisplayer: {
         padding: "0.5rem 1rem",
