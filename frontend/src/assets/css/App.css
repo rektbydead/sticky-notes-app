@@ -9,3 +9,10 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
+:root {
+    --outside-color: #dcdcdc;
+    --inside-color: #f5f5f5;
+    --note-color: #ededed;
+    --border-color: #bbbbbb;
+}

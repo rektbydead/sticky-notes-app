@@ -4,6 +4,7 @@ import CreateNewNoteNote from "../CreateNewNoteNote.jsx";
 import CreateNewNoteButton from "../CreateNewNoteButton.jsx";
 import NoteSearchBox from "../NoteSearchBox.jsx";
 import {useState} from "react";
+import RightSideBar from "./RightSideBar.jsx";
 
 export default function CenterSideBar({title}) {
     const [searchValue, setSearchValue] = useState("");
@@ -42,6 +43,8 @@ export default function CenterSideBar({title}) {
 
                     <CreateNewNoteNote/>
                 </div>
+
+                <RightSideBar style={styles.rightSidebar} title={"Server members"}/>
             </div>
         </div>
     )
@@ -61,7 +64,8 @@ const styles = {
         alignItems: "center",
         minHeight: "70px",
         maxHeight: "70px",
-        borderBottom: "1px solid #e0e0e0",
+        borderBottom: "1px solid var(--border-color)",
+        backgroundColor: "var(--outside-color)",
         padding: "0.5rem 1rem",
         gap: "1rem",
 
@@ -82,12 +86,14 @@ const styles = {
         marginLeft: "auto",
     },
     sidebarBottom: {
-        padding: "1rem",
-        backgroundColor: "#f5f5f5",
+        display: "flex",
+
+        backgroundColor: "var(--inside-color)",
         height: "100%",
         overflowY: "auto",
     },
     sideBarBottomContainer: {
+        padding: "1rem",
         overflowY: "auto",
         columnWidth: "200px",
         columnGap: "0.5rem",

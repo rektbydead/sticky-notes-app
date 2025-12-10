@@ -86,8 +86,9 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         "min-width": "250px",
-        borderRight: "1px solid #e0e0e0",
+        borderRight: "1px solid var(--border-color)",
         color: "black",
+        backgroundColor: "var(--outside-color)",
     },
     sidebarTop: {
         display: "flex",
@@ -95,7 +96,7 @@ const styles = {
         minHeight: "70px",
         height: "70px",
         maxHeight: "70px",
-        borderBottom: "1px solid #e0e0e0",
+        borderBottom: "1px solid var(--border-color)",
         padding: "0.5rem 1rem",
         gap: "1rem",
 
@@ -119,7 +120,7 @@ const styles = {
     },
     serverCategory: {
         padding: "0 1rem",
-        borderBottom: "1px solid #e0e0e0",
+        borderBottom: "1px solid var(--border-color)",
         display: "flex",
         flexDirection: "column",
         gap: "1rem"
@@ -133,7 +134,7 @@ const styles = {
     userDisplayer: {
         padding: "0.5rem 1rem",
         marginTop: "auto",
-        borderTop: "1px solid #e0e0e0",
+        borderTop: "1px solid var(--border-color)",
         display: "flex",
         flexGrow: 1,
         alignItems: "center",

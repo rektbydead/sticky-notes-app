@@ -56,8 +56,9 @@ const styles = {
         breakInside: "avoid",
 
         marginBottom: "0.5rem",
-        background: "#d1d5db",
+        backgroundColor: "var(--note-color)",
         borderRadius: "8px",
+        border: "1px solid var(--border-color)",
         padding: "1rem",
     },
     header: {

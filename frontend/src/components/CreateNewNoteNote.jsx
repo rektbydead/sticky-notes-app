@@ -26,10 +26,10 @@ const styles = {
 
         width: "100%",
         aspectRatio: "1/1",
-        border: "1px solid #6b7280",
+        border: "1px solid var(--border-color)",
         borderRadius: "8px",
         color: "#6b7280",
-        boxShadow: "0 3px 8px rgba(0,0,0,0.30)"
+        backgroundColor: "white"
     },
     icon: {
         width: "40px",

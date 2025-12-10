@@ -7,7 +7,6 @@ export default function StickyNotePage() {
     <>
         <LeftSideBar style={styles.leftSidebar} title={"Sticky notes"}/>
         <CenterSideBar title={""}/>
-        <RightSideBar style={styles.rightSidebar} title={"Server members"}/>
     </>
   )
 }
