@@ -5,7 +5,10 @@ const cors = require('cors')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 
-const authRoutes = require('./routes/AuthRoute')
+const authRoute = require('./routes/AuthRoute')
+const categoryRoute = require('./routes/CategoryRoute')
+const noteRoute = require('./routes/NoteRoute')
+const serverRoute = require('./routes/serverRoute')
 
 const app = express()
 
@@ -37,7 +40,10 @@ app.use(session({
     }
 }))
 
-app.use('/api/auth', authRoutes)
+app.use('/api/auth', authRoute)
+app.use('/api/category', categoryRoute)
+app.use('/api/note', noteRoute)
+app.use('/api/server', serverRoute)
 
 app.listen(5000, () => {
     console.log(`Server running on port ${5000}`)

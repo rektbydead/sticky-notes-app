@@ -4,7 +4,7 @@ const isAuthenticated = require('../AuthenticationMiddleware')
 
 const router = express.Router()
 
-router.post('/register', async (req, res) => {
+router.post('/register/', async (req, res) => {
     try {
         const { name, email, password } = req.body
 
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login/', async (req, res) => {
     try {
         const { email, password } = req.body
 
@@ -61,7 +61,7 @@ router.get('/google/callback', passport.authenticate('google', {failureRedirect:
 
 */
 
-router.put('/change-password', isAuthenticated, async (req, res) => {
+router.put('/change-password/', isAuthenticated, async (req, res) => {
     try {
         const { currentPassword, newPassword } = req.body;
 
@@ -85,7 +85,7 @@ router.put('/change-password', isAuthenticated, async (req, res) => {
     }
 })
 
-router.post('/logout', isAuthenticated, (req, res) => {
+router.post('/logout/', isAuthenticated, (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             return res.status(500).json({error: 'Failed to logout'})
