@@ -2,6 +2,7 @@ import ServerCategoryBar from "../ServerCategoryBar.jsx";
 import ServerDisplayer from "../ServerDisplayer.jsx";
 import CategoryDisplayer from "../CategoryDisplayer.jsx";
 
+import mdiNote from "../../assets/icon/mdiNote.svg"
 import mdiMenu from "../../assets/icon/mdiMenu.svg"
 import mdiArchive from "../../assets/icon/mdiArchive.svg"
 import UserDisplayer from "../UserDisplayer.jsx";
@@ -56,11 +57,8 @@ export default function LeftSideBar({title}) {
                     <ServerCategoryBar categoryName={"Categories"}/>
 
                     <div style={styles.serverCategoryList}>
-                        <CategoryDisplayer title={"General"} icon={mdiMenu}/>
+                        <CategoryDisplayer title={"General"} icon={mdiNote}/>
                         <CategoryDisplayer title={"Archived"} icon={mdiArchive}/>
-                    </div>
-
-                    <div style={styles.serverCategoryList}>
                         <CategoryDisplayer title={"Projeto 1"} icon={mdiMenu} isOwner={true}/>
                         <CategoryDisplayer title={"Projeto 2"} icon={mdiMenu} isOwner={true}/>
                     </div>

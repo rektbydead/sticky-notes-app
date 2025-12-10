@@ -25,8 +25,8 @@ const styles = {
         gap: "8px",
         padding: "6px 8px",
         borderRadius: "6px",
-        border: "1px solid #d1d5db",
-        backgroundColor: "transparent",
+        border: "1px solid var(--border-color)",
+        backgroundColor: "var(--inside-color)",
         color: "black",
     },
     icon: {
@@ -40,6 +40,6 @@ const styles = {
         width: "100%",
         fontSize: "14px",
         color: "black",
-        backgroundColor: "transparent",
+        backgroundColor: "var(--inside-color)",
     },
 };

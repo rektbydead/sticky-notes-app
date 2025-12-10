@@ -1,0 +1,23 @@
+.create-note-button {
+    transition: background-color 0.25s ease-in, border-color 0.25s ease-out;
+}
+
+.create-note-button:hover {
+    background-color: var(--hover-color) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.create-note-button[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 55px;
+    right: 16px;
+
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1000;
+}

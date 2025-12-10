@@ -61,9 +61,11 @@ const styles = {
         display: "flex",
         flexDirection: "column",
         "min-width": "250px",
+        width: "250px",
+        maxWidth: "250px",
         borderLeft: "1px solid var(--border-color)",
         color: "black",
-        backgroundColor: 'var(--outside-color)',
+        backgroundColor: 'var(--note-color)',
     },
     sidebarTop: {
         display: "flex",

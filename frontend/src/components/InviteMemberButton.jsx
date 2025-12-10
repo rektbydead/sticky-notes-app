@@ -1,7 +1,7 @@
-import mdiPlus from "../assets/icon/mdiPlus.svg"
-import "../assets/css/ClickableIcon.css"
+import mdiUserPlus from "../assets/icon/mdiUserPlus.svg"
 import {useState} from "react";
 import Toast from "./Toast.jsx";
+import "../assets/css/InviteMemberButton.css"
 
 
 export default function InviteMembersButton() {
@@ -22,10 +22,10 @@ export default function InviteMembersButton() {
                 />
             )}
 
-            <button style={styles.button} className="clickable-icon" onClick={handleClick}>
+            <button style={styles.button} className="invite-button" onClick={handleClick}>
                 <img
                     style={styles.icon}
-                    src={mdiPlus}
+                    src={mdiUserPlus}
                     alt="Plus"
                 />
 
@@ -41,7 +41,7 @@ const styles = {
         alignItems: "center",
         gap: "6px",
         padding: "6px 14px",
-        backgroundColor: "#f3f4f6",
+        backgroundColor: "transparent",
         borderRadius: "6px",
         fontSize: "14px",
         cursor: "pointer",

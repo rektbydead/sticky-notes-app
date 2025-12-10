@@ -11,8 +11,10 @@
 }
 
 :root {
-    --outside-color: #dcdcdc;
-    --inside-color: #f5f5f5;
-    --note-color: #ededed;
+    --outside-color: #dadae5;
+    --inside-color: #ededf2;
+    --note-color: #EBEBF1;
     --border-color: #bbbbbb;
+    --hover-color: white;
+
 }
