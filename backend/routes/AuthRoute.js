@@ -26,6 +26,14 @@ router.post('/register/', async (req, res) => {
     }
 })
 
+router.get('/me/', (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ authenticated: false })
+    }
+
+    res.json({ authenticated: true })
+})
+
 router.post('/login/', async (req, res) => {
     try {
         const { email, password } = req.body
