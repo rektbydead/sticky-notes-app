@@ -1,5 +1,5 @@
 import google from "../assets/icon/google.svg"
-import {useNavigation} from "../NavigateContext.jsx";
+import {useNavigation} from "../context/NavigateContext.jsx";
 import {useState} from "react";
 import {login, register} from "../services/AuthenticationService.js";
 
@@ -16,6 +16,7 @@ export default function LoginPage() {
 
         try {
             const data =  await login(email, password)
+            console.log("deu login", data)
             navigate('stick-notes', data.user, '/stick-notes')
         } catch (e) {
             setError("Login failed")
@@ -24,7 +25,7 @@ export default function LoginPage() {
         }
     }
 
-return (
+    return (
         <div style={styles.container}>
             <div style={styles.card}>
                 <div style={styles.avatarContainer}>

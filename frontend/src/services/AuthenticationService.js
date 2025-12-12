@@ -21,6 +21,13 @@ export async function login(email, password) {
     })
 }
 
+export async function getMe() {
+    return await apiFetch('/api/auth/me/', {
+        method: 'GET',
+    })
+}
+
+
 export async function changePassword(currentPassword, newPassword) {
     return await apiFetch('/api/auth/change-password/', {
         method: 'PUT',

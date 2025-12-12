@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { register } from '../services/AuthenticationService.js'
-import {useNavigation} from "../NavigateContext.jsx";
+import {useNavigation} from "../context/NavigateContext.jsx";
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('')

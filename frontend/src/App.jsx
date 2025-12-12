@@ -5,10 +5,22 @@ import CenterSideBar from "./components/common/CenterSideBar.jsx";
 import StickyNotePage from "./pages/StickyNotesPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-import {useNavigation} from "./NavigateContext.jsx";
+import {useNavigation} from "./context/NavigateContext.jsx";
+import {useAuthentication} from "./context/AuthenticationContext.jsx";
 
 export default function App() {
-    const { page } = useNavigation()
+    const { page, navigate } = useNavigation()
+    const { isAuthenticated } = useAuthentication()
+
+    if (isAuthenticated && (page === 'login' || page === 'register')) {
+        navigate('stick-notes', null, '/stick-notes')
+        return null
+    }
+
+    if (!isAuthenticated && !(page === 'login' || page === 'register')) {
+        navigate('login', null, '/login')
+        return null
+    }
 
     switch (page) {
         case 'stick-notes':
@@ -16,7 +28,6 @@ export default function App() {
         case 'login':
             return <LoginPage />
         case 'register':
-        default:
             return <RegisterPage />
     }
 }
