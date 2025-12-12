@@ -1,10 +1,12 @@
 import google from "../assets/icon/google.svg"
 import {useNavigation} from "../context/NavigateContext.jsx";
 import {useState} from "react";
-import {login, register} from "../services/AuthenticationService.js";
+import {getMe, login, register} from "../services/AuthenticationService.js";
+import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export default function LoginPage() {
     const { navigate } = useNavigation()
+    const { checkAuth } = useAuthentication()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -13,11 +15,15 @@ export default function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setError(null)
+        setLoading(true)
 
         try {
-            const data =  await login(email, password)
+            const data = await login(email, password)
+            await checkAuth()
             console.log("deu login", data)
-            navigate('stick-notes', data.user, '/stick-notes')
+
+            navigate('stick-notes', {}, '/stick-notes')
         } catch (e) {
             setError("Login failed")
         } finally {

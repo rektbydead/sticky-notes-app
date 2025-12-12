@@ -22,8 +22,12 @@ export function AuthenticationProvider({ children }) {
         checkAuth()
     }, [])
 
+    if (loading) {
+        return null
+    }
+
     return (
-        <AuthenticationContext.Provider value={{ isAuthenticated, loading, setIsAuthenticated }}>
+        <AuthenticationContext.Provider value={{ isAuthenticated, loading, setIsAuthenticated, checkAuth }}>
             {children}
         </AuthenticationContext.Provider>
     )

@@ -3,9 +3,14 @@ import mdiLogout from "../../assets/icon/mdiLogout.svg"
 import "../../assets/css/Menu.css"
 
 import {useEffect, useRef} from "react";
+import {logout} from "../../services/AuthenticationService.js";
+import {useNavigation} from "../../context/NavigateContext.jsx";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 
 export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
     const menuRef = useRef(null);
+    const { navigate } = useNavigation()
+    const { checkAuth } = useAuthentication()
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -43,8 +48,11 @@ export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
             <div
                 style={styles.menuItem}
                 className="menu-item"
-                onClick={(e) => {
-                    e.stopPropagation();
+                onClick={async (e) => {
+                    e.stopPropagation()
+                    await logout()
+                    await checkAuth()
+                    navigate('login', null, '/login')
                     console.log("logout logic")
                 }}
             >

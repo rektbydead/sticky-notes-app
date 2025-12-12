@@ -12,22 +12,20 @@ export default function App() {
     const { page, navigate } = useNavigation()
     const { isAuthenticated } = useAuthentication()
 
-    if (isAuthenticated && (page === 'login' || page === 'register')) {
-        navigate('stick-notes', null, '/stick-notes')
-        return null
-    }
-
-    if (!isAuthenticated && !(page === 'login' || page === 'register')) {
-        navigate('login', null, '/login')
-        return null
+    // If not authenticated, only allow login/register pages
+    if (!isAuthenticated && page !== 'login' && page !== 'register') {
+        console.log(isAuthenticated, page)
+        return null;
     }
 
     switch (page) {
-        case 'stick-notes':
-            return <StickyNotePage />
         case 'login':
-            return <LoginPage />
+            return <LoginPage />;
         case 'register':
-            return <RegisterPage />
+            return <RegisterPage />;
+        case 'stick-notes':
+            return isAuthenticated ? <StickyNotePage /> : <LoginPage />;
+        default:
+            return <LoginPage />;
     }
 }
