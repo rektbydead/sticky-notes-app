@@ -1,0 +1,13 @@
+.server-container {
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.25s ease-in;
+}
+
+.server-container:hover {
+    background-color: #f3f4f6;
+}
+
+.server-container.selected {
+    background-color: #e5e7eb;
+}

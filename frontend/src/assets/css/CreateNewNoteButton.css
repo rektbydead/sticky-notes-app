@@ -1,0 +1,8 @@
+.create-note-button {
+    transition: background-color 0.25s ease-in, border-color 0.25s ease-out;
+}
+
+.create-note-button:hover {
+    background-color: var(--hover-color) !important;
+    border: 1px solid var(--border-color) !important;
+}
