@@ -1,8 +1,38 @@
-import google from "../assets/icon/google.svg"
+import { useState } from 'react'
+import { register } from '../services/AuthenticationService.js'
 import {useNavigation} from "../NavigateContext.jsx";
 
-export default function LoginPage() {
+export default function RegisterPage() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [name, setName] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
+
     const { navigate } = useNavigation()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setError(null)
+
+        if (password !== confirmPassword) {
+            setError('Passwords do not match')
+            return
+        }
+
+        setLoading(true)
+        try {
+            const { data } =  await register(name, email, password)
+            console.log(data)
+            history.pushState({ page: "stick-notes", data}, "", "/stick-notes/")
+        } catch (err) {
+            setError(err.message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
 
     return (
         <div style={styles.container}>
@@ -11,59 +41,71 @@ export default function LoginPage() {
                     <div style={styles.avatar}></div>
                 </div>
 
-                <h1 style={styles.title}>Welcome Back</h1>
-                <p style={styles.subtitle}>Please sign in to your account</p>
+                <h1 style={styles.title}>Registration</h1>
+                <p style={styles.subtitle}>Please register your account</p>
 
-                <form style={styles.form}>
+                <form style={styles.form} onSubmit={handleSubmit}>
+                    <div style={styles.inputGroup}>
+                        <label style={styles.label}>Name</label>
+                        <input
+                            type="text"
+                            style={styles.input}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Email Address</label>
                         <input
                             type="email"
-                            placeholder="Enter your email"
                             style={styles.input}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </div>
 
                     <div style={styles.inputGroup}>
+                        <label style={styles.label}>Password</label>
                         <input
                             type="password"
-                            placeholder="Enter your password"
                             style={styles.input}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
 
-                    <div style={styles.checkboxRow}>
-                        <label style={styles.checkboxLabel}>
-                            <input type="checkbox" style={styles.checkbox}/>
-                            <span style={styles.checkboxText}>Remember me</span>
-                        </label>
-                        <a href="#" style={styles.forgotLink}>Forgot password?</a>
+                    <div style={styles.inputGroup}>
+                        <label style={styles.label}>Confirm Password</label>
+                        <input
+                            type="password"
+                            style={styles.input}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
                     </div>
 
-                    <button type="submit" style={styles.submitButton}>
-                        Sign In
+                    {error && (
+                        <p style={{ color: 'red', fontSize: '14px' }}>
+                            {error}
+                        </p>
+                    )}
+
+                    <button type="submit" style={styles.submitButton} disabled={loading}>
+                        {loading ? 'Registering...' : 'Register'}
                     </button>
                 </form>
 
-                <div style={styles.divider}>
-                    <span style={styles.dividerText}>Or continue with</span>
-                </div>
-
-                <button style={styles.socialButton}>
-                    <img
-                        src={google}
-                        alt="Google Icon"
-                        style={styles.icon}
-                    />
-
-                    Continue with Google
-                </button>
-
                 <p style={styles.footer}>
-                    Don't have an account? <a href="#" style={styles.signupLink} onClick={(e) => {
+                    Already have an account?{' '}
+                    <a href="#" style={styles.signupLink} onClick={(e) => {
                         e.preventDefault()
-                        navigate('register', null, '/register')
-                    }}>Sign up</a>
+                        navigate('login', null, '/login')
+                    }}>Login</a>
                 </p>
             </div>
         </div>
