@@ -23,9 +23,8 @@ export default function RegisterPage() {
 
         setLoading(true)
         try {
-            const { data } =  await register(name, email, password)
-            console.log(data)
-            history.pushState({ page: "stick-notes", data}, "", "/stick-notes/")
+            const data =  await register(name, email, password)
+            navigate('stick-notes', data.user, '/stick-notes')
         } catch (err) {
             setError(err.message)
         } finally {

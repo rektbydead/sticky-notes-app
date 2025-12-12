@@ -1,10 +1,30 @@
 import google from "../assets/icon/google.svg"
 import {useNavigation} from "../NavigateContext.jsx";
+import {useState} from "react";
+import {login, register} from "../services/AuthenticationService.js";
 
 export default function LoginPage() {
     const { navigate } = useNavigation()
 
-    return (
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const data =  await login(email, password)
+            navigate('stick-notes', data.user, '/stick-notes')
+        } catch (e) {
+            setError("Login failed")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+return (
         <div style={styles.container}>
             <div style={styles.card}>
                 <div style={styles.avatarContainer}>
@@ -14,13 +34,16 @@ export default function LoginPage() {
                 <h1 style={styles.title}>Welcome Back</h1>
                 <p style={styles.subtitle}>Please sign in to your account</p>
 
-                <form style={styles.form}>
+                <form style={styles.form} onSubmit={handleSubmit}>
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Email Address</label>
                         <input
                             type="email"
                             placeholder="Enter your email"
                             style={styles.input}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </div>
 
@@ -29,19 +52,24 @@ export default function LoginPage() {
                             type="password"
                             placeholder="Enter your password"
                             style={styles.input}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
 
-                    <div style={styles.checkboxRow}>
-                        <label style={styles.checkboxLabel}>
-                            <input type="checkbox" style={styles.checkbox}/>
-                            <span style={styles.checkboxText}>Remember me</span>
-                        </label>
-                        <a href="#" style={styles.forgotLink}>Forgot password?</a>
-                    </div>
+                    {error && (
+                        <p style={{ color: 'red', fontSize: '14px' }}>
+                            {error}
+                        </p>
+                    )}
 
-                    <button type="submit" style={styles.submitButton}>
-                        Sign In
+                    <button
+                        type="submit"
+                        style={styles.submitButton}
+                        disabled={loading}
+                    >
+                        {loading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
 
@@ -50,20 +78,22 @@ export default function LoginPage() {
                 </div>
 
                 <button style={styles.socialButton}>
-                    <img
-                        src={google}
-                        alt="Google Icon"
-                        style={styles.icon}
-                    />
-
+                    <img src={google} alt="Google Icon" style={styles.icon} />
                     Continue with Google
                 </button>
 
                 <p style={styles.footer}>
-                    Don't have an account? <a href="#" style={styles.signupLink} onClick={(e) => {
-                        e.preventDefault()
-                        navigate('register', null, '/register')
-                    }}>Sign up</a>
+                    Don't have an account?{' '}
+                    <a
+                        href="/register"
+                        style={styles.signupLink}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            navigate('register', '/register')
+                        }}
+                    >
+                        Sign up
+                    </a>
                 </p>
             </div>
         </div>

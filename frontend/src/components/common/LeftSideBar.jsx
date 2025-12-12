@@ -83,7 +83,7 @@ const styles = {
     sidebar: {
         display: "flex",
         flexDirection: "column",
-        "min-width": "250px",
+        minWidth: "250px",
         borderRight: "1px solid var(--border-color)",
         color: "black",
         backgroundColor: "var(--outside-color)",
