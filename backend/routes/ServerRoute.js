@@ -35,7 +35,13 @@ router.get('/', isAuthenticated, async (req, res) => {
     try {
         const servers = await Server.find({
             joined_users: req.session.userId
-        }).populate('server_creator', 'name email')
+        })
+            .populate('server_creator', 'name email')
+            .populate({
+                path: 'categories',
+                select: '_id name is_default -server_it_belongs',
+                options: { sort: { is_default: -1, created_at: 1 } }
+            })
 
         res.json(servers)
     } catch (error) {

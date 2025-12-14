@@ -1,5 +1,7 @@
 const express = require('express')
 const User = require('../models/User')
+const Server = require('../models/Server')
+const Category = require('../models/Category')
 const isAuthenticated = require('../AuthenticationMiddleware')
 
 const router = express.Router()
@@ -15,6 +17,19 @@ router.post('/register/', async (req, res) => {
 
         const user = new User({ name, email, password })
         await user.save()
+
+        const firstServer = new Server({
+            name: 'My Personal Server',
+            is_personal: true,
+            server_creator: user._id,
+            joined_users: [user._id]
+        })
+        await firstServer.save()
+
+        await Category.create([
+            { name: 'General', server_it_belongs: firstServer._id, is_default: true },
+            { name: 'Archived', server_it_belongs: firstServer._id, is_default: true }
+        ])
 
         req.session.userId = user._id
 
