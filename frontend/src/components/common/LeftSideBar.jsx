@@ -10,8 +10,50 @@ import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
 import ServerUserMenu from "../menus/ServerUserMenu.jsx";
 import ServerCategoryMenu from "../menus/ServerCategoryMenu.jsx";
 import PersonalCategoryMenu from "../menus/PersonalCategoryMenu.jsx";
+import {useEffect, useState} from "react";
+import {getServers} from "../../services/ServerService.js";
 
 export default function LeftSideBar({title}) {
+    const [serverList, setServerList] = useState([])
+    const [selectedServer, setSelectedServer] = useState(null)
+    const [selectedCategory, setSelectedCategory] = useState(null)
+
+    useEffect(() => {
+        async function getData() {
+            try {
+                const data = await getServers()
+                console.log(data)
+                setServerList(data)
+
+                if (data.length > 0) {
+                    setSelectedServer(data[0])
+                }
+
+                // if (selectedServer) {
+                    // select category
+                    // setSelectedCategory()
+                // }
+            } catch (e) {
+                alert("Error loading servers... " + e)
+            }
+        }
+
+        getData()
+    }, []);
+
+    useEffect(() => {
+        if (selectedServer === null) return
+        setSelectedCategory(selectedServer?.categories.find(category => category.name.toLowerCase() === "general") ?? null)
+    }, [selectedServer])
+
+    const personalServers = serverList.filter(server => server.is_personal)
+    const communityServers = serverList.filter(server => !server.is_personal)
+
+    const generalCategory = selectedServer?.categories.find(category => category.name.toLowerCase() === "general")
+    const archivedCategory = selectedServer?.categories.find(category => category.name.toLowerCase() === "archived")
+
+    const otherCategories = selectedServer?.categories.filter(category => !category.is_default)
+
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
@@ -34,8 +76,18 @@ export default function LeftSideBar({title}) {
                     />
 
                     <div style={styles.serverCategoryList}>
-                        <ServerDisplayer title={"Kids"} isOwner={true}/>
-                        <ServerDisplayer title={"Car"} isOwner={true} />
+                        {personalServers.length > 0
+                            ? personalServers.map(server => (
+                                <ServerDisplayer
+                                    key={server._id}
+                                    title={server.name}
+                                    isOwner={true}
+                                    isSelected={selectedServer?._id === server._id}
+                                    onClick={() => setSelectedServer(server)}
+                                />
+                            ))
+                            : <span style={styles.dontHave}> You do not have personal spaces. </span>
+                        }
                     </div>
                 </div>
 
@@ -48,8 +100,18 @@ export default function LeftSideBar({title}) {
                     />
 
                     <div style={styles.serverCategoryList}>
-                        <ServerDisplayer title={"Familia"} isOwner={true} isSelected={true}/>
-                        <ServerDisplayer title={"Parkour Coimbra"} />
+                        {communityServers.length > 0
+                            ? communityServers.map(server => (
+                                <ServerDisplayer
+                                    key={server._id}
+                                    title={server.name}
+                                    isOwner={server.is_owner}
+                                    isSelected={selectedServer?._id === server._id}
+                                    onClick={() => setSelectedServer(server)}
+                                />
+                            ))
+                            : <span style={styles.dontHave}> You do not belong to any servers. </span>
+                        }
                     </div>
                 </div>
 
@@ -57,10 +119,19 @@ export default function LeftSideBar({title}) {
                     <ServerCategoryBar categoryName={"Categories"}/>
 
                     <div style={styles.serverCategoryList}>
-                        <CategoryDisplayer title={"General"} icon={mdiNote}/>
-                        <CategoryDisplayer title={"Archived"} icon={mdiArchive}/>
-                        <CategoryDisplayer title={"Projeto 1"} icon={mdiMenu} isOwner={true}/>
-                        <CategoryDisplayer title={"Projeto 2"} icon={mdiMenu} isOwner={true}/>
+                        { selectedServer &&
+                            <CategoryDisplayer title="General" icon={mdiNote} onClick={() => setSelectedCategory(generalCategory)} isSelected={selectedCategory?._id === generalCategory._id}/>
+                        }
+
+                        { selectedServer &&
+                            <CategoryDisplayer title="Archived" icon={mdiArchive} onClick={() => setSelectedCategory(archivedCategory)} isSelected={selectedCategory?._id === archivedCategory._id}/>
+                        }
+
+                        {
+                            otherCategories?.map(category => {
+                                <CategoryDisplayer title={category.title} icon={mdiMenu} isSelected={selectedCategory?._id === category._id}/>
+                            })
+                        }
                     </div>
                 </div>
             </div>
@@ -138,5 +209,8 @@ const styles = {
         alignItems: "center",
         minHeight: "60px",
         maxHeight: "60px"
+    },
+    dontHave: {
+        textAlign: "center"
     }
 }
