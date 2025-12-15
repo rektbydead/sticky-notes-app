@@ -42,6 +42,7 @@ router.get('/', isAuthenticated, async (req, res) => {
                 select: '_id name is_default -server_it_belongs',
                 options: { sort: { is_default: -1, created_at: 1 } }
             })
+            .populate('joined_users', 'name email')
 
         res.json(servers)
     } catch (error) {
