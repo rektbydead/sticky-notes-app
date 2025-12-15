@@ -28,7 +28,7 @@ export default function StickyNotePage() {
                  selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory}
                  selectedServer={selectedServer} onSelectServer={setSelectedServer}
             />
-            <CenterSideBar title={title} notes={notes}/>
+            <CenterSideBar title={title} notes={notes} server={selectedServer}/>
         </>
     )
 }

@@ -9,7 +9,7 @@ import RightSideBar from "./RightSideBar.jsx";
 import {getNotesByCategory} from "../../services/CategoryService.js";
 import ServerDisplayer from "../ServerDisplayer.jsx";
 
-export default function CenterSideBar({title, notes}) {
+export default function CenterSideBar({title, server, notes}) {
     const [searchValue, setSearchValue] = useState("")
     const [now, setNow] = useState(Date.now())
 
@@ -97,7 +97,9 @@ export default function CenterSideBar({title, notes}) {
                         }
                 </div>
 
-                <RightSideBar style={styles.rightSidebar} title={"Server members"}/>
+                {
+                    server?.is_personal === false && <RightSideBar style={styles.rightSidebar} title={"Server members"} users={server?.joined_users} owner={server?.server_creator}/>
+                }
             </div>
         </div>
     )
@@ -163,7 +165,6 @@ const styles = {
         gap: "1rem",
         width: "100%",
         height: "100%",
-        border: "1px solid red"
     },
     loadingIcon: {
         width: "50px",

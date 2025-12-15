@@ -2,8 +2,18 @@ import UserDisplayer from "../UserDisplayer.jsx";
 import InviteMembersButton from "../InviteMemberButton.jsx";
 import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
 import ServerUserMenu from "../menus/ServerUserMenu.jsx";
+import {useMemo} from "react";
 
-export default function RightSideBar({title}) {
+export default function RightSideBar({title, users, owner}) {
+
+    const sortedUsers = useMemo(() => {
+        return users?.sort((a, b) => {
+            if (a._id === owner?._id) return -1;
+            if (b._id === owner?._id) return 1;
+            return 0;
+        }) ?? []
+    }, [users, owner]);
+
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
@@ -13,39 +23,14 @@ export default function RightSideBar({title}) {
 
             <div style={styles.sidebarBottom}>
                 <div style={styles.serverCategory}>
-                    <UserDisplayer
-                        name={"Ruben Lousada"}
-                        description={true ? "Owner" : "Member"}
-                        isOwner={true}
-                        hasMenu={false}
-                    />
-
-                    <UserDisplayer
-                        name={"Judeus Martim"}
-                        description={false ? "Owner" : "Member"}
-                        isOwner={false}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef} />
-                        )}
-                    />
-
-                    <UserDisplayer
-                        name={"Merdeu Fodar"}
-                        description={false ? "Owner" : "Member"}
-                        isOwner={false}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
-                        )}
-                    />
-
-                    <UserDisplayer
-                        name={"Quem ler é gay"}
-                        description={false ? "Owner" : "Member"}
-                        isOwner={false}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
-                        )}
-                    />
+                    { sortedUsers?.map(user =>
+                        <UserDisplayer
+                            name={user.name}
+                            description={user._id === owner._id ? "Owner" : "Member"}
+                            isOwner={user._id === owner._id}
+                            hasMenu={user._id === owner._id}
+                        />
+                    )}
                 </div>
             </div>
 
