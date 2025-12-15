@@ -2,6 +2,7 @@ const express = require('express')
 const User = require('../models/User')
 const Server = require('../models/Server')
 const Category = require('../models/Category')
+const Note = require('../models/Note')
 const isAuthenticated = require('../AuthenticationMiddleware')
 
 const router = express.Router()
@@ -26,10 +27,22 @@ router.post('/register/', async (req, res) => {
         })
         await firstServer.save()
 
-        await Category.create([
+        const categories = await Category.create([
             { name: 'General', server_it_belongs: firstServer._id, is_default: true },
             { name: 'Archived', server_it_belongs: firstServer._id, is_default: true }
         ])
+
+        const generalCategory = categories.find(
+            category => category.name.toLowerCase() === 'general'
+        )
+
+        await Note.create({
+            title: 'Welcome 👋',
+            content: 'This is your first note. Start writing!',
+            note_creator: user._id,
+            server_it_belongs: firstServer._id,
+            category_it_belongs: generalCategory._id
+        })
 
         req.session.userId = user._id
 
