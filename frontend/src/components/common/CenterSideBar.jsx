@@ -3,22 +3,67 @@ import Note from "../Note.jsx";
 import CreateNewNoteNote from "../CreateNewNoteNote.jsx";
 import CreateNewNoteButton from "../CreateNewNoteButton.jsx";
 import NoteSearchBox from "../NoteSearchBox.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import animatedLoadingSvg from "../../assets/icon/animatedLoadingSvg.svg"
 import RightSideBar from "./RightSideBar.jsx";
+import {getNotesByCategory} from "../../services/CategoryService.js";
+import ServerDisplayer from "../ServerDisplayer.jsx";
 
-export default function CenterSideBar({title}) {
-    const [searchValue, setSearchValue] = useState("");
+export default function CenterSideBar({title, notes}) {
+    const [searchValue, setSearchValue] = useState("")
+    const [now, setNow] = useState(Date.now())
 
     /* note filtering example for future*/
-     const filteredNotes = [].filter((note) =>
-        note.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-        note.message.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    const filteredNotes = notes?.filter((note) => searchValue.trim().length === 0
+        || note.title.toLowerCase().includes(searchValue.toLowerCase())
+        || note.content.toLowerCase().includes(searchValue.toLowerCase())
+    ) ?? []
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setNow(Date.now())
+        }, 1000)
+
+        return () => clearInterval(interval);
+    }, []);
+
+    function formatRelativeTime(isoDate) {
+        const current = new Date(now);
+        const date = new Date(isoDate)
+
+        const diffMs = current - date
+        const diffSeconds = Math.floor(diffMs / 1000)
+        const diffMinutes = Math.floor(diffSeconds / 60)
+        const diffHours = Math.floor(diffMinutes / 60)
+        const diffDays = Math.floor(diffHours / 24)
+        const diffWeeks = Math.floor(diffDays / 7)
+
+        if (diffSeconds < 10) return 'just now'
+        if (diffSeconds < 60) return `${diffSeconds} seconds ago`
+
+        if (diffMinutes === 1) return '1 minute ago'
+        if (diffMinutes < 60) return `${diffMinutes} minutes ago`
+
+        if (diffHours === 1) return '1 hour ago'
+        if (diffHours < 24) return `${diffHours} hours ago`
+
+        if (diffDays === 1) return '1 day ago'
+        if (diffDays < 7) return `${diffDays} days ago`
+
+        if (diffWeeks === 1) return '1 week ago'
+        if (diffWeeks < 4) return `${diffWeeks} weeks ago`
+
+        return date.toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        })
+    }
 
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
-                <span style={styles.sidebarTopTitle}> Work Server {">"} Important Category </span>
+                <span style={styles.sidebarTopTitle}> {title} </span>
 
                 <div style={styles.sidebarTopCreateButton}>
                     <NoteSearchBox onSearch={setSearchValue}/>
@@ -28,28 +73,28 @@ export default function CenterSideBar({title}) {
 
             <div style={styles.sidebarBottom}>
                 <div style={styles.sideBarBottomContainer}>
-                    <div style={styles.notes}>
-                        <Note message={"Afinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinuask dfhlkas dhjflkashj dfl;kash pkas dhjflkashj dfl;kas dhjflkashj dfl; kas dhjflkashj dfl;dkfgasdf ghdasfgh sdfh sdfh sdfhj sdr e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl; kas dhjflkashj dfl;  que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal qkas dhjfdhjflkashj dfl; ue nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkashj dfl; que nao ler e que gay"} title={"Shopping"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjaasdfe que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkasrfy yhsdfhshj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkashj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashasdf sdfsadfg sdfh sdl;.k asdfhpl ashdf;klh sdfsad ;lfgjfhaspl dfghasjkl;dg hklajsdgh kljasdgh klj;asdgh kl;dgh kl;je nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
 
-                        <CreateNewNoteNote/>
-                    </div>
+                        {notes !== null ? (
+                            <>
+                                <div style={styles.notes}>
+                                    {filteredNotes.map(note => (
+                                        <Note
+                                            key={note._id}
+                                            message={note.content}
+                                            title={note.title}
+                                            personName={note.note_creator.name}
+                                            hour={formatRelativeTime(note.updated_at)}
+                                        />
+                                    ))}
+                                    <CreateNewNoteNote/>
+                                </div>
+                            </>
+                        ) :
+                            <div style={styles.loadingContainer}>
+                                Loading...
+                                <img src={animatedLoadingSvg} style={styles.loadingIcon} alt="loading image" />
+                            </div>
+                        }
                 </div>
 
                 <RightSideBar style={styles.rightSidebar} title={"Server members"}/>
@@ -109,5 +154,18 @@ const styles = {
         overflowY: "auto",
         columnWidth: "200px",
         columnGap: "0.5rem",
+    },
+    loadingContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "1rem",
+        width: "100%",
+        height: "100%",
+        border: "1px solid red"
+    },
+    loadingIcon: {
+        width: "50px",
     }
 }

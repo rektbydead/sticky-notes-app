@@ -13,10 +13,8 @@ import PersonalCategoryMenu from "../menus/PersonalCategoryMenu.jsx";
 import {useEffect, useState} from "react";
 import {getServers} from "../../services/ServerService.js";
 
-export default function LeftSideBar({title}) {
+export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer}) {
     const [serverList, setServerList] = useState([])
-    const [selectedServer, setSelectedServer] = useState(null)
-    const [selectedCategory, setSelectedCategory] = useState(null)
 
     useEffect(() => {
         async function getData() {
@@ -26,7 +24,7 @@ export default function LeftSideBar({title}) {
                 setServerList(data)
 
                 if (data.length > 0) {
-                    setSelectedServer(data[0])
+                    onSelectServer(data[0])
                 }
 
                 // if (selectedServer) {
@@ -43,7 +41,7 @@ export default function LeftSideBar({title}) {
 
     useEffect(() => {
         if (selectedServer === null) return
-        setSelectedCategory(selectedServer?.categories.find(category => category.name.toLowerCase() === "general") ?? null)
+        onSelectCategory(selectedServer?.categories.find(category => category.name.toLowerCase() === "general") ?? null)
     }, [selectedServer])
 
     const personalServers = serverList.filter(server => server.is_personal)
@@ -83,7 +81,7 @@ export default function LeftSideBar({title}) {
                                     title={server.name}
                                     isOwner={true}
                                     isSelected={selectedServer?._id === server._id}
-                                    onClick={() => setSelectedServer(server)}
+                                    onClick={() => onSelectServer(server)}
                                 />
                             ))
                             : <span style={styles.dontHave}> You do not have personal spaces. </span>
@@ -107,7 +105,7 @@ export default function LeftSideBar({title}) {
                                     title={server.name}
                                     isOwner={server.is_owner}
                                     isSelected={selectedServer?._id === server._id}
-                                    onClick={() => setSelectedServer(server)}
+                                    onClick={() => onSelectServer(server)}
                                 />
                             ))
                             : <span style={styles.dontHave}> You do not belong to any servers. </span>
@@ -120,16 +118,16 @@ export default function LeftSideBar({title}) {
 
                     <div style={styles.serverCategoryList}>
                         { selectedServer &&
-                            <CategoryDisplayer title="General" icon={mdiNote} onClick={() => setSelectedCategory(generalCategory)} isSelected={selectedCategory?._id === generalCategory._id}/>
+                            <CategoryDisplayer title="General" icon={mdiNote} onClick={() => onSelectCategory(generalCategory)} isSelected={selectedCategory?._id === generalCategory._id}/>
                         }
 
                         { selectedServer &&
-                            <CategoryDisplayer title="Archived" icon={mdiArchive} onClick={() => setSelectedCategory(archivedCategory)} isSelected={selectedCategory?._id === archivedCategory._id}/>
+                            <CategoryDisplayer title="Archived" icon={mdiArchive} onClick={() => onSelectCategory(archivedCategory)} isSelected={selectedCategory?._id === archivedCategory._id}/>
                         }
 
                         {
                             otherCategories?.map(category => {
-                                <CategoryDisplayer title={category.title} icon={mdiMenu} isSelected={selectedCategory?._id === category._id}/>
+                                <CategoryDisplayer title={category.title} icon={mdiMenu} onClick={() => onSelectCategory(category)}  isSelected={selectedCategory?._id === category._id}/>
                             })
                         }
                     </div>

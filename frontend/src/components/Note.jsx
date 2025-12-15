@@ -39,7 +39,7 @@ export default function Note({title, message, hour, personName}) {
                 />
 
                 <span style={styles.footerText}>
-                    {hour} <strong>{personName}</strong>
+                    {hour}, <strong>{personName}</strong>
                 </span>
             </div>
         </div>
