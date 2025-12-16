@@ -12,9 +12,11 @@ import ServerCategoryMenu from "../menus/ServerCategoryMenu.jsx";
 import PersonalCategoryMenu from "../menus/PersonalCategoryMenu.jsx";
 import {useEffect, useState} from "react";
 import {getServers} from "../../services/ServerService.js";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 
 export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer}) {
-    const [serverList, setServerList] = useState([])
+    const { user } = useAuthentication()
+	const [serverList, setServerList] = useState([])
 
     useEffect(() => {
         async function getData() {
@@ -136,8 +138,8 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 
             <div style={styles.userDisplayer}>
                 <UserDisplayer
-                    name={"Ruben Lousada"}
-                    description={"rlousada123456@gmail.com"}
+                    name={user.name}
+                    description={user.email}
                     isOwner={true}
                     menuComponent={(isOpen, onClose, triggerRef) => (
                         <LoggedUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>

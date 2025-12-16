@@ -6,10 +6,12 @@ const AuthenticationContext = createContext(null)
 export function AuthenticationProvider({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [loading, setLoading] = useState(true)
+	const [user, setUser] = useState(true)
 
     async function checkAuth() {
         try {
-            await getMe()
+            const { user } = await getMe()
+			setUser(user)
             setIsAuthenticated(true)
         } catch {
             setIsAuthenticated(false)
@@ -27,7 +29,7 @@ export function AuthenticationProvider({ children }) {
     }
 
     return (
-        <AuthenticationContext.Provider value={{ isAuthenticated, loading, setIsAuthenticated, checkAuth }}>
+        <AuthenticationContext.Provider value={{ isAuthenticated, loading, setIsAuthenticated, checkAuth, user }}>
             {children}
         </AuthenticationContext.Provider>
     )

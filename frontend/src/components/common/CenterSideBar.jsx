@@ -154,7 +154,7 @@ const styles = {
     notes: {
         padding: "1rem",
         overflowY: "auto",
-        columnWidth: "200px",
+        columnWidth: "250px",
         columnGap: "0.5rem",
     },
     loadingContainer: {

@@ -54,13 +54,16 @@ router.post('/register/', async (req, res) => {
     }
 })
 
-router.get('/me/', (req, res) => {
-    console.log(req.session)
+router.get('/me/', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ authenticated: false })
     }
 
-    res.json({ authenticated: true })
+	const user = await User.findOne({
+		_id: req.session.userId
+	})
+
+    res.json({ authenticated: true, user: user})
 })
 
 router.post('/login/', async (req, res) => {
