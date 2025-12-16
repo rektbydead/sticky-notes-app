@@ -124,6 +124,8 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 										isOwner={server.server_creator._id === user._id}
 										isSelected={selectedServer?._id === server._id}
 										onClick={() => onSelectServer(server)}
+										server={server}
+										onDelete={getData}
 									/>
 								))
 								: <span style={styles.dontHave}> You do not belong to any servers. </span>
