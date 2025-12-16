@@ -5,8 +5,10 @@ import animatedLoadingSvg from "../../assets/icon/mdiServer.svg";
 import mdiPlug from "../../assets/icon/mdiPlug.svg";
 
 
-export default function PersonalServerCreateModal({ isOpen, onClose, onServerCreated }) {
+export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) {
 	const [name, setName] = useState('')
+	const [password, setPassword] = useState('')
+	const [confirmPassword, setConfirmPassword] = useState('')
 	const [error, setError] = useState('')
 
 	async function handleSubmit(e) {
@@ -18,12 +20,22 @@ export default function PersonalServerCreateModal({ isOpen, onClose, onServerCre
 			return
 		}
 
+		if (password.length === 0) {
+			setError('Password cannot be empty')
+			return
+		}
+
+		if (password !== confirmPassword) {
+			setError('Passwords do not match')
+			return
+		}
+
 		try {
-			await createServer(name, null, true)
+			await createServer(name, password, false)
 			await onServerCreated()
 			onClose()
 		} catch(e) {
-			setError('Something went wrong')
+			setError('Something went wrong.')
 		}
 	}
 
@@ -52,6 +64,28 @@ export default function PersonalServerCreateModal({ isOpen, onClose, onServerCre
 						/>
 					</div>
 
+					<div style={styles.inputGroup}>
+						<label style={styles.label}>Password</label>
+						<input
+							type="text"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							placeholder={"Enter server password"}
+							style={styles.input}
+						/>
+					</div>
+
+					<div style={styles.inputGroup}>
+						<label style={styles.label}>Confirm Password</label>
+						<input
+							type="text"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							placeholder={"Enter server password"}
+							style={styles.input}
+						/>
+					</div>
+
 					{error && (
 						<p style={styles.error}>{error}</p>
 					)}
@@ -62,7 +96,7 @@ export default function PersonalServerCreateModal({ isOpen, onClose, onServerCre
 						</button>
 						<button type="submit" style={styles.submitButton}>
 							<img src={mdiPlug} style={{ width: "20px" }} alt="loading image" />
-							Create personal server
+							Create server
 						</button>
 					</div>
 				</form>

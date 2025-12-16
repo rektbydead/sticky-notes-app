@@ -2,10 +2,11 @@ import mdiLogout from "../../assets/icon/mdiLogout.svg"
 import mdiPlus from "../../assets/icon/mdiPlus.svg"
 import "../../assets/css/Menu.css"
 
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
+import ServerCreateModal from "../dialogs/ServerCreateModal.jsx";
 
-export default function ServerCategoryMenu({ isOpen, onClose, triggerRef }) {
-    const menuRef = useRef(null);
+export default function ServerCategoryMenu({ isOpen, onClose, triggerRef, setServerCreateModelOpen }) {
+    const menuRef = useRef(null)
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -28,32 +29,35 @@ export default function ServerCategoryMenu({ isOpen, onClose, triggerRef }) {
     if (!isOpen) return null;
 
     return (
-        <div style={styles.dropdown} ref={menuRef}>
-            <div
-                style={styles.menuItem}
-                className="menu-item"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("ban user logic")
-                }}
-            >
-                <img src={mdiPlus} alt="create" style={styles.menuItemIcon} />
-                <span>Create server</span>
-            </div>
-            <div
-                style={styles.menuItem}
-                className="menu-item"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("clear all notes logic")
+		<>
+			<div style={styles.dropdown} ref={menuRef}>
+				<div
+					style={styles.menuItem}
+					className="menu-item"
+					onClick={(e) => {
+						e.stopPropagation()
+						setServerCreateModelOpen(true)
+						onClose()
+					}}
+				>
+					<img src={mdiPlus} alt="create" style={styles.menuItemIcon} />
+					<span>Create server</span>
+				</div>
+				<div
+					style={styles.menuItem}
+					className="menu-item"
+					onClick={(e) => {
+						e.stopPropagation();
+						console.log("clear all notes logic")
 
-                }}
-            >
-                <img src={mdiLogout} alt="join" style={styles.menuItemIcon} />
-                <span>Join server</span>
-            </div>
-        </div>
-    );
+					}}
+				>
+					<img src={mdiLogout} alt="join" style={styles.menuItemIcon} />
+					<span>Join server</span>
+				</div>
+			</div>
+		</>
+    )
 }
 
 const styles = {
