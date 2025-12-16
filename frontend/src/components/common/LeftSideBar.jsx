@@ -57,9 +57,8 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
     return (
 		<>
 			{ serverCreateModelOpen &&
-				<ServerCreateModal isOpen={serverCreateModelOpen} onClose={() => setServerCreateModelOpen(false)} />
+				<ServerCreateModal isOpen={serverCreateModelOpen} onClose={() => setServerCreateModelOpen(false)} onServerCreated={getData} />
 			}
-
 
 			<div style={styles.sidebar}>
 				<div style={styles.sidebarTop}>
@@ -115,7 +114,7 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 									<ServerDisplayer
 										key={server._id}
 										title={server.name}
-										isOwner={server.is_owner}
+										isOwner={server.server_creator._id === user._id}
 										isSelected={selectedServer?._id === server._id}
 										onClick={() => onSelectServer(server)}
 									/>

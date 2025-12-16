@@ -35,6 +35,7 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 			await onServerCreated()
 			onClose()
 		} catch(e) {
+			console.log(e)
 			setError('Something went wrong.')
 		}
 	}
