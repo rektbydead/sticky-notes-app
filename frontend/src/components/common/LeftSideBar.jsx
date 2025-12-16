@@ -13,31 +13,28 @@ import PersonalCategoryMenu from "../menus/PersonalCategoryMenu.jsx";
 import {useEffect, useState} from "react";
 import {getServers} from "../../services/ServerService.js";
 import {useAuthentication} from "../../context/AuthenticationContext.jsx";
+import PersonalServerCreateModal from "../dialogs/PersonalServerCreateModal.jsx";
 
 export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer}) {
     const { user } = useAuthentication()
 	const [serverList, setServerList] = useState([])
 
+	async function getData() {
+		try {
+			const data = await getServers()
+			setServerList(data)
+
+			if (data.length > 0) {
+				const currentServer = data.find((server) => server._id === selectedServer?._id)
+				if (currentServer) return
+				onSelectServer(data[0])
+			}
+		} catch (e) {
+			alert("Error loading servers... " + e)
+		}
+	}
+
     useEffect(() => {
-        async function getData() {
-            try {
-                const data = await getServers()
-                console.log(data)
-                setServerList(data)
-
-                if (data.length > 0) {
-                    onSelectServer(data[0])
-                }
-
-                // if (selectedServer) {
-                    // select category
-                    // setSelectedCategory()
-                // }
-            } catch (e) {
-                alert("Error loading servers... " + e)
-            }
-        }
-
         getData()
     }, []);
 
@@ -71,7 +68,7 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
                     <ServerCategoryBar
                         categoryName={"Personal"}
                         menuComponent={(isOpen, onClose, triggerRef) => (
-                            <PersonalCategoryMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
+                            <PersonalServerCreateModal isOpen={isOpen} onClose={onClose} onServerCreated={getData}/>
                         )}
                     />
 
