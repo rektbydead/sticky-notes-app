@@ -115,7 +115,7 @@ router.delete('/:serverId', isAuthenticated, async (req, res) => {
 
         await Note.deleteMany({server_it_belongs: server._id})
         await Category.deleteMany({server_it_belongs: server._id})
-        await Server.findByIdAndDelete(req.params.id)
+        await Server.findByIdAndDelete(req.params.serverId)
 
         res.json({message: 'Server deleted successfully'})
     } catch (error) {
