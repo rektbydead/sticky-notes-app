@@ -105,7 +105,9 @@ router.put('/change-password/', isAuthenticated, async (req, res) => {
     try {
         const { currentPassword, newPassword } = req.body;
 
-        const user = await User.findById(req.userId);
+		const user = await User.findById({
+			_id: req.session.userId
+		})
 
         if (!user.password) {
             return res.status(400).json({ error: 'OAuth users cannot change password' })
