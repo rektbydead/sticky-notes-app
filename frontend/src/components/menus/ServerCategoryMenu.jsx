@@ -5,7 +5,7 @@ import "../../assets/css/Menu.css"
 import {useEffect, useRef, useState} from "react";
 import ServerCreateModal from "../dialogs/ServerCreateModal.jsx";
 
-export default function ServerCategoryMenu({ isOpen, onClose, triggerRef, setServerCreateModelOpen }) {
+export default function ServerCategoryMenu({ isOpen, onClose, triggerRef, setServerCreateModelOpen, setJoinServerModelOpen }) {
     const menuRef = useRef(null)
 
     useEffect(() => {
@@ -48,8 +48,8 @@ export default function ServerCategoryMenu({ isOpen, onClose, triggerRef, setSer
 					className="menu-item"
 					onClick={(e) => {
 						e.stopPropagation();
-						console.log("clear all notes logic")
-
+						setJoinServerModelOpen(true)
+						onClose()
 					}}
 				>
 					<img src={mdiLogout} alt="join" style={styles.menuItemIcon} />

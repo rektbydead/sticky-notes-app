@@ -46,7 +46,7 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 
 	return (
 		<>
-			<Modal isOpen={isOpen} onClose={handleClose} title={"Create personal server"}>
+			<Modal isOpen={isOpen} onClose={handleClose} title={"Create server"}>
 				<div style={styles.iconContainer}>
 					<div style={styles.iconWrapper}>
 						<img src={animatedLoadingSvg} style={{ height: "50px" }} alt="loading image" />
@@ -68,7 +68,7 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 					<div style={styles.inputGroup}>
 						<label style={styles.label}>Password</label>
 						<input
-							type="text"
+							type="password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							placeholder={"Enter server password"}
@@ -79,7 +79,7 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 					<div style={styles.inputGroup}>
 						<label style={styles.label}>Confirm Password</label>
 						<input
-							type="text"
+							type="password"
 							value={confirmPassword}
 							onChange={(e) => setConfirmPassword(e.target.value)}
 							placeholder={"Enter server password"}

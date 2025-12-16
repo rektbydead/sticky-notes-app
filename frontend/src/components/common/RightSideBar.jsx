@@ -3,8 +3,11 @@ import InviteMembersButton from "../InviteMemberButton.jsx";
 import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
 import ServerUserMenu from "../menus/ServerUserMenu.jsx";
 import {useMemo} from "react";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
+import PersonalServerCreateModal from "../dialogs/PersonalServerCreateModal.jsx";
 
-export default function RightSideBar({title, users, owner}) {
+export default function RightSideBar({title, users, owner, serverId}) {
+	const { user } = useAuthentication()
 
     const sortedUsers = useMemo(() => {
         return users?.sort((a, b) => {
@@ -23,19 +26,23 @@ export default function RightSideBar({title, users, owner}) {
 
             <div style={styles.sidebarBottom}>
                 <div style={styles.serverCategory}>
-                    { sortedUsers?.map(user =>
+                    { sortedUsers?.map(user_to_display =>
                         <UserDisplayer
-                            name={user.name}
-                            description={user._id === owner._id ? "Owner" : "Member"}
-                            isOwner={user._id === owner._id}
-                            hasMenu={user._id === owner._id}
+                            name={user_to_display.name}
+							key={user_to_display._id}
+                            description={user_to_display._id === owner._id ? "Owner" : "Member"}
+                            isOwner={user_to_display._id === owner._id}
+                            hasMenu={user_to_display._id !== owner._id}
+							menuComponent={(isOpen, onClose, triggerRef) => (
+								<ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef} />
+							)}
                         />
                     )}
                 </div>
             </div>
 
             <div style={styles.userDisplayer}>
-                <InviteMembersButton/>
+                <InviteMembersButton serverId={serverId}/>
             </div>
         </div>
     )

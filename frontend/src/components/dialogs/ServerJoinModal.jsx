@@ -1,14 +1,13 @@
 import {useState} from "react";
 import Modal from "./BaseModal.jsx";
-import {createServer} from "../../services/ServerService.js";
+import {createServer, joinServer} from "../../services/ServerService.js";
 import animatedLoadingSvg from "../../assets/icon/mdiServer.svg";
 import mdiPlug from "../../assets/icon/mdiPlug.svg";
 
 
-export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) {
+export default function ServerJoinModal({ isOpen, onClose, onServerCreated }) {
 	const [name, setName] = useState('')
 	const [password, setPassword] = useState('')
-	const [confirmPassword, setConfirmPassword] = useState('')
 	const [error, setError] = useState('')
 
 	async function handleSubmit(e) {
@@ -20,23 +19,13 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 			return
 		}
 
-		if (password.length === 0) {
-			setError('Password cannot be empty')
-			return
-		}
-
-		if (password !== confirmPassword) {
-			setError('Passwords do not match')
-			return
-		}
-
 		try {
-			await createServer(name, password, false)
+			await joinServer(name, password)
 			await onServerCreated()
 			onClose()
 		} catch(e) {
 			console.log(e)
-			setError('Something went wrong.')
+			setError('Password is wrong or already a member.')
 		}
 	}
 
@@ -46,7 +35,7 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 
 	return (
 		<>
-			<Modal isOpen={isOpen} onClose={handleClose} title={"Create personal server"}>
+			<Modal isOpen={isOpen} onClose={handleClose} title={"Join server"}>
 				<div style={styles.iconContainer}>
 					<div style={styles.iconWrapper}>
 						<img src={animatedLoadingSvg} style={{ height: "50px" }} alt="loading image" />
@@ -55,12 +44,12 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 
 				<form style={styles.form} onSubmit={handleSubmit}>
 					<div style={styles.inputGroup}>
-						<label style={styles.label}>Server Name</label>
+						<label style={styles.label}>Server Id</label>
 						<input
 							type="text"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
-							placeholder={"Enter server name"}
+							placeholder={"Enter server id"}
 							style={styles.input}
 						/>
 					</div>
@@ -76,17 +65,6 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 						/>
 					</div>
 
-					<div style={styles.inputGroup}>
-						<label style={styles.label}>Confirm Password</label>
-						<input
-							type="password"
-							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
-							placeholder={"Enter server password"}
-							style={styles.input}
-						/>
-					</div>
-
 					{error && (
 						<p style={styles.error}>{error}</p>
 					)}
@@ -97,7 +75,7 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 						</button>
 						<button type="submit" style={styles.submitButton}>
 							<img src={mdiPlug} style={{ width: "20px" }} alt="loading image" />
-							Create server
+							Join server
 						</button>
 					</div>
 				</form>

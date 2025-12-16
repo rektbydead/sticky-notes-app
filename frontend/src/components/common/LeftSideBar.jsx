@@ -15,12 +15,14 @@ import {getServers} from "../../services/ServerService.js";
 import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 import PersonalServerCreateModal from "../dialogs/PersonalServerCreateModal.jsx";
 import ServerCreateModal from "../dialogs/ServerCreateModal.jsx";
+import ServerJoinModal from "../dialogs/ServerJoinModal.jsx";
 
 export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer}) {
     const { user } = useAuthentication()
 	const [serverList, setServerList] = useState([])
 
 	const [serverCreateModelOpen, setServerCreateModelOpen] = useState(false);
+	const [joinServerModelOpen, setJoinServerModelOpen] = useState(false);
 
 	async function getData() {
 		try {
@@ -58,6 +60,10 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 		<>
 			{ serverCreateModelOpen &&
 				<ServerCreateModal isOpen={serverCreateModelOpen} onClose={() => setServerCreateModelOpen(false)} onServerCreated={getData} />
+			}
+
+			{ joinServerModelOpen &&
+				<ServerJoinModal isOpen={joinServerModelOpen} onClose={() => setJoinServerModelOpen(false)} onServerCreated={getData} />
 			}
 
 			<div style={styles.sidebar}>
@@ -104,6 +110,7 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 									isOpen={isOpen}
 									onClose={onClose}
 									setServerCreateModelOpen={setServerCreateModelOpen}
+									setJoinServerModelOpen={setJoinServerModelOpen}
 								/>
 							)}
 						/>

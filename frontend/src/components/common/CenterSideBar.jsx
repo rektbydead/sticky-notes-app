@@ -98,7 +98,7 @@ export default function CenterSideBar({title, server, notes}) {
                 </div>
 
                 {
-                    server?.is_personal === false && <RightSideBar style={styles.rightSidebar} title={"Server members"} users={server?.joined_users} owner={server?.server_creator}/>
+                    server?.is_personal === false && <RightSideBar style={styles.rightSidebar} title={"Server members"} users={server?.joined_users} owner={server?.server_creator} serverId={server._id}/>
                 }
             </div>
         </div>
