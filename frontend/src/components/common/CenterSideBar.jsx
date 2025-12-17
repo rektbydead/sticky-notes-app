@@ -9,7 +9,7 @@ import RightSideBar from "./RightSideBar.jsx";
 import {getNotesByCategory} from "../../services/CategoryService.js";
 import ServerDisplayer from "../ServerDisplayer.jsx";
 
-export default function CenterSideBar({title, server, notes}) {
+export default function CenterSideBar({title, server, notes, refetchNotes}) {
     const [searchValue, setSearchValue] = useState("")
     const [now, setNow] = useState(Date.now())
 
@@ -26,39 +26,6 @@ export default function CenterSideBar({title, server, notes}) {
 
         return () => clearInterval(interval);
     }, []);
-
-    function formatRelativeTime(isoDate) {
-        const current = new Date(now);
-        const date = new Date(isoDate)
-
-        const diffMs = current - date
-        const diffSeconds = Math.floor(diffMs / 1000)
-        const diffMinutes = Math.floor(diffSeconds / 60)
-        const diffHours = Math.floor(diffMinutes / 60)
-        const diffDays = Math.floor(diffHours / 24)
-        const diffWeeks = Math.floor(diffDays / 7)
-
-        if (diffSeconds < 10) return 'just now'
-        if (diffSeconds < 60) return `${diffSeconds} seconds ago`
-
-        if (diffMinutes === 1) return '1 minute ago'
-        if (diffMinutes < 60) return `${diffMinutes} minutes ago`
-
-        if (diffHours === 1) return '1 hour ago'
-        if (diffHours < 24) return `${diffHours} hours ago`
-
-        if (diffDays === 1) return '1 day ago'
-        if (diffDays < 7) return `${diffDays} days ago`
-
-        if (diffWeeks === 1) return '1 week ago'
-        if (diffWeeks < 4) return `${diffWeeks} weeks ago`
-
-        return date.toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        })
-    }
 
     return (
         <div style={styles.sidebar}>
@@ -80,10 +47,10 @@ export default function CenterSideBar({title, server, notes}) {
                                     {filteredNotes.map(note => (
                                         <Note
                                             key={note._id}
-                                            message={note.content}
-                                            title={note.title}
-                                            personName={note.note_creator.name}
-                                            hour={formatRelativeTime(note.updated_at)}
+                                            note={note}
+                                            onAction={() => {
+                                                refetchNotes()
+                                            }}
                                         />
                                     ))}
                                     <CreateNewNoteNote/>

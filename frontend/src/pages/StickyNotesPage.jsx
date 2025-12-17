@@ -28,7 +28,12 @@ export default function StickyNotePage() {
                  selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory}
                  selectedServer={selectedServer} onSelectServer={setSelectedServer}
             />
-            <CenterSideBar title={title} notes={notes} server={selectedServer}/>
+            <CenterSideBar
+                title={title}
+                notes={notes}
+                server={selectedServer}
+                refetchNotes={() => getNotes()}
+            />
         </>
     )
 }
