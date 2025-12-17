@@ -5,10 +5,12 @@ import mdiArchive from "../assets/icon/mdiArchive.svg";
 import mdiArchiveOff from "../assets/icon/mdiArchiveOff.svg";
 import {useEffect, useState} from "react";
 import {archiveNote} from "../services/CategoryService.js";
+import DeleteNoteModal from "./dialogs/DeleteNoteModal.jsx";
 
 
-export default function Note({note, onAction}) {
+export default function Note({note, onAction, showIcons=true}) {
     const [now, setNow] = useState(Date.now())
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -52,55 +54,63 @@ export default function Note({note, onAction}) {
     }
 
     return (
-        <div style={styles.card} className="clickable-icon">
-            <div style={styles.header}>
-                <h3 style={styles.title}>{note.title}</h3>
+        <>
+            { open &&
+                <DeleteNoteModal isOpen={open} onClose={() => setOpen(false)} note={note} onDelete={onAction}/>
+            }
 
-                <div style={styles.actions}>
+            <div style={styles.card} className="clickable-icon">
+                <div style={styles.header}>
+                    <h3 style={styles.title}>{note.title}</h3>
+
+                    { showIcons &&
+                        <div style={styles.actions}>
+                            <img
+                                src={note.is_archived ? mdiArchiveOff : mdiArchive}
+                                alt={note.is_archived ? "Unarchive" : "Archive"}
+                                className="clickable-icon"
+                                style={styles.footerIcon}
+                                onClick={async () => {
+                                    if (note.is_archived === false) {
+                                        await archiveNote(note._id)
+                                    } else {
+                                        // TODO: also in backend archive
+                                    }
+
+                                    await onAction()
+                                }}
+                            />
+
+                            <img
+                                src={mdiTrash}
+                                alt="Trash"
+                                className="clickable-icon"
+                                style={styles.footerIcon}
+                                onClick={async () => {
+                                    setOpen(true)
+                                }}
+                            />
+                        </div>
+                    }
+                </div>
+
+                <p style={styles.bodyText}>
+                    {note.content}
+                </p>
+
+                <div style={styles.footer}>
                     <img
-                        src={note.is_archived ? mdiArchiveOff : mdiArchive}
-                        alt={note.is_archived ? "Unarchive" : "Archive"}
-                        className="clickable-icon"
-                        style={styles.footerIcon}
-                        onClick={async () => {
-                            if (note.is_archived === false) {
-                                await archiveNote(note._id)
-                            } else {
-                                // TODO: also in backend archive
-                            }
-
-                            await onAction()
-                        }}
-                    />
-
-                    <img
-                        src={mdiTrash}
+                        src={mdiClock}
                         alt="Trash"
-                        className="clickable-icon"
                         style={styles.footerIcon}
-                        onClick={async () => {
-                            await onAction()
-                        }}
                     />
+
+                    <span style={styles.footerText}>
+                        {formatRelativeTime(note.updated_at)}, <strong>{note.note_creator.name}</strong>
+                    </span>
                 </div>
             </div>
-
-            <p style={styles.bodyText}>
-                {note.content}
-            </p>
-
-            <div style={styles.footer}>
-                <img
-                    src={mdiClock}
-                    alt="Trash"
-                    style={styles.footerIcon}
-                />
-
-                <span style={styles.footerText}>
-                    {formatRelativeTime(note.updated_at)}, <strong>{note.note_creator.name}</strong>
-                </span>
-            </div>
-        </div>
+        </>
     )
 }
 

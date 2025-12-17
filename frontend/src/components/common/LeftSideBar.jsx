@@ -89,12 +89,14 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 						<div style={styles.serverCategoryList}>
 							{personalServers.length > 0
 								? personalServers.map(server => (
-									<ServerDisplayer
+                                    <ServerDisplayer
 										key={server._id}
 										title={server.name}
 										isOwner={true}
 										isSelected={selectedServer?._id === server._id}
 										onClick={() => onSelectServer(server)}
+										server={server}
+										onDelete={getData}
 									/>
 								))
 								: <span style={styles.dontHave}> You do not have personal spaces. </span>
