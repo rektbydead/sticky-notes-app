@@ -42,7 +42,7 @@ router.post('/server/:serverId/', isAuthenticated, async (req, res) => {
             return res.status(403).json({ error: 'Only server owner can create categories' })
         }
 
-        const category = new Category({ name, server_it_belongs: req.session.userId })
+        const category = new Category({ name, server_it_belongs: server._id })
         await category.save()
 
         res.status(201).json(category)
