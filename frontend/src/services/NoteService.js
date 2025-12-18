@@ -35,6 +35,12 @@ export async function archiveNote(noteId) {
     })
 }
 
+export async function unarchiveNote(noteId) {
+	return await apiFetch(`/api/note/${noteId}/unarchive/`, {
+		method: "POST",
+	})
+}
+
 export async function deleteNote(noteId) {
     return await apiFetch(`/api/note/${noteId}/`, {
         method: "DELETE",

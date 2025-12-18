@@ -4,7 +4,7 @@ import mdiTrash from "../assets/icon/mdiTrash.svg"
 import mdiArchive from "../assets/icon/mdiArchive.svg";
 import mdiArchiveOff from "../assets/icon/mdiArchiveOff.svg";
 import {useEffect, useState} from "react";
-import {archiveNote} from "../services/NoteService.js";
+import {archiveNote, unarchiveNote} from "../services/NoteService.js";
 import DeleteNoteModal from "./dialogs/DeleteNoteModal.jsx";
 
 
@@ -74,6 +74,7 @@ export default function Note({note, onAction, showIcons=true}) {
                                     if (note.is_archived === false) {
                                         await archiveNote(note._id)
                                     } else {
+										await unarchiveNote(note._id)
                                         // TODO: also in backend archive
                                     }
 
