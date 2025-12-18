@@ -2,7 +2,7 @@ import LeftSideBar from "../components/common/LeftSideBar.jsx";
 import CenterSideBar from "../components/common/CenterSideBar.jsx";
 import RightSideBar from "../components/common/RightSideBar.jsx";
 import {useEffect, useState} from "react";
-import {getNotesByCategory} from "../services/CategoryService.js";
+import {getNotesByCategory} from "../services/NoteService.js";
 
 export default function StickyNotePage() {
     const [selectedServer, setSelectedServer] = useState(null)

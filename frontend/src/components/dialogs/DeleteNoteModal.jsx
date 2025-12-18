@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Modal from "./BaseModal.jsx";
 import Toast from "../Toast.jsx";
-import {deleteNote} from "../../services/CategoryService.js";
+import {deleteNote} from "../../services/NoteService.js";
 import Note from "../Note.jsx";
 
 export default function DeleteNoteModal ({ isOpen, onClose, children, maxWidth = '500px', note, onDelete }) {
@@ -34,7 +34,7 @@ export default function DeleteNoteModal ({ isOpen, onClose, children, maxWidth =
 					<div style={styles.inputGroup}>
 						Are you sure you want to permanently delete the {note?.title} Note?
 						<br/>
-						<span style={{color: "red"}}> This action account be undone.</span>
+						<span style={{color: "red"}}> This action cannot be undone.</span>
 					</div>
 
 					<div style={styles.footer}>

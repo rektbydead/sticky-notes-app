@@ -4,7 +4,7 @@ import mdiTrash from "../assets/icon/mdiTrash.svg"
 import mdiArchive from "../assets/icon/mdiArchive.svg";
 import mdiArchiveOff from "../assets/icon/mdiArchiveOff.svg";
 import {useEffect, useState} from "react";
-import {archiveNote} from "../services/CategoryService.js";
+import {archiveNote} from "../services/NoteService.js";
 import DeleteNoteModal from "./dialogs/DeleteNoteModal.jsx";
 
 

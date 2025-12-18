@@ -3,9 +3,11 @@ import Modal from "./BaseModal.jsx";
 import {createServer} from "../../services/ServerService.js";
 import animatedLoadingSvg from "../../assets/icon/mdiServer.svg";
 import mdiPlug from "../../assets/icon/mdiPlug.svg";
+import {getNotesByCategory} from "../../services/NoteService.js";
+import {createCategory} from "../../services/CategoryService.js";
 
 
-export default function PersonalServerCreateModal({ isOpen, onClose, onServerCreated }) {
+export default function CategoryCreateModal({ isOpen, onClose, serverId, onCategoryCreated }) {
 	const [name, setName] = useState('')
 	const [error, setError] = useState('')
 
@@ -19,8 +21,8 @@ export default function PersonalServerCreateModal({ isOpen, onClose, onServerCre
 		}
 
 		try {
-			await createServer(name, null, true)
-			await onServerCreated()
+			await createCategory(serverId, name)
+			await onCategoryCreated()
 			onClose()
 		} catch(e) {
 			setError('Something went wrong')
@@ -35,7 +37,7 @@ export default function PersonalServerCreateModal({ isOpen, onClose, onServerCre
 
 	return (
 		<>
-			<Modal isOpen={isOpen} onClose={handleClose} title={"Create personal server"}>
+			<Modal isOpen={isOpen} onClose={handleClose} title={"Create new category"}>
 				<div style={styles.iconContainer}>
 					<div style={styles.iconWrapper}>
 						<img src={animatedLoadingSvg} style={{ height: "50px" }} alt="loading image" />
@@ -44,12 +46,12 @@ export default function PersonalServerCreateModal({ isOpen, onClose, onServerCre
 
 				<form style={styles.form} onSubmit={handleSubmit}>
 					<div style={styles.inputGroup}>
-						<label style={styles.label}>Server Name</label>
+						<label style={styles.label}>Category Name</label>
 						<input
 							type="text"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
-							placeholder={"Enter server name"}
+							placeholder={"Enter category name"}
 							style={styles.input}
 						/>
 					</div>
@@ -63,8 +65,7 @@ export default function PersonalServerCreateModal({ isOpen, onClose, onServerCre
 							Cancel
 						</button>
 						<button type="submit" style={styles.submitButton}>
-							<img src={mdiPlug} style={{ width: "20px" }} alt="loading image" />
-							Create personal server
+							Create category
 						</button>
 					</div>
 				</form>

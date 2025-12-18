@@ -3,14 +3,16 @@ import Modal from "./BaseModal.jsx";
 import {changePassword} from "../../services/AuthenticationService.js";
 import Toast from "../Toast.jsx";
 import {deleteServer} from "../../services/ServerService.js";
+import {deleteCategory} from "../../services/CategoryService.js";
 
-export default function DeleteServerModal ({ isOpen, onClose, children, maxWidth = '500px', server, onDelete }) {
+export default function DeleteCategoryModal ({ isOpen, onClose, children, maxWidth = '500px', category, onDelete }) {
 	const [showToast, setShowToast] = useState(false)
 
 	async function handleSubmit(e) {
 		e.preventDefault()
-		await deleteServer(server?._id)
+		await deleteCategory(category?._id)
 		setShowToast(true)
+		console.log(1)
 		onDelete()
 		onClose()
 	}
@@ -23,22 +25,22 @@ export default function DeleteServerModal ({ isOpen, onClose, children, maxWidth
 		<>
 			{showToast && (
 				<Toast
-					message={"Server ${server?.name} deleted successfully."}
+					message={`Category ${category?.name} deleted successfully.`}
 					onClose={() => setShowToast(false)}
 				/>
 			)}
 
-			<Modal isOpen={isOpen} onClose={handleClose} title={`Delete server "${server?.name}"`}>
+			<Modal isOpen={isOpen} onClose={handleClose} title={`Delete category "${category?.name}"`}>
 				<form style={styles.form} onSubmit={handleSubmit}>
 					<div style={styles.inputGroup}>
-						Are you sure you want to permanently delete the "{server?.name}" server?
+						Are you sure you want to permanently delete the "{category?.name}" category?
 						<br/>
 						<span style={{color: "red"}}> This action cannot be undone.</span>
 					</div>
 
 					<div style={styles.footer}>
 						<button type="submit" style={styles.cancelButton}>
-							Delete server
+							Delete category
 						</button>
 						<button type="button" onClick={handleClose} style={styles.submitButton}>
 							Cancel

@@ -6,7 +6,7 @@ import NoteSearchBox from "../NoteSearchBox.jsx";
 import {useEffect, useState} from "react";
 import animatedLoadingSvg from "../../assets/icon/animatedLoadingSvg.svg"
 import RightSideBar from "./RightSideBar.jsx";
-import {getNotesByCategory} from "../../services/CategoryService.js";
+import {getNotesByCategory} from "../../services/NoteService.js";
 import ServerDisplayer from "../ServerDisplayer.jsx";
 
 export default function CenterSideBar({title, server, notes, refetchNotes}) {

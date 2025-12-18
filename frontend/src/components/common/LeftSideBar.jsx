@@ -16,6 +16,7 @@ import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 import PersonalServerCreateModal from "../dialogs/PersonalServerCreateModal.jsx";
 import ServerCreateModal from "../dialogs/ServerCreateModal.jsx";
 import ServerJoinModal from "../dialogs/ServerJoinModal.jsx";
+import CategoryCreateModal from "../dialogs/CategoryCreateModal.jsx";
 
 export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer}) {
     const { user } = useAuthentication()
@@ -25,14 +26,19 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 	const [joinServerModelOpen, setJoinServerModelOpen] = useState(false);
 
 	async function getData() {
+		console.log(2)
 		try {
 			const data = await getServers()
 			setServerList(data)
 
 			if (data.length > 0) {
 				const currentServer = data.find((server) => server._id === selectedServer?._id)
-				if (currentServer) return
-				onSelectServer(data[0])
+				// console.log(currentServer, selectedServer)
+				if (currentServer) {
+					onSelectServer(currentServer)
+				} else {
+					onSelectServer(data[0])
+				}
 			}
 		} catch (e) {
 			alert("Error loading servers... " + e)
@@ -136,21 +142,39 @@ export default function LeftSideBar({title, selectedCategory, onSelectCategory, 
 					</div>
 
 					<div style={styles.serverCategory}>
-						<ServerCategoryBar categoryName={"Categories"}/>
+						<ServerCategoryBar
+							categoryName={"Categories"}
+							menuComponent={(isOpen, onClose, triggerRef) => (
+								<CategoryCreateModal
+									isOpen={isOpen}
+									onClose={onClose}
+									serverId={selectedServer?._id}
+									onCategoryCreated={getData}
+								/>
+							)}
+						/>
 
 						<div style={styles.serverCategoryList}>
 							{ selectedServer &&
-								<CategoryDisplayer title="General" icon={mdiNote} onClick={() => onSelectCategory(generalCategory)} isSelected={selectedCategory?._id === generalCategory._id}/>
+								<CategoryDisplayer category={generalCategory} icon={mdiNote} onClick={() => onSelectCategory(generalCategory)} isSelected={selectedCategory?._id === generalCategory._id}/>
 							}
 
 							{ selectedServer &&
-								<CategoryDisplayer title="Archived" icon={mdiArchive} onClick={() => onSelectCategory(archivedCategory)} isSelected={selectedCategory?._id === archivedCategory._id}/>
+								<CategoryDisplayer category={archivedCategory} icon={mdiArchive} onClick={() => onSelectCategory(archivedCategory)} isSelected={selectedCategory?._id === archivedCategory._id}/>
 							}
 
 							{
-								otherCategories?.map(category => {
-									<CategoryDisplayer title={category.title} icon={mdiMenu} onClick={() => onSelectCategory(category)}  isSelected={selectedCategory?._id === category._id}/>
-								})
+								otherCategories?.map(category => (
+									<CategoryDisplayer
+										category={category}
+										key={category._id}
+										icon={mdiMenu}
+										onClick={() => onSelectCategory(category)}
+										isOwner={selectedServer.server_creator._id === user._id}
+										isSelected={selectedCategory?._id === category._id}
+										onDelete={getData}
+									/>
+								))
 							}
 						</div>
 					</div>
