@@ -40,7 +40,9 @@ export default function CreateNoteModal({ server, category, isOpen, onClose, onA
 							placeholder="Enter note content..."
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
-							style={styles.input}
+							style={styles.textarea}
+							rows={6}
+
 						/>
 					</div>
 
@@ -114,4 +116,19 @@ const styles = {
 		borderRadius: '6px',
 		cursor: 'pointer'
 	},
+	textarea: {
+		width: '100%',
+		padding: '10px 12px',
+		border: '1px solid #d1d5db',
+		backgroundColor: 'white',
+		color: "black",
+		borderRadius: '6px',
+		fontSize: '14px',
+		boxSizing: 'border-box',
+		outline: 'none',
+		resize: 'none',
+		fontFamily: 'Avenir, Helvetica, Arial, sans-serif',
+		minHeight: '400px',
+		maxHeight: '400px',
+	}
 }
