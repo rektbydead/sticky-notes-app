@@ -9,7 +9,7 @@ import RightSideBar from "./RightSideBar.jsx";
 import {getNotesByCategory} from "../../services/NoteService.js";
 import ServerDisplayer from "../ServerDisplayer.jsx";
 
-export default function CenterSideBar({title, server, notes, refetchNotes}) {
+export default function CenterSideBar({title, server, notes, refetchNotes, refetchServers}) {
     const [searchValue, setSearchValue] = useState("")
     const [now, setNow] = useState(Date.now())
 
@@ -65,7 +65,8 @@ export default function CenterSideBar({title, server, notes, refetchNotes}) {
                 </div>
 
                 {
-                    server?.is_personal === false && <RightSideBar style={styles.rightSidebar} title={"Server members"} users={server?.joined_users} owner={server?.server_creator} serverId={server._id}/>
+                    server?.is_personal === false &&
+					<RightSideBar style={styles.rightSidebar} refetchServers={refetchServers} title={"Server members"} users={server?.joined_users} owner={server?.server_creator} serverId={server._id}/>
                 }
             </div>
         </div>

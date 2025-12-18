@@ -18,32 +18,11 @@ import ServerCreateModal from "../dialogs/ServerCreateModal.jsx";
 import ServerJoinModal from "../dialogs/ServerJoinModal.jsx";
 import CategoryCreateModal from "../dialogs/CategoryCreateModal.jsx";
 
-export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer}) {
+export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer, serverList, getData}) {
     const { user } = useAuthentication()
-	const [serverList, setServerList] = useState([])
 
 	const [serverCreateModelOpen, setServerCreateModelOpen] = useState(false);
 	const [joinServerModelOpen, setJoinServerModelOpen] = useState(false);
-
-	async function getData() {
-		console.log(2)
-		try {
-			const data = await getServers()
-			setServerList(data)
-
-			if (data.length > 0) {
-				const currentServer = data.find((server) => server._id === selectedServer?._id)
-				// console.log(currentServer, selectedServer)
-				if (currentServer) {
-					onSelectServer(currentServer)
-				} else {
-					onSelectServer(data[0])
-				}
-			}
-		} catch (e) {
-			alert("Error loading servers... " + e)
-		}
-	}
 
     useEffect(() => {
         getData()

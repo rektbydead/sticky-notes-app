@@ -3,8 +3,9 @@ import mdiBroom from "../../assets/icon/mdiBroom.svg"
 import "../../assets/css/Menu.css"
 
 import {useEffect, useRef} from "react";
+import {kickUser} from "../../services/ServerService.js";
 
-export default function ServerUserMenu({ isOpen, onClose, triggerRef }) {
+export default function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetchServers }) {
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -32,20 +33,23 @@ export default function ServerUserMenu({ isOpen, onClose, triggerRef }) {
             <div
                 style={styles.menuItem}
                 className="menu-item"
-                onClick={(e) => {
+                onClick={async (e) => {
                     e.stopPropagation();
                     console.log("ban user logic")
+					await kickUser(serverId, userId)
+					await refetchServers()
                 }}
             >
                 <img src={mdiCancel} alt="Ban" style={styles.menuItemIcon} />
-                <span>Ban user</span>
+                <span>Kick user</span>
             </div>
             <div
                 style={styles.menuItem}
                 className="menu-item"
-                onClick={(e) => {
+                onClick={async (e) => {
                     e.stopPropagation();
                     console.log("clear all notes logic")
+					await refetchServers()
                 }}
             >
                 <img src={mdiBroom} alt="Clear" style={styles.menuItemIcon} />
