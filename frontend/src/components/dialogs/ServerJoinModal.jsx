@@ -125,8 +125,8 @@ const styles = {
 		fontSize: '14px',
 		fontWeight: '500',
 		color: '#374151',
-		border: '1px solid #f1f2f3',
-		backgroundColor: 'transparent',
+		backgroundColor: '#f3f4f6',
+		border: 'none',
 		borderRadius: '6px',
 		cursor: 'pointer'
 	},

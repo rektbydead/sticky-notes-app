@@ -104,6 +104,8 @@ const styles = {
 		cursor: 'pointer'
 	},
 	submitButton: {
+		display: 'flex',
+		flexDirection: 'row',
 		padding: '10px 16px',
 		fontSize: '14px',
 		fontWeight: '500',

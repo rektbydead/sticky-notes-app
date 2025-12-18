@@ -47,6 +47,7 @@ export default function ChangePasswordDialog ({ isOpen, onClose, children, maxWi
 						<label style={styles.label}>Current Password</label>
 						<input
 							type="password"
+							placeholder={"Current Password ..."}
 							value={oldPassword}
 							onChange={(e) => setOldPassword(e.target.value)}
 							style={styles.input}
@@ -57,6 +58,7 @@ export default function ChangePasswordDialog ({ isOpen, onClose, children, maxWi
 						<label style={styles.label}>New Password</label>
 						<input
 							type="password"
+							placeholder={"New Password ..."}
 							value={newPassword}
 							onChange={(e) => setNewPassword(e.target.value)}
 							style={styles.input}
@@ -67,6 +69,7 @@ export default function ChangePasswordDialog ({ isOpen, onClose, children, maxWi
 						<label style={styles.label}>Confirm New Password</label>
 						<input
 							type="password"
+							placeholder={"Confirm New Password ..."}
 							value={confirmPassword}
 							onChange={(e) => setConfirmPassword(e.target.value)}
 							style={styles.input}
@@ -111,7 +114,7 @@ const styles = {
 		fontSize: '14px',
 		border: '1px solid #d1d5db',
 		borderRadius: '6px',
-		backgroundColor: '#f9fafb',
+		backgroundColor: 'white',
 		boxSizing: 'border-box',
 		outline: 'none',
 		color: "black"
@@ -123,11 +126,11 @@ const styles = {
 	},
 	footer: {
 		display: 'flex',
+		justifyContent: 'end',
 		gap: '12px',
 		marginTop: '20px',
 	},
 	cancelButton: {
-		flex: 1,
 		padding: '10px 16px',
 		fontSize: '14px',
 		fontWeight: '500',
@@ -138,7 +141,8 @@ const styles = {
 		cursor: 'pointer'
 	},
 	submitButton: {
-		flex: 1,
+		display: 'flex',
+		flexDirection: 'row',
 		padding: '10px 16px',
 		fontSize: '14px',
 		fontWeight: '500',
