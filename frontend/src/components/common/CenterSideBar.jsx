@@ -8,9 +8,12 @@ import animatedLoadingSvg from "../../assets/icon/animatedLoadingSvg.svg"
 import RightSideBar from "./RightSideBar.jsx";
 import {getNotesByCategory} from "../../services/NoteService.js";
 import ServerDisplayer from "../ServerDisplayer.jsx";
+import UpdateNoteModal from "../dialogs/UpdateNoteModal.jsx";
+import CreateNoteModal from "../dialogs/CreateNoteModal.jsx";
 
-export default function CenterSideBar({title, server, notes, refetchNotes, refetchServers}) {
-    const [searchValue, setSearchValue] = useState("")
+export default function CenterSideBar({title, server, category, notes, refetchNotes, refetchServers}) {
+	const [openCreateNoteModal, setOpenCreateNoteModal] = useState(false)
+	const [searchValue, setSearchValue] = useState("")
     const [now, setNow] = useState(Date.now())
 
     /* note filtering example for future*/
@@ -28,48 +31,74 @@ export default function CenterSideBar({title, server, notes, refetchNotes, refet
     }, []);
 
     return (
-        <div style={styles.sidebar}>
-            <div style={styles.sidebarTop}>
-                <span style={styles.sidebarTopTitle}> {title} </span>
+		<>
+			{ openCreateNoteModal &&
+				<>
+					<CreateNoteModal
+						isOpen={openCreateNoteModal}
+						onClose={() => setOpenCreateNoteModal(false)}
+						server={server}
+						category={category}
+						onAction={refetchNotes}
+					/>
+				</>
+			}
 
-                <div style={styles.sidebarTopCreateButton}>
-                    <NoteSearchBox onSearch={setSearchValue}/>
-                    <CreateNewNoteButton/>
-                </div>
-            </div>
+			<div style={styles.sidebar}>
+				<div style={styles.sidebarTop}>
+					<span style={styles.sidebarTopTitle}> {title} </span>
 
-            <div style={styles.sidebarBottom}>
-                <div style={styles.sideBarBottomContainer}>
+					<div style={styles.sidebarTopCreateButton}>
+						<CreateNewNoteButton
+							server={server}
+							category={category}
+							onAction={refetchNotes}
+							onClick={() => {
+								setOpenCreateNoteModal(true)
+							}}
+						/>
+						<NoteSearchBox onSearch={setSearchValue}/>
+					</div>
+				</div>
 
-                        {notes !== null ? (
-                            <>
-                                <div style={styles.notes}>
-                                    {filteredNotes.map(note => (
-                                        <Note
-                                            key={note._id}
-                                            note={note}
-                                            onAction={() => {
-                                                refetchNotes()
-                                            }}
-                                        />
-                                    ))}
-                                    <CreateNewNoteNote/>
-                                </div>
-                            </>
-                        ) :
-                            <div style={styles.loadingContainer}>
-                                Loading...
-                                <img src={animatedLoadingSvg} style={styles.loadingIcon} alt="loading image" />
-                            </div>
-                        }
-                </div>
+				<div style={styles.sidebarBottom}>
+					<div style={styles.sideBarBottomContainer}>
 
-                {
-                    server?.is_personal === false &&
-					<RightSideBar style={styles.rightSidebar} refetchServers={refetchServers} title={"Server members"} users={server?.joined_users} owner={server?.server_creator} serverId={server._id}/>
-                }
-            </div>
-        </div>
+							{notes !== null ? (
+								<>
+									<div style={styles.notes}>
+										{filteredNotes.map(note => (
+											<Note
+												key={note._id}
+												note={note}
+												category={category}
+												onAction={() => {
+													refetchNotes()
+												}}
+											/>
+										))}
+										<CreateNewNoteNote
+											onClick={() => {
+												setOpenCreateNoteModal(true)
+											}}
+										/>
+									</div>
+								</>
+							) :
+								<div style={styles.loadingContainer}>
+									Loading...
+									<img src={animatedLoadingSvg} style={styles.loadingIcon} alt="loading image" />
+								</div>
+							}
+					</div>
+
+					{
+						server?.is_personal === false &&
+						<RightSideBar style={styles.rightSidebar} refetchServers={refetchServers} title={"Server members"} users={server?.joined_users} owner={server?.server_creator} serverId={server._id}/>
+					}
+				</div>
+			</div>
+		</>
     )
 }
 

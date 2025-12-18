@@ -6,11 +6,13 @@ import mdiArchiveOff from "../assets/icon/mdiArchiveOff.svg";
 import {useEffect, useState} from "react";
 import {archiveNote, unarchiveNote} from "../services/NoteService.js";
 import DeleteNoteModal from "./dialogs/DeleteNoteModal.jsx";
+import UpdateNoteModal from "./dialogs/UpdateNoteModal.jsx";
 
 
-export default function Note({note, onAction, showIcons=true}) {
+export default function Note({note, category, onAction, showIcons=true}) {
     const [now, setNow] = useState(Date.now())
     const [open, setOpen] = useState(false)
+	const [openUpdateNoteModal, setOpenUpdateNoteModal] = useState(false)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -55,11 +57,21 @@ export default function Note({note, onAction, showIcons=true}) {
 
     return (
         <>
+			{ openUpdateNoteModal &&
+				<UpdateNoteModal
+					note={note}
+					category={category}
+					isOpen={openUpdateNoteModal}
+					onClose={() => setOpenUpdateNoteModal(false)}
+					onAction={onAction}
+				/>
+			}
+
             { open &&
                 <DeleteNoteModal isOpen={open} onClose={() => setOpen(false)} note={note} onDelete={onAction}/>
             }
 
-            <div style={styles.card} className="clickable-icon">
+            <div style={styles.card} className="clickable-icon" onClick={() => setOpenUpdateNoteModal(true)}>
                 <div style={styles.header}>
                     <h3 style={styles.title}>{note.title}</h3>
 

@@ -55,6 +55,7 @@ export default function StickyNotePage() {
                 title={title}
                 notes={notes}
                 server={selectedServer}
+				category={selectedCategory}
                 refetchNotes={getNotes}
 				refetchServers={getServersData}
             />
