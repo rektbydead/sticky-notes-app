@@ -127,7 +127,7 @@ const styles = {
         borderBottom: "1px solid var(--border-color)",
         backgroundColor: "var(--outside-color)",
         padding: "0.5rem 1rem",
-        gap: "30%",
+        gap: "5rem",
 
         color: "#1f2937",
         lineHeight: "1.50",
