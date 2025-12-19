@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { register } from '../services/AuthenticationService.js'
 import {useNavigation} from "../context/NavigateContext.jsx";
+import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('')
@@ -11,6 +12,7 @@ export default function RegisterPage() {
     const [error, setError] = useState(null)
 
     const { navigate } = useNavigation()
+	const { checkAuth } = useAuthentication()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -24,7 +26,8 @@ export default function RegisterPage() {
         setLoading(true)
         try {
             const data =  await register(name, email, password)
-            navigate('stick-notes', data.user, '/stick-notes')
+			await checkAuth()
+            navigate('stick-notes', data, '/stick-notes')
         } catch (err) {
             setError(err.message)
         } finally {
