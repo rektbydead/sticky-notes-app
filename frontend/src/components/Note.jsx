@@ -57,7 +57,7 @@ export default function Note({note, category, onAction, showIcons=true}) {
 
     return (
         <>
-			{ openUpdateNoteModal &&
+			{ openUpdateNoteModal && note.is_archived === false &&
 				<UpdateNoteModal
 					note={note}
 					category={category}
@@ -71,12 +71,15 @@ export default function Note({note, category, onAction, showIcons=true}) {
                 <DeleteNoteModal isOpen={open} onClose={() => setOpen(false)} note={note} onDelete={onAction}/>
             }
 
-            <div style={styles.card} className="clickable-icon" onClick={() => setOpenUpdateNoteModal(true)}>
+            <div style={styles.card} className="clickable-icon" onClick={(e) => {
+				if (e.target.closest('.action-icon')) return
+				setOpenUpdateNoteModal(true)
+			}}>
                 <div style={styles.header}>
                     <h3 style={styles.title}>{note.title}</h3>
 
                     { showIcons &&
-                        <div style={styles.actions}>
+                        <div style={styles.actions} className="action-icon">
                             <img
                                 src={note.is_archived ? mdiArchiveOff : mdiArchive}
                                 alt={note.is_archived ? "Unarchive" : "Archive"}
