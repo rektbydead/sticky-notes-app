@@ -6,7 +6,7 @@ import {useMemo} from "react";
 import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 import PersonalServerCreateModal from "../dialogs/PersonalServerCreateModal.jsx";
 
-export default function RightSideBar({title, users, owner, serverId, refetchServers}) {
+export default function RightSideBar({title, users, owner, serverId, refetchServers, refetchNotes}) {
 	const { user } = useAuthentication()
 
     const sortedUsers = useMemo(() => {
@@ -39,6 +39,7 @@ export default function RightSideBar({title, users, owner, serverId, refetchServ
 									onClose={onClose}
 									triggerRef={triggerRef}
 									refetchServers={refetchServers}
+									refetchNotes={refetchNotes}
 									serverId={serverId}
 									userId={user_to_display._id}
 								/>

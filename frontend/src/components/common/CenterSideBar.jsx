@@ -94,7 +94,15 @@ export default function CenterSideBar({title, server, category, notes, refetchNo
 
 					{
 						server?.is_personal === false &&
-						<RightSideBar style={styles.rightSidebar} refetchServers={refetchServers} title={"Server members"} users={server?.joined_users} owner={server?.server_creator} serverId={server._id}/>
+						<RightSideBar
+							style={styles.rightSidebar}
+							refetchServers={refetchServers}
+							refetchNotes={refetchNotes}
+							title={"Server members"}
+							users={server?.joined_users}
+							owner={server?.server_creator}
+							serverId={server._id}
+						/>
 					}
 				</div>
 			</div>

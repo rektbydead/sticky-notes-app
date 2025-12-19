@@ -43,3 +43,9 @@ export async function kickUser(serverId, userId) {
         method: 'DELETE',
     })
 }
+
+export async function deleteUserNotesInServer(serverId, userId) {
+	return await apiFetch(`/api/server/${serverId}/users/${userId}/notes`, {
+		method: 'DELETE',
+	})
+}

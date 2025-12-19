@@ -3,9 +3,9 @@ import mdiBroom from "../../assets/icon/mdiBroom.svg"
 import "../../assets/css/Menu.css"
 
 import {useEffect, useRef} from "react";
-import {kickUser} from "../../services/ServerService.js";
+import {deleteUserNotesInServer, kickUser} from "../../services/ServerService.js";
 
-export default function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetchServers }) {
+export default function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetchServers, refetchNotes }) {
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -49,7 +49,8 @@ export default function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, 
                 onClick={async (e) => {
                     e.stopPropagation();
                     console.log("clear all notes logic")
-					await refetchServers()
+					await deleteUserNotesInServer(serverId, userId)
+					await refetchNotes()
                 }}
             >
                 <img src={mdiBroom} alt="Clear" style={styles.menuItemIcon} />
