@@ -5,9 +5,9 @@
 }
 
 .server-container:hover {
-    background-color: #f3f4f6;
+    background-color: var(--hover-color);
 }
 
 .server-container.selected {
-    background-color: #e5e7eb;
+    background-color: var(--hover-color);
 }
