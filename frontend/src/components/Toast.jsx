@@ -11,10 +11,10 @@ export default function Toast({ message, onClose }) {
         const timeout = setTimeout(() => {
             setVisible(false)
             setTimeout(onClose, 300)
-        }, 3000)
+        }, 1500)
 
         return () => clearTimeout(timeout);
-    }, [onClose])
+    }, [])
 
     return (
         <div

@@ -32,6 +32,15 @@ const serverSchema = new mongoose.Schema({
     }
 })
 
+serverSchema.virtual('categories', {
+    ref: 'Category',
+    localField: '_id',
+    foreignField: 'server_it_belongs'
+})
+
+serverSchema.set('toJSON', { virtuals: true })
+serverSchema.set('toObject', { virtuals: true })
+
 serverSchema.pre('save', async function (next) {
     if (this.isModified('password') && this.password) {
         this.password = await bcrypt.hash(this.password, 10)

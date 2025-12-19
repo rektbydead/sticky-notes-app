@@ -3,9 +3,9 @@ import "../assets/css/CreateNewNoteNote.css"
 import "../assets/css/ClickableIcon.css"
 
 
-export default function CreateNewNoteNote() {
+export default function CreateNewNoteNote({ onClick }) {
     return (
-        <div style={styles.card} className="create-card clickable-icon">
+        <div style={styles.card} className="create-card clickable-icon" onClick={onClick}>
             <img
                 style={styles.icon}
                 src={mdiPlus}

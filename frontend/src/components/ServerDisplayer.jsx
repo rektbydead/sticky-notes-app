@@ -1,40 +1,56 @@
 import mdiTrash from "../assets/icon/mdiTrash.svg"
 import "../assets/css/ClickableIcon.css"
 import "../assets/css/ServerDisplayer.css"
+import {useState} from "react";
+import DeleteServerModal from "./dialogs/DeleteServerModal.jsx";
 
-export default function ServerDisplayer({title, isSelected, isOwner, onClick}) {
+export default function ServerDisplayer({title, isSelected, isOwner, onClick, server, onDelete}) {
     const firstLetter = title?.trim()?.charAt(0)?.toUpperCase() || "";
+	const [open, setOpen] = useState(false);
 
     return (
-        <div style={styles.container}
-             className={`server-container ${isSelected ? "selected" : ""}`}
-             onClick={onClick}
-        >
-            <div style={styles.titleContainer}>
-                <div style={{...styles.avatar, background: isOwner ? "#3b82f6" : "#22c55e"}}>
-                    {firstLetter}
-                </div>
+		<>
+			{ open &&
+				<DeleteServerModal
+					isOpen={open}
+					onClose={() => setOpen(false)}
+					isSelected={isSelected}
+					server={server}
+					onDelete={onDelete}
+				/>
+			}
 
-                <div style={styles.title}>
-                    {title}
-                </div>
-            </div>
+			<div style={styles.container}
+				 className={`server-container ${isSelected ? "selected" : ""}`}
+				 onClick={onClick}
+			>
+				<div style={styles.titleContainer}>
+					<div style={{...styles.avatar, background: isOwner ? "#3b82f6" : "#22c55e"}}>
+						{firstLetter}
+					</div>
 
-            {isOwner ?
-                (<div style={styles.trash}>
-                    <img
-                        src={mdiTrash}
-                        alt="Trash"
-                        className="clickable-icon"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            console.log("Trash clicked!");
-                        }}
-                    />
-                </div>)
-                : null
-            }
-        </div>
+					<div style={styles.title}>
+						{title}
+					</div>
+				</div>
+
+				{isOwner ?
+					(<div style={styles.trash}>
+						<img
+							src={mdiTrash}
+							alt="Trash"
+							className="clickable-icon"
+							onClick={(e) => {
+								e.stopPropagation();
+								setOpen(true);
+								console.log("Trash clicked!");
+							}}
+						/>
+					</div>)
+					: null
+				}
+			</div>
+		</>
     )
 }
 

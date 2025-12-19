@@ -10,72 +10,167 @@ import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
 import ServerUserMenu from "../menus/ServerUserMenu.jsx";
 import ServerCategoryMenu from "../menus/ServerCategoryMenu.jsx";
 import PersonalCategoryMenu from "../menus/PersonalCategoryMenu.jsx";
+import {useEffect, useState} from "react";
+import {getServers} from "../../services/ServerService.js";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
+import PersonalServerCreateModal from "../dialogs/PersonalServerCreateModal.jsx";
+import ServerCreateModal from "../dialogs/ServerCreateModal.jsx";
+import ServerJoinModal from "../dialogs/ServerJoinModal.jsx";
+import CategoryCreateModal from "../dialogs/CategoryCreateModal.jsx";
 
-export default function LeftSideBar({title}) {
+export default function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer, onSelectServer, serverList, getData}) {
+    const { user } = useAuthentication()
+
+	const [serverCreateModelOpen, setServerCreateModelOpen] = useState(false);
+	const [joinServerModelOpen, setJoinServerModelOpen] = useState(false);
+
+    useEffect(() => {
+        getData()
+    }, []);
+
+    useEffect(() => {
+        if (selectedServer === null) return
+        onSelectCategory(selectedServer?.categories.find(category => category.name.toLowerCase() === "general") ?? null)
+    }, [selectedServer])
+
+    const personalServers = serverList.filter(server => server.is_personal)
+    const communityServers = serverList.filter(server => !server.is_personal)
+
+    const generalCategory = selectedServer?.categories.find(category => category.name.toLowerCase() === "general")
+    const archivedCategory = selectedServer?.categories.find(category => category.name.toLowerCase() === "archived")
+
+    const otherCategories = selectedServer?.categories.filter(category => !category.is_default)
+
     return (
-        <div style={styles.sidebar}>
-            <div style={styles.sidebarTop}>
-                <img style={styles.sidebarTopIcon}
-                    src="../../../public/pageIcon.png"
-                    alt="Icon"
-                />
+		<>
+			{ serverCreateModelOpen &&
+				<ServerCreateModal isOpen={serverCreateModelOpen} onClose={() => setServerCreateModelOpen(false)} onServerCreated={getData} />
+			}
 
-                <span> { title } </span>
-            </div>
+			{ joinServerModelOpen &&
+				<ServerJoinModal isOpen={joinServerModelOpen} onClose={() => setJoinServerModelOpen(false)} onServerCreated={getData} />
+			}
 
-            <div style={styles.sidebarBottom}>
+			<div style={styles.sidebar}>
+				<div style={styles.sidebarTop}>
+					<img style={styles.sidebarTopIcon}
+						src="../../../public/pageIcon.png"
+						alt="Icon"
+					/>
 
-                <div style={styles.serverCategory}>
-                    <ServerCategoryBar
-                        categoryName={"Personal"}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <PersonalCategoryMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
-                        )}
-                    />
+					<span> { title } </span>
+				</div>
 
-                    <div style={styles.serverCategoryList}>
-                        <ServerDisplayer title={"Kids"} isOwner={true}/>
-                        <ServerDisplayer title={"Car"} isOwner={true} />
-                    </div>
-                </div>
+				<div style={styles.sidebarBottom}>
 
-                <div style={styles.serverCategory}>
-                    <ServerCategoryBar
-                        categoryName={"Server"}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <ServerCategoryMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
-                        )}
-                    />
+					<div style={styles.serverCategory}>
+						<ServerCategoryBar
+							categoryName={"Personal"}
+							menuComponent={(isOpen, onClose, triggerRef) => (
+								<PersonalServerCreateModal isOpen={isOpen} onClose={onClose} onServerCreated={getData}/>
+							)}
+						/>
 
-                    <div style={styles.serverCategoryList}>
-                        <ServerDisplayer title={"Familia"} isOwner={true} isSelected={true}/>
-                        <ServerDisplayer title={"Parkour Coimbra"} />
-                    </div>
-                </div>
+						<div style={styles.serverCategoryList}>
+							{personalServers.length > 0
+								? personalServers.map(server => (
+                                    <ServerDisplayer
+										key={server._id}
+										title={server.name}
+										isOwner={true}
+										isSelected={selectedServer?._id === server._id}
+										onClick={() => onSelectServer(server)}
+										server={server}
+										onDelete={getData}
+									/>
+								))
+								: <span style={styles.dontHave}> You do not have personal spaces. </span>
+							}
+						</div>
+					</div>
 
-                <div style={styles.serverCategory}>
-                    <ServerCategoryBar categoryName={"Categories"}/>
+					<div style={styles.serverCategory}>
+						<ServerCategoryBar
+							categoryName={"Server"}
+							menuComponent={(isOpen, onClose, triggerRef) => (
+								<ServerCategoryMenu
+									isOpen={isOpen}
+									onClose={onClose}
+									setServerCreateModelOpen={setServerCreateModelOpen}
+									setJoinServerModelOpen={setJoinServerModelOpen}
+								/>
+							)}
+						/>
 
-                    <div style={styles.serverCategoryList}>
-                        <CategoryDisplayer title={"General"} icon={mdiNote}/>
-                        <CategoryDisplayer title={"Archived"} icon={mdiArchive}/>
-                        <CategoryDisplayer title={"Projeto 1"} icon={mdiMenu} isOwner={true}/>
-                        <CategoryDisplayer title={"Projeto 2"} icon={mdiMenu} isOwner={true}/>
-                    </div>
-                </div>
-            </div>
+						<div style={styles.serverCategoryList}>
+							{communityServers.length > 0
+								? communityServers.map(server => (
+									<ServerDisplayer
+										key={server._id}
+										title={server.name}
+										isOwner={server.server_creator._id === user._id}
+										isSelected={selectedServer?._id === server._id}
+										onClick={() => onSelectServer(server)}
+										server={server}
+										onDelete={getData}
+									/>
+								))
+								: <span style={styles.dontHave}> You do not belong to any servers. </span>
+							}
+						</div>
+					</div>
 
-            <div style={styles.userDisplayer}>
-                <UserDisplayer
-                    name={"Ruben Lousada"}
-                    description={"rlousada123456@gmail.com"}
-                    isOwner={true}
-                    menuComponent={(isOpen, onClose, triggerRef) => (
-                        <LoggedUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
-                    )}
-                />
-            </div>
-        </div>
+					<div style={styles.serverCategory}>
+						<ServerCategoryBar
+							categoryName={"Categories"}
+							menuComponent={(isOpen, onClose, triggerRef) => (
+								<CategoryCreateModal
+									isOpen={isOpen}
+									onClose={onClose}
+									serverId={selectedServer?._id}
+									onCategoryCreated={getData}
+								/>
+							)}
+						/>
+
+						<div style={styles.serverCategoryList}>
+							{ selectedServer &&
+								<CategoryDisplayer category={generalCategory} icon={mdiNote} onClick={() => onSelectCategory(generalCategory)} isSelected={selectedCategory?._id === generalCategory._id}/>
+							}
+
+							{ selectedServer &&
+								<CategoryDisplayer category={archivedCategory} icon={mdiArchive} onClick={() => onSelectCategory(archivedCategory)} isSelected={selectedCategory?._id === archivedCategory._id}/>
+							}
+
+							{
+								otherCategories?.map(category => (
+									<CategoryDisplayer
+										category={category}
+										key={category._id}
+										icon={mdiMenu}
+										onClick={() => onSelectCategory(category)}
+										isOwner={selectedServer.server_creator._id === user._id}
+										isSelected={selectedCategory?._id === category._id}
+										onDelete={getData}
+									/>
+								))
+							}
+						</div>
+					</div>
+				</div>
+
+				<div style={styles.userDisplayer}>
+					<UserDisplayer
+						name={user.name}
+						description={user.email}
+						isOwner={true}
+						menuComponent={(isOpen, onClose, triggerRef) => (
+							<LoggedUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
+						)}
+					/>
+				</div>
+			</div>
+		</>
     )
 }
 
@@ -83,7 +178,7 @@ const styles = {
     sidebar: {
         display: "flex",
         flexDirection: "column",
-        "min-width": "250px",
+        minWidth: "250px",
         borderRight: "1px solid var(--border-color)",
         color: "black",
         backgroundColor: "var(--outside-color)",
@@ -138,5 +233,8 @@ const styles = {
         alignItems: "center",
         minHeight: "60px",
         maxHeight: "60px"
+    },
+    dontHave: {
+        textAlign: "center"
     }
 }

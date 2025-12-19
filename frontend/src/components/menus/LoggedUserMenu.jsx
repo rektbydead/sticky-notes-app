@@ -2,12 +2,20 @@ import mdiKey from "../../assets/icon/mdiKey.svg"
 import mdiLogout from "../../assets/icon/mdiLogout.svg"
 import "../../assets/css/Menu.css"
 
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
+import {logout} from "../../services/AuthenticationService.js";
+import {useNavigation} from "../../context/NavigateContext.jsx";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
+import ChangePasswordDialog from "../dialogs/ChangePasswordModal.jsx";
 
 export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
-    const menuRef = useRef(null);
+    const menuRef = useRef(null)
+    const { navigate } = useNavigation()
+    const { checkAuth } = useAuthentication()
 
-    useEffect(() => {
+	const [isChangePasswordModalOpen, setIsChangePasswordModal] = useState(false)
+
+	useEffect(() => {
         function handleClickOutside(event) {
             // Check if click is outside both menu and trigger button
             if (menuRef.current && !menuRef.current.contains(event.target) &&
@@ -34,7 +42,7 @@ export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
                 className="menu-item"
                 onClick={(e) => {
                     e.stopPropagation();
-                    console.log("open change password menu logic")
+					setIsChangePasswordModal(true)
                 }}
             >
                 <img src={mdiKey} alt="Key" style={styles.menuItemIcon} />
@@ -43,16 +51,21 @@ export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
             <div
                 style={styles.menuItem}
                 className="menu-item"
-                onClick={(e) => {
-                    e.stopPropagation();
+                onClick={async (e) => {
+                    e.stopPropagation()
+                    await logout()
+                    await checkAuth()
+                    navigate('login', null, '/login')
                     console.log("logout logic")
                 }}
             >
                 <img src={mdiLogout} alt="Logout" style={styles.menuItemIcon} />
                 <span>Logout</span>
             </div>
+
+			<ChangePasswordDialog isOpen={isChangePasswordModalOpen} onClose={() => setIsChangePasswordModal(false)} />
         </div>
-    );
+    )
 }
 
 const styles = {

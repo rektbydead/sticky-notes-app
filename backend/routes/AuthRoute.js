@@ -1,5 +1,8 @@
 const express = require('express')
 const User = require('../models/User')
+const Server = require('../models/Server')
+const Category = require('../models/Category')
+const Note = require('../models/Note')
 const isAuthenticated = require('../AuthenticationMiddleware')
 
 const router = express.Router()
@@ -16,6 +19,31 @@ router.post('/register/', async (req, res) => {
         const user = new User({ name, email, password })
         await user.save()
 
+        const firstServer = new Server({
+            name: 'My Personal Server',
+            is_personal: true,
+            server_creator: user._id,
+            joined_users: [user._id]
+        })
+        await firstServer.save()
+
+        const categories = await Category.create([
+            { name: 'General', server_it_belongs: firstServer._id, is_default: true },
+            { name: 'Archived', server_it_belongs: firstServer._id, is_default: true }
+        ])
+
+        const generalCategory = categories.find(
+            category => category.name.toLowerCase() === 'general'
+        )
+
+        await Note.create({
+            title: 'Welcome 👋',
+            content: 'This is your first note. Start writing!',
+            note_creator: user._id,
+            server_it_belongs: firstServer._id,
+            category_it_belongs: generalCategory._id
+        })
+
         req.session.userId = user._id
 
         res.status(201).json({
@@ -24,6 +52,18 @@ router.post('/register/', async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
+})
+
+router.get('/me/', async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ authenticated: false })
+    }
+
+	const user = await User.findOne({
+		_id: req.session.userId
+	})
+
+    res.json({ authenticated: true, user: user})
 })
 
 router.post('/login/', async (req, res) => {
@@ -65,7 +105,9 @@ router.put('/change-password/', isAuthenticated, async (req, res) => {
     try {
         const { currentPassword, newPassword } = req.body;
 
-        const user = await User.findById(req.userId);
+		const user = await User.findById({
+			_id: req.session.userId
+		})
 
         if (!user.password) {
             return res.status(400).json({ error: 'OAuth users cannot change password' })

@@ -3,10 +3,10 @@ import "../assets/css/ClickableIcon.css"
 import "../assets/css/CreateNewNoteButton.css"
 
 
-export default function CreateNewNoteButton() {
+export default function CreateNewNoteButton({ onClick }) {
 
     return (
-        <button style={styles.button} className="create-note-button" data-tooltip="Create new note">
+        <button style={styles.button} className="create-note-button" data-tooltip="Create new note" onClick={onClick}>
             <img
                 style={styles.icon}
                 src={mdiPlus}

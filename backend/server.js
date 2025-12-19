@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo')
 const authRoute = require('./routes/AuthRoute')
 const categoryRoute = require('./routes/CategoryRoute')
 const noteRoute = require('./routes/NoteRoute')
-const serverRoute = require('./routes/serverRoute')
+const serverRoute = require('./routes/ServerRoute')
 
 const app = express()
 
@@ -35,7 +35,7 @@ app.use(session({
     cookie: {
         maxAge: 14 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: 'lax'
     }
 }))

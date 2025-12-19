@@ -35,7 +35,14 @@ router.get('/', isAuthenticated, async (req, res) => {
     try {
         const servers = await Server.find({
             joined_users: req.session.userId
-        }).populate('server_creator', 'name email')
+        })
+            .populate('server_creator', 'name email')
+            .populate({
+                path: 'categories',
+                select: '_id name is_default -server_it_belongs',
+                options: { sort: { is_default: -1, created_at: 1 } }
+            })
+            .populate('joined_users', 'name email')
 
         res.json(servers)
     } catch (error) {
@@ -62,6 +69,32 @@ router.get('/:serverId', isAuthenticated, async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 })
+
+router.delete('/:serverId/users/:userId/notes', isAuthenticated, async (req, res) => {
+	try {
+		const server = await Server.findById(req.params.serverId);
+
+		if (!server) {
+			return res.status(404).json({ error: 'Server not found' })
+		}
+
+		if (!server.server_creator.equals(req.session.userId)) {
+			return res.status(403).json({ error: 'Only server owner can delete user notes' })
+		}
+
+		const result = await Note.deleteMany({
+			server_it_belongs: req.params.serverId,
+			note_creator: req.params.userId
+		})
+
+		res.json({
+			message: 'User notes deleted successfully',
+			deletedCount: result.deletedCount
+		})
+	} catch (error) {
+		res.status(400).json({ error: error.message })
+	}
+});
 
 router.post('/:serverId/join', isAuthenticated, async (req, res) => {
     try {
@@ -108,7 +141,7 @@ router.delete('/:serverId', isAuthenticated, async (req, res) => {
 
         await Note.deleteMany({server_it_belongs: server._id})
         await Category.deleteMany({server_it_belongs: server._id})
-        await Server.findByIdAndDelete(req.params.id)
+        await Server.findByIdAndDelete(req.params.serverId)
 
         res.json({message: 'Server deleted successfully'})
     } catch (error) {

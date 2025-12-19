@@ -135,7 +135,8 @@ router.post('/:noteId/archive/', isAuthenticated, async (req, res) => {
 
         const archivedCategory = await Category.findOne({
             server_it_belongs: note.server_it_belongs,
-            name: 'Archived'
+            name: 'Archived',
+			is_default: true
         })
 
         note.category_it_belongs = archivedCategory._id
@@ -146,6 +147,40 @@ router.post('/:noteId/archive/', isAuthenticated, async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
+})
+
+router.post('/:noteId/unarchive/', isAuthenticated, async (req, res) => {
+	try {
+		const note = await Note.findById(req.params.noteId)
+
+		if (!note) {
+			return res.status(404).json({ error: 'Note not found' })
+		}
+
+		const server = await Server.findById(note.server_it_belongs)
+
+		// Check permissions: server owner can unarchive any note, note creator can unarchive their own
+		const isOwner = server.server_creator.equals(req.session.userId)
+		const isCreator = note.note_creator.equals(req.session.userId)
+
+		if (!isOwner && !isCreator) {
+			return res.status(403).json({ error: 'Access denied' })
+		}
+
+		const generalCategory = await Category.findOne({
+			server_it_belongs: note.server_it_belongs,
+			is_default: true,
+			name: { $ne: 'Archived' }
+		})
+
+		note.category_it_belongs = generalCategory._id
+		note.is_archived = false
+		await note.save()
+
+		res.json(note)
+	} catch (error) {
+		res.status(400).json({ error: error.message })
+	}
 })
 
 router.delete('/:noteId/', isAuthenticated, async (req, res) => {
@@ -166,7 +201,7 @@ router.delete('/:noteId/', isAuthenticated, async (req, res) => {
             return res.status(403).json({ error: 'Access denied' })
         }
 
-        await Note.findByIdAndDelete(req.params.id)
+        await Note.findByIdAndDelete(req.params.noteId)
 
         res.json({message: 'Note deleted successfully'})
     } catch (error) {

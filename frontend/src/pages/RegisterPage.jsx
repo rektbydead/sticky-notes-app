@@ -1,35 +1,40 @@
-import google from "../assets/icon/google.svg"
+import { useState } from 'react'
+import { register } from '../services/AuthenticationService.js'
 import {useNavigation} from "../context/NavigateContext.jsx";
-import {useState} from "react";
-import {getMe, login, register} from "../services/AuthenticationService.js";
 import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
-export default function LoginPage() {
-    const { navigate } = useNavigation()
-    const { checkAuth } = useAuthentication()
-
+export default function RegisterPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+
+    const { navigate } = useNavigation()
+	const { checkAuth } = useAuthentication()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError(null)
+
+        if (password !== confirmPassword) {
+            setError('Passwords do not match')
+            return
+        }
+
         setLoading(true)
-
         try {
-            const data = await login(email, password)
-            await checkAuth()
-            console.log("deu login", data)
-
-            navigate('stick-notes', {}, '/stick-notes')
-        } catch (e) {
-            setError("Login failed")
+            const data =  await register(name, email, password)
+			await checkAuth()
+            navigate('stick-notes', data, '/stick-notes')
+        } catch (err) {
+            setError(err.message)
         } finally {
             setLoading(false)
         }
     }
+
 
     return (
         <div style={styles.container}>
@@ -38,15 +43,25 @@ export default function LoginPage() {
                     <div style={styles.avatar}></div>
                 </div>
 
-                <h1 style={styles.title}>Welcome Back</h1>
-                <p style={styles.subtitle}>Please sign in to your account</p>
+                <h1 style={styles.title}>Registration</h1>
+                <p style={styles.subtitle}>Please register your account</p>
 
                 <form style={styles.form} onSubmit={handleSubmit}>
+                    <div style={styles.inputGroup}>
+                        <label style={styles.label}>Name</label>
+                        <input
+                            type="text"
+                            style={styles.input}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Email Address</label>
                         <input
                             type="email"
-                            placeholder="Enter your email"
                             style={styles.input}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -55,12 +70,23 @@ export default function LoginPage() {
                     </div>
 
                     <div style={styles.inputGroup}>
+                        <label style={styles.label}>Password</label>
                         <input
                             type="password"
-                            placeholder="Enter your password"
                             style={styles.input}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div style={styles.inputGroup}>
+                        <label style={styles.label}>Confirm Password</label>
+                        <input
+                            type="password"
+                            style={styles.input}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                         />
                     </div>
@@ -71,36 +97,17 @@ export default function LoginPage() {
                         </p>
                     )}
 
-                    <button
-                        type="submit"
-                        style={styles.submitButton}
-                        disabled={loading}
-                    >
-                        {loading ? 'Signing in...' : 'Sign In'}
+                    <button type="submit" style={styles.submitButton} disabled={loading}>
+                        {loading ? 'Registering...' : 'Register'}
                     </button>
                 </form>
 
-                <div style={styles.divider}>
-                    <span style={styles.dividerText}>Or continue with</span>
-                </div>
-
-                <button style={styles.socialButton}>
-                    <img src={google} alt="Google Icon" style={styles.icon} />
-                    Continue with Google
-                </button>
-
                 <p style={styles.footer}>
-                    Don't have an account?{' '}
-                    <a
-                        href="/register"
-                        style={styles.signupLink}
-                        onClick={(e) => {
-                            e.preventDefault()
-                            navigate('register', '/register')
-                        }}
-                    >
-                        Sign up
-                    </a>
+                    Already have an account?{' '}
+                    <a href="#" style={styles.signupLink} onClick={(e) => {
+                        e.preventDefault()
+                        navigate('login', null, '/login')
+                    }}>Login</a>
                 </p>
             </div>
         </div>

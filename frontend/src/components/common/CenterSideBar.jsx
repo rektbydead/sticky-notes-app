@@ -3,58 +3,110 @@ import Note from "../Note.jsx";
 import CreateNewNoteNote from "../CreateNewNoteNote.jsx";
 import CreateNewNoteButton from "../CreateNewNoteButton.jsx";
 import NoteSearchBox from "../NoteSearchBox.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import animatedLoadingSvg from "../../assets/icon/animatedLoadingSvg.svg"
 import RightSideBar from "./RightSideBar.jsx";
+import {getNotesByCategory} from "../../services/NoteService.js";
+import ServerDisplayer from "../ServerDisplayer.jsx";
+import UpdateNoteModal from "../dialogs/UpdateNoteModal.jsx";
+import CreateNoteModal from "../dialogs/CreateNoteModal.jsx";
 
-export default function CenterSideBar({title}) {
-    const [searchValue, setSearchValue] = useState("");
+export default function CenterSideBar({title, server, category, notes, refetchNotes, refetchServers}) {
+	const [openCreateNoteModal, setOpenCreateNoteModal] = useState(false)
+	const [searchValue, setSearchValue] = useState("")
+    const [now, setNow] = useState(Date.now())
 
     /* note filtering example for future*/
-     const filteredNotes = [].filter((note) =>
-        note.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-        note.message.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    const filteredNotes = notes?.filter((note) => searchValue.trim().length === 0
+        || note.title.toLowerCase().includes(searchValue.toLowerCase())
+        || note.content.toLowerCase().includes(searchValue.toLowerCase())
+    ) ?? []
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setNow(Date.now())
+        }, 1000)
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <div style={styles.sidebar}>
-            <div style={styles.sidebarTop}>
-                <span style={styles.sidebarTopTitle}> Work Server {">"} Important Category </span>
+		<>
+			{ openCreateNoteModal &&
+				<>
+					<CreateNoteModal
+						isOpen={openCreateNoteModal}
+						onClose={() => setOpenCreateNoteModal(false)}
+						server={server}
+						category={category}
+						onAction={refetchNotes}
+					/>
+				</>
+			}
 
-                <div style={styles.sidebarTopCreateButton}>
-                    <NoteSearchBox onSearch={setSearchValue}/>
-                    <CreateNewNoteButton/>
-                </div>
-            </div>
+			<div style={styles.sidebar}>
+				<div style={styles.sidebarTop}>
+					<span style={styles.sidebarTopTitle}> {title} </span>
 
-            <div style={styles.sidebarBottom}>
-                <div style={styles.sideBarBottomContainer}>
-                    <div style={styles.notes}>
-                        <Note message={"Afinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gayAfinal que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinuask dfhlkas dhjflkashj dfl;kash pkas dhjflkashj dfl;kas dhjflkashj dfl; kas dhjflkashj dfl;dkfgasdf ghdasfgh sdfh sdfh sdfhj sdr e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl; kas dhjflkashj dfl;  que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal qkas dhjfdhjflkashj dfl; ue nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkashj dfl; que nao ler e que gay"} title={"Shopping"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjaasdfe que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkasrfy yhsdfhshj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashj dfl;kas dhjflkashj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinj dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal j dfl; que nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
-                        <Note message={"AfiAfinal kas dhjflkashasdf sdfsadfg sdfh sdl;.k asdfhpl ashdf;klh sdfsad ;lfgjfhaspl dfghasjkl;dg hklajsdgh kljasdgh klj;asdgh kl;dgh kl;je nao ler e que gay"} title={"Quem ler esta merda e gay que fode"}/>
+					<div style={styles.sidebarTopCreateButton}>
+						<CreateNewNoteButton
+							server={server}
+							category={category}
+							onAction={refetchNotes}
+							onClick={() => {
+								setOpenCreateNoteModal(true)
+							}}
+						/>
+						<NoteSearchBox onSearch={setSearchValue}/>
+					</div>
+				</div>
 
-                        <CreateNewNoteNote/>
-                    </div>
-                </div>
+				<div style={styles.sidebarBottom}>
+					<div style={styles.sideBarBottomContainer}>
 
-                <RightSideBar style={styles.rightSidebar} title={"Server members"}/>
-            </div>
-        </div>
+							{notes !== null ? (
+								<>
+									<div style={styles.notes}>
+										{filteredNotes.map(note => (
+											<Note
+												key={note._id}
+												note={note}
+												category={category}
+												onAction={() => {
+													refetchNotes()
+												}}
+											/>
+										))}
+										<CreateNewNoteNote
+											onClick={() => {
+												setOpenCreateNoteModal(true)
+											}}
+										/>
+									</div>
+								</>
+							) :
+								<div style={styles.loadingContainer}>
+									Loading...
+									<img src={animatedLoadingSvg} style={styles.loadingIcon} alt="loading image" />
+								</div>
+							}
+					</div>
+
+					{
+						server?.is_personal === false &&
+						<RightSideBar
+							style={styles.rightSidebar}
+							refetchServers={refetchServers}
+							refetchNotes={refetchNotes}
+							title={"Server members"}
+							users={server?.joined_users}
+							owner={server?.server_creator}
+							serverId={server._id}
+						/>
+					}
+				</div>
+			</div>
+		</>
     )
 }
 
@@ -75,7 +127,7 @@ const styles = {
         borderBottom: "1px solid var(--border-color)",
         backgroundColor: "var(--outside-color)",
         padding: "0.5rem 1rem",
-        gap: "30%",
+        gap: "5rem",
 
         color: "#1f2937",
         lineHeight: "1.50",
@@ -107,7 +159,19 @@ const styles = {
     notes: {
         padding: "1rem",
         overflowY: "auto",
-        columnWidth: "200px",
+        columnWidth: "250px",
         columnGap: "0.5rem",
+    },
+    loadingContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "1rem",
+        width: "100%",
+        height: "100%",
+    },
+    loadingIcon: {
+        width: "50px",
     }
 }

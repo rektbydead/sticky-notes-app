@@ -4,11 +4,11 @@ import Toast from "./Toast.jsx";
 import "../assets/css/InviteMemberButton.css"
 
 
-export default function InviteMembersButton() {
+export default function InviteMembersButton({serverId}) {
     const [showToast, setShowToast] = useState(false)
 
     function handleClick() {
-        navigator.clipboard.writeText("Your invitation link here")
+        navigator.clipboard.writeText(serverId)
         setShowToast(true)
     }
 
@@ -17,7 +17,7 @@ export default function InviteMembersButton() {
         <>
             {showToast && (
                 <Toast
-                    message="The invitation has been copied to the clipboard!"
+                    message="The server id has been copied to the clipboard!"
                     onClose={() => setShowToast(false)}
                 />
             )}

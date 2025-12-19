@@ -12,7 +12,7 @@ async function main() {
 		width: 1920,
         height: 1080,
         minWidth: 1280,
-        minHeight: 500,
+        minHeight: 800,
 
 		titleBarOverlay: {
 		  symbolColor: '#FFF',

@@ -2,8 +2,21 @@ import UserDisplayer from "../UserDisplayer.jsx";
 import InviteMembersButton from "../InviteMemberButton.jsx";
 import LoggedUserMenu from "../menus/LoggedUserMenu.jsx";
 import ServerUserMenu from "../menus/ServerUserMenu.jsx";
+import {useMemo} from "react";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
+import PersonalServerCreateModal from "../dialogs/PersonalServerCreateModal.jsx";
 
-export default function RightSideBar({title}) {
+export default function RightSideBar({title, users, owner, serverId, refetchServers, refetchNotes}) {
+	const { user } = useAuthentication()
+
+    const sortedUsers = useMemo(() => {
+        return users?.sort((a, b) => {
+            if (a._id === owner?._id) return -1;
+            if (b._id === owner?._id) return 1;
+            return 0;
+        }) ?? []
+    }, [users, owner]);
+
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
@@ -13,44 +26,31 @@ export default function RightSideBar({title}) {
 
             <div style={styles.sidebarBottom}>
                 <div style={styles.serverCategory}>
-                    <UserDisplayer
-                        name={"Ruben Lousada"}
-                        description={true ? "Owner" : "Member"}
-                        isOwner={true}
-                        hasMenu={false}
-                    />
-
-                    <UserDisplayer
-                        name={"Judeus Martim"}
-                        description={false ? "Owner" : "Member"}
-                        isOwner={false}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef} />
-                        )}
-                    />
-
-                    <UserDisplayer
-                        name={"Merdeu Fodar"}
-                        description={false ? "Owner" : "Member"}
-                        isOwner={false}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
-                        )}
-                    />
-
-                    <UserDisplayer
-                        name={"Quem ler é gay"}
-                        description={false ? "Owner" : "Member"}
-                        isOwner={false}
-                        menuComponent={(isOpen, onClose, triggerRef) => (
-                            <ServerUserMenu isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}/>
-                        )}
-                    />
+                    { sortedUsers?.map(user_to_display =>
+                        <UserDisplayer
+                            name={user_to_display.name}
+							key={user_to_display._id}
+                            description={user_to_display._id === owner._id ? "Owner" : "Member"}
+                            isOwner={user_to_display._id === owner._id}
+                            hasMenu={user_to_display._id !== owner._id}
+							menuComponent={(isOpen, onClose, triggerRef) => (
+								<ServerUserMenu
+									isOpen={isOpen}
+									onClose={onClose}
+									triggerRef={triggerRef}
+									refetchServers={refetchServers}
+									refetchNotes={refetchNotes}
+									serverId={serverId}
+									userId={user_to_display._id}
+								/>
+							)}
+                        />
+                    )}
                 </div>
             </div>
 
             <div style={styles.userDisplayer}>
-                <InviteMembersButton/>
+                <InviteMembersButton serverId={serverId}/>
             </div>
         </div>
     )
@@ -60,7 +60,7 @@ const styles = {
     sidebar: {
         display: "flex",
         flexDirection: "column",
-        "min-width": "250px",
+        minWidth: "250px",
         width: "250px",
         maxWidth: "250px",
         borderLeft: "1px solid var(--border-color)",
