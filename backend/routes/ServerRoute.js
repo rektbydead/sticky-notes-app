@@ -70,6 +70,32 @@ router.get('/:serverId', isAuthenticated, async (req, res) => {
     }
 })
 
+router.delete('/:serverId/users/:userId/notes', isAuthenticated, async (req, res) => {
+	try {
+		const server = await Server.findById(req.params.serverId);
+
+		if (!server) {
+			return res.status(404).json({ error: 'Server not found' })
+		}
+
+		if (!server.server_creator.equals(req.session.userId)) {
+			return res.status(403).json({ error: 'Only server owner can delete user notes' })
+		}
+
+		const result = await Note.deleteMany({
+			server_it_belongs: req.params.serverId,
+			note_creator: req.params.userId
+		})
+
+		res.json({
+			message: 'User notes deleted successfully',
+			deletedCount: result.deletedCount
+		})
+	} catch (error) {
+		res.status(400).json({ error: error.message })
+	}
+});
+
 router.post('/:serverId/join', isAuthenticated, async (req, res) => {
     try {
         const { password } = req.body;
