@@ -38,6 +38,7 @@ export default function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, 
                     console.log("ban user logic")
 					await kickUser(serverId, userId)
 					await refetchServers()
+					onClose()
                 }}
             >
                 <img src={mdiCancel} alt="Ban" style={styles.menuItemIcon} />
@@ -51,6 +52,7 @@ export default function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, 
                     console.log("clear all notes logic")
 					await deleteUserNotesInServer(serverId, userId)
 					await refetchNotes()
+					onClose()
                 }}
             >
                 <img src={mdiBroom} alt="Clear" style={styles.menuItemIcon} />
