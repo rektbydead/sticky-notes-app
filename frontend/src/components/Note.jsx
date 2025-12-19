@@ -9,7 +9,7 @@ import DeleteNoteModal from "./dialogs/DeleteNoteModal.jsx";
 import UpdateNoteModal from "./dialogs/UpdateNoteModal.jsx";
 
 
-export default function Note({note, category, onAction, showIcons=true}) {
+export default function Note({note, category, onAction, showIcons=true, isBeingDeleted=false}) {
     const [now, setNow] = useState(Date.now())
     const [open, setOpen] = useState(false)
 	const [openUpdateNoteModal, setOpenUpdateNoteModal] = useState(false)
@@ -57,7 +57,7 @@ export default function Note({note, category, onAction, showIcons=true}) {
 
     return (
         <>
-			{ openUpdateNoteModal && note.is_archived === false &&
+			{ openUpdateNoteModal && note.is_archived === false && isBeingDeleted === false &&
 				<UpdateNoteModal
 					note={note}
 					category={category}

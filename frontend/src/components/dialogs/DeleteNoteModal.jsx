@@ -47,8 +47,8 @@ export default function DeleteNoteModal ({ isOpen, onClose, children, maxWidth =
                             </button>
                         </div>
 
-                        <div>
-                            <Note note={note} showIcons={false} style={{height: "100%"}}/>
+                        <div style={{ maxWidth:'450px', minWidth:'450px'  }}>
+                            <Note note={note} showIcons={false} style={{height: "100%"}} isBeingDeleted={true}/>
                         </div>
 					</div>
 				</form>
@@ -106,6 +106,7 @@ const styles = {
 	submitButton: {
 		display: 'flex',
 		flexDirection: 'row',
+		justifyContent: 'center',
 		padding: '10px 16px',
 		fontSize: '14px',
 		fontWeight: '500',
