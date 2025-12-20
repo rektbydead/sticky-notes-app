@@ -12,7 +12,7 @@ export default function RegisterPage() {
     const [error, setError] = useState(null)
 
     const { navigate } = useNavigation()
-	const { checkAuth } = useAuthentication()
+	const { setUser, setLoading: setAuthenticationLoading } = useAuthentication()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -26,7 +26,8 @@ export default function RegisterPage() {
         setLoading(true)
         try {
             const data =  await register(name, email, password)
-			await checkAuth()
+			setUser(data)
+			setAuthenticationLoading(false)
             navigate('stick-notes', data, '/stick-notes')
         } catch (err) {
             setError(err.message)

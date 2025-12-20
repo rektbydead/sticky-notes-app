@@ -3,7 +3,7 @@ const BASE_URL = 'http://localhost:5000'
 export async function apiFetch(path, options) {
     const response = await fetch(`${BASE_URL}${path}`, {
         ...options,
-        credentials: 'include',
+        // credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             ...options.headers,

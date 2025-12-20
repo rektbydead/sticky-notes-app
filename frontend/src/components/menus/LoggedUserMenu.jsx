@@ -11,7 +11,7 @@ import ChangePasswordDialog from "../dialogs/ChangePasswordModal.jsx";
 export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
     const menuRef = useRef(null)
     const { navigate } = useNavigation()
-    const { checkAuth } = useAuthentication()
+    const { logout } = useAuthentication()
 
 	const [isChangePasswordModalOpen, setIsChangePasswordModal] = useState(false)
 
@@ -53,8 +53,7 @@ export default function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
                 className="menu-item"
                 onClick={async (e) => {
                     e.stopPropagation()
-                    await logout()
-                    await checkAuth()
+					logout()
                     navigate('login', null, '/login')
                     console.log("logout logic")
                 }}
