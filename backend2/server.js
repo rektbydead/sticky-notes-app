@@ -25,13 +25,16 @@ function parseBody(req) {
 
 
 const server = http.createServer(async (request, response) => {
-	if (!request.url.startsWith('/api/')) {
-		response.writeHead(404)
-		response.end()
-		return
-	}
+	response.setHeader("Access-Control-Allow-Origin", "*");
+	response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+	response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+	response.setHeader("Content-Type", "application/json");
 
-	response.setHeader('Content-Type', 'application/json')
+	if (request.method === "OPTIONS") {
+		response.writeHead(204);
+		response.end();
+		return;
+	}
 
 	try {
 		const body = await parseBody(request)
