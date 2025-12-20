@@ -21,4 +21,9 @@ async function getDatabase() {
 	return await createClientInstance()
 }
 
-module.exports = { createClientInstance, getDatabase };
+async function getCollection(collectionName) {
+	const database = await getDatabase()
+	return database.collection(collectionName)
+}
+
+module.exports = { createClientInstance, getDatabase, getCollection };

@@ -23,25 +23,32 @@ function parseBody(req) {
 
 const server = http.createServer(async (request, response) => {
 	if (!request.url.startsWith('/api/')) {
-		response.writeHead(200)
+		response.writeHead(404)
 		response.end()
 		return
 	}
 
 	response.setHeader('Content-Type', 'application/json')
-	const body = await parseBody(response)
 
-	if (request.url.startsWith('/api/auth/')) {
-		return await authenticationRoutes[request.url](body)
-	} else if (request.url.startsWith('/api/category/')) {
+	try {
+		const body = await parseBody(request)
+		if (request.url.startsWith('/api/auth/')) {
+			const responseData = await authenticationRoutes[request.url](body)
+			response.end(JSON.stringify(responseData))
+			return
+		} else if (request.url.startsWith('/api/category/')) {
 
-	} else if (request.url.startsWith('/api/note/')) {
+		} else if (request.url.startsWith('/api/note/')) {
 
-	} else if (request.url.startsWith('/api/server/')) {
+		} else if (request.url.startsWith('/api/server/')) {
 
+		}
+	} catch(e) {
+		console.log(e)
+		response.end(JSON.stringify({
+			error: e.message,
+		}))
 	}
-
-
 })
 
 async function startServer() {
