@@ -1,5 +1,4 @@
 import {apiFetch} from "../../apiFetch.js";
-import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export async function createServer(name, password, is_personal, userId) {
 	return await apiFetch('/api/server/', {
@@ -14,8 +13,8 @@ export async function createServer(name, password, is_personal, userId) {
 }
 
 export async function getServers(userId) {
-	return await apiFetch('/api/server/', {
-        method: 'GET',
+	return await apiFetch('/api/server/get/', {
+        method: 'POST',
 		body: JSON.stringify({
 			userId: userId
 		}),
@@ -24,7 +23,7 @@ export async function getServers(userId) {
 
 export async function getServerContent(serverId) {
 	return await apiFetch(`/api/server/info/`, {
-        method: 'GET',
+        method: 'POST',
 		body: JSON.stringify({
 			serverId: serverId
 		}),

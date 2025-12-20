@@ -201,10 +201,10 @@ async function kickUser(data) {
 
 const serverRoutes = {
 	'POST:/api/server/': createServer,
-	'GET:/api/server/': getServers,
+	'POST:/api/server/get/': getServers,
 	'DELETE:/api/server/': deleteServer,
 
-	'GET:/api/server/info/': getServerInfo,
+	'POST:/api/server/info/': getServerInfo,
 	'POST:/api/server/join/': joinServer,
 	'DELETE:/api/server/delete-all-user-notes/': deleteAllUserNotes,
 	'DELETE:/api/server/kick-user/': kickUser,

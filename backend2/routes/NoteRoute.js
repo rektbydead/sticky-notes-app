@@ -177,7 +177,7 @@ async function deleteNote(data) {
 }
 
 const noteRoutes = {
-	'GET:/api/note/': getNotes,
+	'POST:/api/note/get/': getNotes,
 	'POST:/api/note/': createNote,
 	'PUT:/api/note/': updateNote,
 	'DELETE:/api/note/': deleteNote,

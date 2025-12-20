@@ -58,7 +58,7 @@ async function deleteCategory(data) {
 
 
 const categoryRoutes = {
-	'GET:/api/category/': getCategories,
+	'POST:/api/category/get/': getCategories,
 	'POST:/api/category/': createCategory,
 	'DELETE:/api/category/': deleteCategory,
 }

@@ -1,8 +1,8 @@
 import { apiFetch } from "../../apiFetch.js";
 
 export async function getCategoriesByServer(serverId) {
-	return await apiFetch(`/api/category/`, {
-		method: "GET",
+	return await apiFetch(`/api/category/get/`, {
+		method: "POST",
 		body: JSON.stringify({
 			serverId: serverId,
 		}),
