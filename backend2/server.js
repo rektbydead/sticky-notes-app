@@ -37,7 +37,8 @@ const server = http.createServer(async (request, response) => {
 			const responseData = await authenticationRoutes[request.url](body)
 			response.end(JSON.stringify(responseData))
 		} else if (request.url.startsWith('/api/category/')) {
-
+			const responseData = await serverRoutes[`${request.method}:${request.url}`](body)
+			response.end(JSON.stringify(responseData))
 		} else if (request.url.startsWith('/api/note/')) {
 
 		} else if (request.url.startsWith('/api/server/')) {
