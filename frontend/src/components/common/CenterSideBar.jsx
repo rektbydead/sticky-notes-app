@@ -16,6 +16,8 @@ export default function CenterSideBar({title, server, category, notes, refetchNo
 	const [searchValue, setSearchValue] = useState("")
     const [now, setNow] = useState(Date.now())
 
+	const isArchivedCategory = category?.name === "Archived" && category?.is_default
+
     /* note filtering example for future*/
     const filteredNotes = notes?.filter((note) => searchValue.trim().length === 0
         || note.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -49,14 +51,16 @@ export default function CenterSideBar({title, server, category, notes, refetchNo
 					<span style={styles.sidebarTopTitle}> {title} </span>
 
 					<div style={styles.sidebarTopCreateButton}>
-						<CreateNewNoteButton
-							server={server}
-							category={category}
-							onAction={refetchNotes}
-							onClick={() => {
-								setOpenCreateNoteModal(true)
-							}}
-						/>
+						{isArchivedCategory === false &&
+							<CreateNewNoteButton
+								server={server}
+								category={category}
+								onAction={refetchNotes}
+								onClick={() => {
+									setOpenCreateNoteModal(true)
+								}}
+							/>
+						}
 						<NoteSearchBox onSearch={setSearchValue}/>
 					</div>
 				</div>
@@ -77,11 +81,13 @@ export default function CenterSideBar({title, server, category, notes, refetchNo
 												}}
 											/>
 										))}
-										<CreateNewNoteNote
-											onClick={() => {
-												setOpenCreateNoteModal(true)
-											}}
-										/>
+										{isArchivedCategory === false &&
+											<CreateNewNoteNote
+												onClick={() => {
+													setOpenCreateNoteModal(true)
+												}}
+											/>
+										}
 									</div>
 								</>
 							) :
