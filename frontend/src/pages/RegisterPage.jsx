@@ -12,7 +12,7 @@ export default function RegisterPage() {
     const [error, setError] = useState(null)
 
     const { navigate } = useNavigation()
-	const { setUser, setLoading: setAuthenticationLoading } = useAuthentication()
+	const { setUserLocalStore } = useAuthentication()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -23,11 +23,11 @@ export default function RegisterPage() {
             return
         }
 
-        setLoading(true)
+        // setLoading(true)
         try {
             const data =  await register(name, email, password)
-			setUser(data)
-			setAuthenticationLoading(false)
+			setUserLocalStore(data)
+			// setAuthenticationLoading(false)
             navigate('stick-notes', data, '/stick-notes')
         } catch (err) {
             setError(err.message)

@@ -6,7 +6,7 @@ import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export default function LoginPage() {
     const { navigate } = useNavigation()
-    const { setUser, setLoading: setAuthenticationLoading } = useAuthentication()
+    const { setUserLocalStore } = useAuthentication()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -20,8 +20,8 @@ export default function LoginPage() {
 
         try {
             const data = await login(email, password)
-            setUser(data)
-			setAuthenticationLoading(false)
+			setUserLocalStore(data)
+			//setAuthenticationLoading(false)
             console.log("deu login", data)
 
             navigate('stick-notes', {}, '/stick-notes')
