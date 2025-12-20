@@ -2,8 +2,10 @@ import {useState} from "react";
 import Modal from "./BaseModal.jsx";
 import {changePassword} from "../../services/AuthenticationService.js";
 import Toast from "../Toast.jsx";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 
 export default function ChangePasswordDialog ({ isOpen, onClose, children, maxWidth = '500px' }) {
+	const { user } = useAuthentication()
 	const [oldPassword, setOldPassword] = useState('')
 	const [newPassword, setNewPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
@@ -20,7 +22,7 @@ export default function ChangePasswordDialog ({ isOpen, onClose, children, maxWi
 		}
 
 		try {
-			await changePassword(oldPassword, newPassword)
+			await changePassword(oldPassword, newPassword, user._id)
 			setShowToast(true)
 			onClose()
 		} catch(e) {

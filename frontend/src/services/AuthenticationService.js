@@ -1,5 +1,4 @@
 import {apiFetch} from "../../apiFetch.js";
-import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export async function register(name, email, password) {
     return await apiFetch('/api/auth/register/', {
@@ -29,14 +28,13 @@ export async function login(email, password) {
 // }
 
 
-export async function changePassword(currentPassword, newPassword) {
-    const { user } = useAuthentication()
+export async function changePassword(currentPassword, newPassword, userId) {
 	return await apiFetch('/api/auth/change-password/', {
         method: 'PUT',
         body: JSON.stringify({
             currentPassword,
             newPassword,
-			userId: user._id
+			userId: userId
         }),
     })
 }

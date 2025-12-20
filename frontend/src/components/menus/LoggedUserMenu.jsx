@@ -3,7 +3,6 @@ import mdiLogout from "../../assets/icon/mdiLogout.svg"
 import "../../assets/css/Menu.css"
 
 import {useEffect, useRef, useState} from "react";
-import {logout} from "../../services/AuthenticationService.js";
 import {useNavigation} from "../../context/NavigateContext.jsx";
 import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 import ChangePasswordDialog from "../dialogs/ChangePasswordModal.jsx";

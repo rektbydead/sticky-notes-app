@@ -1,5 +1,4 @@
 import { apiFetch } from "../../apiFetch.js";
-import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export async function getNotesByCategory(categoryId) {
     return await apiFetch(`/api/note/category/`, {
@@ -10,8 +9,7 @@ export async function getNotesByCategory(categoryId) {
     })
 }
 
-export async function createNote(categoryId, title, content, server_it_belongs) {
-    const { user } = useAuthentication()
+export async function createNote(categoryId, title, content, server_it_belongs, userId) {
 	return await apiFetch(`/api/note/`, {
         method: "POST",
         body: JSON.stringify({
@@ -19,7 +17,7 @@ export async function createNote(categoryId, title, content, server_it_belongs) 
             content: content,
 			server_it_belongs: server_it_belongs,
             category_it_belongs: categoryId,
-			userId: user.id,
+			userId: userId,
         }),
     })
 }

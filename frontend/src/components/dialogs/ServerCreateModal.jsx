@@ -3,9 +3,11 @@ import Modal from "./BaseModal.jsx";
 import {createServer} from "../../services/ServerService.js";
 import animatedLoadingSvg from "../../assets/icon/mdiServer.svg";
 import mdiPlug from "../../assets/icon/mdiPlug.svg";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 
 
 export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) {
+	const { user } = useAuthentication()
 	const [name, setName] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
@@ -31,7 +33,7 @@ export default function ServerCreateModal({ isOpen, onClose, onServerCreated }) 
 		}
 
 		try {
-			await createServer(name, password, false)
+			await createServer(name, password, false, user._id)
 			await onServerCreated()
 			onClose()
 		} catch(e) {

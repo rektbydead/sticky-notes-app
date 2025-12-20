@@ -3,9 +3,11 @@ import Modal from "./BaseModal.jsx";
 import {createServer, joinServer} from "../../services/ServerService.js";
 import animatedLoadingSvg from "../../assets/icon/mdiServer.svg";
 import mdiPlug from "../../assets/icon/mdiPlug.svg";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 
 
 export default function ServerJoinModal({ isOpen, onClose, onServerCreated }) {
+	const { user } = useAuthentication()
 	const [name, setName] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
@@ -20,7 +22,7 @@ export default function ServerJoinModal({ isOpen, onClose, onServerCreated }) {
 		}
 
 		try {
-			await joinServer(name, password)
+			await joinServer(name, password, user._id)
 			await onServerCreated()
 			onClose()
 		} catch(e) {

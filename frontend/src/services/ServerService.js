@@ -1,25 +1,23 @@
 import {apiFetch} from "../../apiFetch.js";
 import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
-export async function createServer(name, password, is_personal) {
-	const { user } = useAuthentication()
+export async function createServer(name, password, is_personal, userId) {
 	return await apiFetch('/api/server/', {
         method: 'POST',
         body: JSON.stringify({
             name,
             password,
             is_personal,
-			userId: user._id
+			userId: userId
         }),
     })
 }
 
-export async function getServers() {
-	const { user } = useAuthentication()
+export async function getServers(userId) {
 	return await apiFetch('/api/server/', {
         method: 'GET',
 		body: JSON.stringify({
-			userId: user._id
+			userId: userId
 		}),
     })
 }
@@ -33,8 +31,7 @@ export async function getServerContent(serverId) {
     })
 }
 
-export async function joinServer(serverId, password) {
-	const { user } = useAuthentication()
+export async function joinServer(serverId, password, userId) {
 	return await apiFetch(`/api/server/join`, {
         method: 'POST',
         body: JSON.stringify({
