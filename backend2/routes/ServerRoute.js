@@ -119,9 +119,11 @@ async function deleteAllUserNotes(data) {
 		throw new Error('No server found.')
 	}
 
-	if (!server.server_creator.equals(new ObjectId(userId))) {
-		throw new Error('User not owner.')
-	}
+	/* userId is not owner ... its the user to delete the notes */
+	// console.log(server.server_creator, userId, new ObjectId(userId))
+	// if (server.server_creator !== new ObjectId(userId)) {
+	// 	throw new Error('User not owner.')
+	// }
 
 	await notes.deleteMany({
 		server_it_belongs: new ObjectId(serverId),
@@ -150,7 +152,11 @@ async function joinServer(data) {
 	await servers.updateOne(
 		{ _id: new ObjectId(serverId) },
 		{ $push: { joined_users: new ObjectId(userId) } }
-	);
+	)
+
+	return {
+		message: `User joined successfully.`,
+	}
 }
 
 async function deleteServer(data) {
@@ -185,7 +191,7 @@ async function kickUser(data) {
 		throw new Error('No server found.')
 	}
 
-	if (server.server_creator._id === userId) {
+	if (server.server_creator === new ObjectId(userId)) {
 		throw new Error('Cannot kick server creator.')
 	}
 

@@ -31,11 +31,12 @@ export async function getServerContent(serverId) {
 }
 
 export async function joinServer(serverId, password, userId) {
-	return await apiFetch(`/api/server/join`, {
+	console.log(serverId, password, userId)
+	return await apiFetch(`/api/server/join/`, {
         method: 'POST',
         body: JSON.stringify({
             password: password,
-			userId: user,
+			userId: userId,
 			serverId: serverId
         }),
     })

@@ -41,11 +41,10 @@ async function login(data) {
 }
 
 async function changePassword(data) {
-	const { email, currentPassword, newPassword } = data
-	console.log(newPassword)
+	const { userId, currentPassword, newPassword } = data
 	const users = await getCollection('users')
 
-	const user = await users.findOne({ email: email, password: currentPassword })
+	const user = await users.findOne({ _id: new ObjectId(userId), password: currentPassword })
 	if (!user) {
 		throw Error(`Wrong password`)
 	}

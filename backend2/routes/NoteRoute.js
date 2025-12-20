@@ -3,9 +3,10 @@ const {ObjectId} = require("mongodb");
 
 async function getNotes(data) {
 	const { categoryId } = data
+	console.log("get notes: ", categoryId)
 
 	const categories = await getCollection("categories")
-	const notes = await getCollection("categories")
+	const notes = await getCollection("notes")
 	const category = await categories.findOne({ _id: new ObjectId(categoryId) })
 
 	if (!category) {

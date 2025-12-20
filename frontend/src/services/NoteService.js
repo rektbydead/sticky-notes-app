@@ -1,7 +1,7 @@
 import { apiFetch } from "../../apiFetch.js";
 
 export async function getNotesByCategory(categoryId) {
-    return await apiFetch(`/api/note/category/get/`, {
+    return await apiFetch(`/api/note/get/`, {
         method: "POST",
 		body: JSON.stringify({
 			categoryId: categoryId,

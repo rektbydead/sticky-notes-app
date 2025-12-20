@@ -22,6 +22,7 @@ export default function StickyNotePage() {
 	async function getServersData() {
 		try {
 			const data = await getServers(user._id)
+			console.log(data)
 			setServerList(data)
 
 			if (data.length > 0) {
