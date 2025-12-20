@@ -1,8 +1,0 @@
-.invite-button {
-    transition: background-color 0.25s ease-in, border-color 0.25s ease-out;
-}
-
-.invite-button:hover {
-    background-color: var(--hover-color) !important;
-    border: 1px solid var(--border-color) !important;
-}

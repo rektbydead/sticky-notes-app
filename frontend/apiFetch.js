@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:5000'
 
-export async function apiFetch(path, options) {
+async function apiFetch(path, options) {
     const response = await fetch(`${BASE_URL}${path}`, {
         ...options,
         // credentials: 'include',

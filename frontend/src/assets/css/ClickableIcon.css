@@ -1,8 +1,0 @@
-.clickable-icon {
-    cursor: pointer;
-    transition: opacity 0.25s ease;
-}
-
-.clickable-icon:hover {
-    opacity: 0.6;
-}

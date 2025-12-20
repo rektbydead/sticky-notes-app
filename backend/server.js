@@ -25,7 +25,7 @@ function parseBody(req) {
 	})
 }
 
-const FRONTEND_DIRECTORY = path.join(__dirname, '../frontend2/');
+const FRONTEND_DIRECTORY = path.join(__dirname, '../frontend/');
 
 const mimeTypes = {
 	'.html': 'text/html',
