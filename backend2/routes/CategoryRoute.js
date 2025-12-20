@@ -14,7 +14,7 @@ async function createCategory(data) {
 
 	await categories.insertOne({
 		name: name,
-		server_it_belongs: serverId,
+		server_it_belongs: new ObjectId(serverId),
 		is_default: false,
 		created_at: new Date()
 	})
@@ -36,7 +36,7 @@ async function getCategories(data) {
 	}
 
 	return await categories
-		.find({ server_it_belongs: serverId })
+		.find({ server_it_belongs: new ObjectId(serverId) })
 		.toArray()
 }
 
@@ -49,7 +49,7 @@ async function deleteCategory(data) {
 		throw new Error('No category found.')
 	}
 
-	await categories.deleteOne({ _id: categoryId })
+	await categories.deleteOne({ _id: new ObjectId(categoryId) })
 
 	return {
 		message: `Category deleted successfully.`,
