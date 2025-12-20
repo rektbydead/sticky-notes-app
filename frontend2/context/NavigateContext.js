@@ -15,7 +15,7 @@ function NavigationProvider({ children }) {
     }, [])
 
     const navigate = (page, data, path) => {
-        window.history.pushState({ page, data }, '', path)
+        window.history.pushState({ page, data }, '')
         setPage(page)
     }
 
