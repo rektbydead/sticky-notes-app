@@ -3,14 +3,16 @@ import Modal from "./BaseModal.jsx";
 import {changePassword} from "../../services/AuthenticationService.js";
 import Toast from "../Toast.jsx";
 import {createNote, updateNote} from "../../services/NoteService.js";
+import {useAuthentication} from "../../context/AuthenticationContext.jsx";
 
 export default function CreateNoteModal({ server, category, isOpen, onClose, onAction }) {
+	const { user } = useAuthentication()
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 
 	async function handleSubmit(e) {
 		e.preventDefault()
-		await createNote(category._id, title, content, server._id)
+		await createNote(category._id, title, content, server._id, user._id)
 		onAction()
 		onClose()
 	}

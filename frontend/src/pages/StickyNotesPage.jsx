@@ -4,8 +4,10 @@ import RightSideBar from "../components/common/RightSideBar.jsx";
 import {useEffect, useState} from "react";
 import {getNotesByCategory} from "../services/NoteService.js";
 import {getServers} from "../services/ServerService.js";
+import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export default function StickyNotePage() {
+	const { user } = useAuthentication()
 	const [serverList, setServerList] = useState([])
     const [selectedServer, setSelectedServer] = useState(null)
     const [selectedCategory, setSelectedCategory] = useState(null)
@@ -19,7 +21,8 @@ export default function StickyNotePage() {
 
 	async function getServersData() {
 		try {
-			const data = await getServers()
+			const data = await getServers(user._id)
+			console.log(data)
 			setServerList(data)
 
 			if (data.length > 0) {

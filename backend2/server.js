@@ -31,7 +31,7 @@ const server = http.createServer(async (request, response) => {
 	response.setHeader("Content-Type", "application/json");
 
 	if (request.method === "OPTIONS") {
-		response.writeHead(204);
+		response.writeHead(204)
 		response.end();
 		return;
 	}
@@ -53,6 +53,7 @@ const server = http.createServer(async (request, response) => {
 		}
 	} catch(e) {
 		console.log(e)
+		response.writeHead(400)
 		response.end(JSON.stringify({
 			error: e.message,
 		}))

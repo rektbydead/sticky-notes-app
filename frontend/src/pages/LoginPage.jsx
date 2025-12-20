@@ -1,12 +1,12 @@
 import google from "../assets/icon/google.svg"
 import {useNavigation} from "../context/NavigateContext.jsx";
 import {useState} from "react";
-import {getMe, login, register} from "../services/AuthenticationService.js";
+import {login, register} from "../services/AuthenticationService.js";
 import {useAuthentication} from "../context/AuthenticationContext.jsx";
 
 export default function LoginPage() {
     const { navigate } = useNavigation()
-    const { checkAuth } = useAuthentication()
+    const { setUserLocalStore } = useAuthentication()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -20,7 +20,8 @@ export default function LoginPage() {
 
         try {
             const data = await login(email, password)
-            await checkAuth()
+			setUserLocalStore(data)
+			//setAuthenticationLoading(false)
             console.log("deu login", data)
 
             navigate('stick-notes', {}, '/stick-notes')
