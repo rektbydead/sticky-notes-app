@@ -1,9 +1,5 @@
-import { app, BrowserWindow, Menu } from "electron"
-import path from "path"
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const { app, Menu, BrowserWindow } = require('electron')
+const path = require('path')
 
 
 async function main() {
@@ -21,8 +17,8 @@ async function main() {
 		}
 	})
 
-    Menu.setApplicationMenu(null);
-    //await window.loadFile("app.js")
+    Menu.setApplicationMenu(null)
+    window.loadURL("http://localhost:5000/")
 }
 
 app.whenReady()
