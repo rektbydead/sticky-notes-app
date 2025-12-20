@@ -1,4 +1,5 @@
 const {getDatabase, getCollection} = require("../database");
+const {ObjectId} = require("mongodb");
 
 async function register(data) {
 	const { name, email, password } = data
@@ -50,7 +51,7 @@ async function changePassword(data) {
 	}
 
 	await users.updateOne(
-		{ _id: user._id },
+		{ _id: new ObjectId(user._id) },
 		{
 			$set: {
 				password: newPassword,
