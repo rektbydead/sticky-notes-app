@@ -21,6 +21,71 @@ function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer,
 
     const otherCategories = selectedServer?.categories.filter(category => !category.is_default)
 
+	const styles = {
+		sidebar: {
+			display: "flex",
+			flexDirection: "column",
+			minWidth: "250px",
+			borderRight: "1px solid var(--border-color)",
+			color: "black",
+			backgroundColor: "var(--outside-color)",
+		},
+		sidebarTop: {
+			display: "flex",
+			alignItems: "center",
+			minHeight: "70px",
+			height: "70px",
+			maxHeight: "70px",
+			borderBottom: "1px solid var(--border-color)",
+			padding: "0.5rem 1rem",
+			gap: "1rem",
+
+			color: "#1f2937",
+			lineHeight: "1.56",
+			fontSize: "19px",
+			fontWeight: "bold"
+		},
+		sidebarTopIcon: {
+			width: "40px",
+			height: "40px",
+		},
+		sidebarBottom: {
+			display: "flex",
+			flexDirection: "column",
+			gap: "1rem",
+			height: "100%",
+			padding: "1.5rem 0",
+			overflow: "auto",
+			overflowX: "hidden"
+		},
+		serverCategory: {
+			padding: "0 1rem",
+			borderBottom: "1px solid var(--border-color)",
+			display: "flex",
+			flexDirection: "column",
+			gap: "1rem"
+		},
+		serverCategoryList: {
+			display: "flex",
+			flexDirection: "column",
+			gap: "0.5rem",
+			marginBottom: "1rem"
+		},
+		userDisplayer: {
+			padding: "0.5rem 1rem",
+			marginTop: "auto",
+			borderTop: "1px solid var(--border-color)",
+			display: "flex",
+			flexGrow: 1,
+			alignItems: "center",
+			minHeight: "60px",
+			maxHeight: "60px"
+		},
+		dontHave: {
+			textAlign: "center"
+		}
+	}
+
     return (
 		<>
 			{ serverCreateModelOpen &&
@@ -152,69 +217,4 @@ function LeftSideBar({title, selectedCategory, onSelectCategory, selectedServer,
 			</div>
 		</>
     )
-}
-
-const styles = {
-    sidebar: {
-        display: "flex",
-        flexDirection: "column",
-        minWidth: "250px",
-        borderRight: "1px solid var(--border-color)",
-        color: "black",
-        backgroundColor: "var(--outside-color)",
-    },
-    sidebarTop: {
-        display: "flex",
-        alignItems: "center",
-        minHeight: "70px",
-        height: "70px",
-        maxHeight: "70px",
-        borderBottom: "1px solid var(--border-color)",
-        padding: "0.5rem 1rem",
-        gap: "1rem",
-
-        color: "#1f2937",
-        lineHeight: "1.56",
-        fontSize: "19px",
-        fontWeight: "bold"
-    },
-    sidebarTopIcon: {
-        width: "40px",
-        height: "40px",
-    },
-    sidebarBottom: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        height: "100%",
-        padding: "1.5rem 0",
-        overflow: "auto",
-        overflowX: "hidden"
-    },
-    serverCategory: {
-        padding: "0 1rem",
-        borderBottom: "1px solid var(--border-color)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem"
-    },
-    serverCategoryList: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.5rem",
-        marginBottom: "1rem"
-    },
-    userDisplayer: {
-        padding: "0.5rem 1rem",
-        marginTop: "auto",
-        borderTop: "1px solid var(--border-color)",
-        display: "flex",
-        flexGrow: 1,
-        alignItems: "center",
-        minHeight: "60px",
-        maxHeight: "60px"
-    },
-    dontHave: {
-        textAlign: "center"
-    }
 }

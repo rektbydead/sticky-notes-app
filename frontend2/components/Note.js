@@ -44,6 +44,65 @@ function Note({note, category, onAction, showIcons=true, isBeingDeleted=false}) 
         })
     }
 
+	const styles = {
+		card: {
+			display: "flex",
+			flexDirection: "column",
+			gap: "1rem",
+
+			width: "100%",
+			breakInside: "avoid",
+
+			marginBottom: "0.5rem",
+			backgroundColor: "var(--note-color)",
+			borderRadius: "8px",
+			border: "1px solid var(--border-color)",
+			padding: "1rem",
+		},
+		header: {
+			display: "flex",
+			position: "relative",
+			justifyContent: "space-between",
+		},
+		title: {
+			margin: 0,
+			fontSize: "15px",
+			fontWeight: 700,
+		},
+		actions: {
+			position: "absolute",
+			top: -13,
+			right: -13,
+
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "center",
+			gap: "0.20rem",
+		},
+		iconBtn: {
+			cursor: "pointer",
+		},
+		bodyText: {
+			margin: 0,
+			fontSize: "14px",
+			lineHeight: 1.4,
+			wordBreak: "break-word",
+		},
+		footer: {
+			display: "flex",
+			alignItems: "center",
+			gap: "0.35rem",
+		},
+		footerIcon: {
+			width: "20px",
+			height: "20px"
+		},
+		footerText: {
+			fontSize: "12px",
+			color: "#6b7280",
+		},
+	};
+
     return (
         <>
 			{ openUpdateNoteModal && note.is_archived === false && isBeingDeleted === false &&
@@ -118,62 +177,3 @@ function Note({note, category, onAction, showIcons=true, isBeingDeleted=false}) 
         </>
     )
 }
-
-const styles = {
-    card: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-
-        width: "100%",
-        breakInside: "avoid",
-
-        marginBottom: "0.5rem",
-        backgroundColor: "var(--note-color)",
-        borderRadius: "8px",
-        border: "1px solid var(--border-color)",
-        padding: "1rem",
-    },
-    header: {
-        display: "flex",
-        position: "relative",
-        justifyContent: "space-between",
-    },
-    title: {
-        margin: 0,
-        fontSize: "15px",
-        fontWeight: 700,
-    },
-    actions: {
-        position: "absolute",
-        top: -13,
-        right: -13,
-
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0.20rem",
-    },
-    iconBtn: {
-        cursor: "pointer",
-    },
-    bodyText: {
-        margin: 0,
-        fontSize: "14px",
-        lineHeight: 1.4,
-        wordBreak: "break-word",
-    },
-    footer: {
-        display: "flex",
-        alignItems: "center",
-        gap: "0.35rem",
-    },
-    footerIcon: {
-      width: "20px",
-      height: "20px"
-    },
-    footerText: {
-        fontSize: "12px",
-        color: "#6b7280",
-    },
-};

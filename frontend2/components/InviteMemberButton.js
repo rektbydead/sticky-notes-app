@@ -6,6 +6,26 @@ function InviteMembersButton({serverId}) {
         setShowToast(true)
     }
 
+	const styles = {
+		button: {
+			display: "inline-flex",
+			alignItems: "center",
+			gap: "6px",
+			padding: "6px 14px",
+			backgroundColor: "transparent",
+			borderRadius: "6px",
+			fontSize: "14px",
+			cursor: "pointer",
+			width: "100%",
+			height: "100%",
+			color: "black",
+			justifyContent: "center"
+		},
+		icon: {
+			width: "20px",
+			height: "20px",
+		},
+	}
 
     return (
         <>
@@ -27,25 +47,4 @@ function InviteMembersButton({serverId}) {
             </button>
         </>
     );
-}
-
-const styles = {
-    button: {
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "6px",
-        padding: "6px 14px",
-        backgroundColor: "transparent",
-        borderRadius: "6px",
-        fontSize: "14px",
-        cursor: "pointer",
-        width: "100%",
-        height: "100%",
-        color: "black",
-        justifyContent: "center"
-    },
-    icon: {
-        width: "20px",
-        height: "20px",
-    },
 }

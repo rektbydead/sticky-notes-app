@@ -37,6 +37,13 @@ function StickyNotePage() {
 
 	const title = selectedServer ? `${selectedServer?.is_personal ? "Personal" : "Server"} > ${selectedServer?.name} > ${selectedCategory?.name}` : ""
 
+	const styles = {
+		leftSidebar: {},
+		rightSidebar: {
+			"margin-left": "auto",
+		},
+	}
+
 	return (
 		<>
 			<LeftSideBar style={styles.leftSidebar} title={"Sticky notes"}
@@ -55,11 +62,4 @@ function StickyNotePage() {
 			/>
 		</>
 	)
-}
-
-const styles = {
-	leftSidebar: {},
-	rightSidebar: {
-		"margin-left": "auto",
-	},
 }

@@ -5,6 +5,44 @@ function CategoryDisplayer({category, isSelected, isOwner, onClick, icon, onDele
     */
 	const [isOpen, setIsOpen] = React.useState(false)
 
+	const styles = {
+		container: {
+			display: "flex",
+			flexDirection: "row",
+			alignItems: "center",
+
+			justifyContent: "space-between",
+			gap: "0.5rem",
+			paddingLeft: "0.25rem",
+			paddingTop: "0.25rem",
+			paddingBottom: "0.25rem"
+		},
+		titleContainer: {
+			display: "flex",
+			alignItems: "center",
+			gap: "0.5rem"
+		},
+		title: {
+			fontSize: "16px",
+			color: "#1f2937",
+
+			textOverflow: "ellipsis",
+			overflow: "hidden",
+			display: "block",
+			maxWidth: "140px",
+		},
+		categoryIcon: {
+			height: "20px",
+			width: "20px"
+		},
+		trash: {
+			display: "flex",
+			alignItems: "center",
+			height: "20px",
+			width: "20px"
+		}
+	}
+
     return (
 		<>
 			{ isOpen &&
@@ -50,42 +88,4 @@ function CategoryDisplayer({category, isSelected, isOwner, onClick, icon, onDele
 			</div>
 		</>
     )
-}
-
-const styles = {
-    container: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-
-        justifyContent: "space-between",
-        gap: "0.5rem",
-        paddingLeft: "0.25rem",
-        paddingTop: "0.25rem",
-        paddingBottom: "0.25rem"
-    },
-    titleContainer: {
-        display: "flex",
-        alignItems: "center",
-        gap: "0.5rem"
-    },
-    title: {
-        fontSize: "16px",
-        color: "#1f2937",
-
-        textOverflow: "ellipsis",
-        overflow: "hidden",
-        display: "block",
-        maxWidth: "140px",
-    },
-    categoryIcon: {
-        height: "20px",
-        width: "20px"
-    },
-    trash: {
-        display: "flex",
-        alignItems: "center",
-        height: "20px",
-        width: "20px"
-    }
 }

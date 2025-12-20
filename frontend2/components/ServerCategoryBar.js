@@ -5,7 +5,28 @@ function ServerCategoryBar({categoryName, menuComponent}) {
     const handleMenuClick = (e) => {
         e.stopPropagation();
         setMenuOpen(!menuOpen);
-    };
+    }
+
+	const styles = {
+		container: {
+			display: "flex",
+			flexDirection: "row",
+			justifyContent: "space-between",
+			alignItems: "center",
+		},
+		title: {
+			color: "#1f2937",
+			lineHeight: "1.56",
+			fontSize: "16px",
+			fontWeight: "600"
+		},
+		add: {
+			position: "relative",
+			height: "20px",
+			width: "20px"
+		}
+
+	}
 
     return (
         <div style={styles.container}>
@@ -26,25 +47,4 @@ function ServerCategoryBar({categoryName, menuComponent}) {
             )}
         </div>
     )
-}
-
-const styles = {
-    container: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-    title: {
-        color: "#1f2937",
-        lineHeight: "1.56",
-        fontSize: "16px",
-        fontWeight: "600"
-    },
-    add: {
-        position: "relative",
-        height: "20px",
-        width: "20px"
-    }
-
 }

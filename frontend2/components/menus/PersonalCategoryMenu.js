@@ -21,6 +21,38 @@ function ServerCategoryMenu({ isOpen, onClose, triggerRef }) {
 
     if (!isOpen) return null;
 
+	const styles = {
+		dropdown: {
+			position: 'absolute',
+			top: '100%',
+			right: '0px',
+			marginBottom: '4px',
+			backgroundColor: 'white',
+			border: '1px solid #e5e7eb',
+			borderRadius: '8px',
+			boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+			minWidth: '180px',
+			zIndex: 3000,
+			overflow: 'hidden',
+		},
+		menuItem: {
+			display: 'flex',
+			alignContent: 'center',
+			gap: '12px',
+			padding: '10px 16px',
+			cursor: 'pointer',
+			fontSize: '14px',
+			color: '#374151',
+			transition: 'background-color 0.2s',
+			backgroundColor: 'white',
+			borderBottom: "1px solid #e5e7eb"
+		},
+		menuItemIcon: {
+			width: '20px',
+			height: 'auto',
+		},
+	}
+
     return (
         <div style={styles.dropdown} ref={menuRef}>
             <div
@@ -36,36 +68,4 @@ function ServerCategoryMenu({ isOpen, onClose, triggerRef }) {
             </div>
         </div>
     );
-}
-
-const styles = {
-    dropdown: {
-        position: 'absolute',
-        top: '100%',
-        right: '0px',
-        marginBottom: '4px',
-        backgroundColor: 'white',
-        border: '1px solid #e5e7eb',
-        borderRadius: '8px',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        minWidth: '180px',
-        zIndex: 3000,
-        overflow: 'hidden',
-    },
-    menuItem: {
-        display: 'flex',
-        alignContent: 'center',
-        gap: '12px',
-        padding: '10px 16px',
-        cursor: 'pointer',
-        fontSize: '14px',
-        color: '#374151',
-        transition: 'background-color 0.2s',
-        backgroundColor: 'white',
-        borderBottom: "1px solid #e5e7eb"
-    },
-    menuItemIcon: {
-        width: '20px',
-        height: 'auto',
-    },
 }

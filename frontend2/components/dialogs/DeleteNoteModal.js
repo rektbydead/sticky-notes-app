@@ -13,6 +13,67 @@ function DeleteNoteModal ({ isOpen, onClose, children, maxWidth = '500px', note,
 		onClose()
 	}
 
+	const styles = {
+		form: {
+			padding: '20px'
+		},
+		inputGroup: {
+			marginBottom: '16px'
+		},
+		label: {
+			display: 'block',
+			fontSize: '14px',
+			fontWeight: '500',
+			color: '#111827',
+			marginBottom: '6px'
+		},
+		input: {
+			width: '100%',
+			padding: '10px 12px',
+			fontSize: '14px',
+			border: '1px solid #d1d5db',
+			borderRadius: '6px',
+			backgroundColor: '#f9fafb',
+			boxSizing: 'border-box',
+			outline: 'none',
+			color: "black"
+		},
+		error: {
+			color: 'red',
+			fontSize: '14px',
+			margin: '0 0 16px 0'
+		},
+		footer: {
+			display: 'flex',
+			justifyContent: "end",
+			gap: '12px',
+			marginTop: '20px',
+		},
+		cancelButton: {
+			padding: '10px 16px',
+			fontSize: '14px',
+			fontWeight: '500',
+			color: '#374151',
+			backgroundColor: '#f3f4f6',
+			border: 'none',
+			borderRadius: '6px',
+			cursor: 'pointer'
+		},
+		submitButton: {
+			display: 'flex',
+			flexDirection: 'row',
+			justifyContent: 'center',
+			padding: '10px 16px',
+			fontSize: '14px',
+			fontWeight: '500',
+			color: 'white',
+			backgroundColor: '#3b82f6',
+			border: 'none',
+			borderRadius: '6px',
+			cursor: 'pointer'
+		},
+	}
+
 	return (
 		<>
 			{showToast &&
@@ -48,65 +109,4 @@ function DeleteNoteModal ({ isOpen, onClose, children, maxWidth = '500px', note,
 			</Modal>
 		</>
 	)
-}
-
-const styles = {
-	form: {
-		padding: '20px'
-	},
-	inputGroup: {
-		marginBottom: '16px'
-	},
-	label: {
-		display: 'block',
-		fontSize: '14px',
-		fontWeight: '500',
-		color: '#111827',
-		marginBottom: '6px'
-	},
-	input: {
-		width: '100%',
-		padding: '10px 12px',
-		fontSize: '14px',
-		border: '1px solid #d1d5db',
-		borderRadius: '6px',
-		backgroundColor: '#f9fafb',
-		boxSizing: 'border-box',
-		outline: 'none',
-		color: "black"
-	},
-	error: {
-		color: 'red',
-		fontSize: '14px',
-		margin: '0 0 16px 0'
-	},
-	footer: {
-		display: 'flex',
-        justifyContent: "end",
-		gap: '12px',
-		marginTop: '20px',
-	},
-	cancelButton: {
-		padding: '10px 16px',
-		fontSize: '14px',
-		fontWeight: '500',
-		color: '#374151',
-		backgroundColor: '#f3f4f6',
-		border: 'none',
-		borderRadius: '6px',
-		cursor: 'pointer'
-	},
-	submitButton: {
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		padding: '10px 16px',
-		fontSize: '14px',
-		fontWeight: '500',
-		color: 'white',
-		backgroundColor: '#3b82f6',
-		border: 'none',
-		borderRadius: '6px',
-		cursor: 'pointer'
-	},
 }

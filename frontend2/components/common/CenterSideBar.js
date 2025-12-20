@@ -19,6 +19,72 @@ function CenterSideBar({title, server, category, notes, refetchNotes, refetchSer
         return () => clearInterval(interval);
     }, []);
 
+	const styles = {
+		sidebar: {
+			display: "flex",
+			flexDirection: "column",
+			width: "100%",
+			height: "100vh",
+			color: "black",
+			overflow: "hidden",
+		},
+		sidebarTop: {
+			display: "flex",
+			alignItems: "center",
+			minHeight: "70px",
+			maxHeight: "70px",
+			borderBottom: "1px solid var(--border-color)",
+			backgroundColor: "var(--outside-color)",
+			padding: "0.5rem 1rem",
+			gap: "5rem",
+
+			color: "#1f2937",
+			lineHeight: "1.50",
+			fontSize: "16px",
+			fontWeight: "bold",
+		},
+		sidebarTopTitle: {
+			flexShrink: "0",
+		},
+		sidebarTopCreateButton: {
+			display: "flex",
+			justifyContent: "end",
+			width: "100%",
+
+			gap: "0.5rem",
+			marginLeft: "auto",
+		},
+		sidebarBottom: {
+			display: "flex",
+
+			backgroundColor: "var(--inside-color)",
+			height: "100%",
+			overflowY: "auto",
+		},
+		sideBarBottomContainer: {
+			width: "100%",
+			overflowY: "auto",
+		},
+		notes: {
+			padding: "1rem",
+			overflowY: "auto",
+			columnWidth: "250px",
+			columnGap: "0.5rem",
+		},
+		loadingContainer: {
+			display: "flex",
+			flexDirection: "row",
+			justifyContent: "center",
+			alignItems: "center",
+			gap: "1rem",
+			width: "100%",
+			height: "100%",
+		},
+		loadingIcon: {
+			width: "50px",
+		}
+	}
+
     return (
 		<>
 			{ openCreateNoteModal &&
@@ -101,70 +167,4 @@ function CenterSideBar({title, server, category, notes, refetchNotes, refetchSer
 			</div>
 		</>
     )
-}
-
-const styles = {
-    sidebar: {
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        height: "100vh",
-        color: "black",
-        overflow: "hidden",
-    },
-    sidebarTop: {
-        display: "flex",
-        alignItems: "center",
-        minHeight: "70px",
-        maxHeight: "70px",
-        borderBottom: "1px solid var(--border-color)",
-        backgroundColor: "var(--outside-color)",
-        padding: "0.5rem 1rem",
-        gap: "5rem",
-
-        color: "#1f2937",
-        lineHeight: "1.50",
-        fontSize: "16px",
-        fontWeight: "bold",
-    },
-    sidebarTopTitle: {
-        flexShrink: "0",
-    },
-    sidebarTopCreateButton: {
-        display: "flex",
-        justifyContent: "end",
-        width: "100%",
-
-        gap: "0.5rem",
-        marginLeft: "auto",
-    },
-    sidebarBottom: {
-        display: "flex",
-
-        backgroundColor: "var(--inside-color)",
-        height: "100%",
-        overflowY: "auto",
-    },
-    sideBarBottomContainer: {
-        width: "100%",
-        overflowY: "auto",
-    },
-    notes: {
-        padding: "1rem",
-        overflowY: "auto",
-        columnWidth: "250px",
-        columnGap: "0.5rem",
-    },
-    loadingContainer: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "1rem",
-        width: "100%",
-        height: "100%",
-    },
-    loadingIcon: {
-        width: "50px",
-    }
 }

@@ -9,6 +9,62 @@ function RightSideBar({title, users, owner, serverId, refetchServers, refetchNot
         }) ?? []
     }, [users, owner]);
 
+	const styles = {
+		sidebar: {
+			display: "flex",
+			flexDirection: "column",
+			minWidth: "250px",
+			width: "250px",
+			maxWidth: "250px",
+			borderLeft: "1px solid var(--border-color)",
+			color: "black",
+			backgroundColor: 'var(--note-color)',
+		},
+		sidebarTop: {
+			display: "flex",
+			alignItems: "center",
+			minHeight: "60px",
+			maxHeight: "60px",
+			borderBottom: "1px solid var(--border-color)",
+			padding: "0.5rem 1rem",
+
+			color: "#1f2937",
+			lineHeight: "1.56",
+			fontSize: "19px",
+			fontWeight: "bold"
+		},
+		sidebarBottom: {
+			display: "flex",
+			flexDirection: "column",
+			gap: "1rem",
+			height: "100%",
+			padding: "1.5rem 0",
+			overflow: "auto"
+		},
+		serverCategory: {
+			padding: "0 1rem",
+			display: "flex",
+			flexDirection: "column",
+			gap: "1rem"
+		},
+		serverCategoryList: {
+			display: "flex",
+			flexDirection: "column",
+			gap: "0.5rem",
+			marginBottom: "1rem",
+			overflowY: "auto",
+		},
+		userDisplayer: {
+			padding: "0.5rem 1rem",
+			marginTop: "auto",
+			borderTop: "1px solid var(--border-color)",
+			display: "flex",
+			alignItems: "center",
+			minHeight: "60px",
+			maxHeight: "60px"
+		}
+	}
+
     return (
         <div style={styles.sidebar}>
             <div style={styles.sidebarTop}>
@@ -46,60 +102,4 @@ function RightSideBar({title, users, owner, serverId, refetchServers, refetchNot
             </div>
         </div>
     )
-}
-
-const styles = {
-    sidebar: {
-        display: "flex",
-        flexDirection: "column",
-        minWidth: "250px",
-        width: "250px",
-        maxWidth: "250px",
-        borderLeft: "1px solid var(--border-color)",
-        color: "black",
-        backgroundColor: 'var(--note-color)',
-    },
-    sidebarTop: {
-        display: "flex",
-        alignItems: "center",
-        minHeight: "60px",
-        maxHeight: "60px",
-        borderBottom: "1px solid var(--border-color)",
-        padding: "0.5rem 1rem",
-
-        color: "#1f2937",
-        lineHeight: "1.56",
-        fontSize: "19px",
-        fontWeight: "bold"
-    },
-    sidebarBottom: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        height: "100%",
-        padding: "1.5rem 0",
-        overflow: "auto"
-    },
-    serverCategory: {
-        padding: "0 1rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem"
-    },
-    serverCategoryList: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.5rem",
-        marginBottom: "1rem",
-        overflowY: "auto",
-    },
-    userDisplayer: {
-        padding: "0.5rem 1rem",
-        marginTop: "auto",
-        borderTop: "1px solid var(--border-color)",
-        display: "flex",
-        alignItems: "center",
-        minHeight: "60px",
-        maxHeight: "60px"
-    }
 }
