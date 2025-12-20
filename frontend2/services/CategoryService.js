@@ -1,6 +1,4 @@
-import { apiFetch } from "../../apiFetch.js";
-
-export async function getCategoriesByServer(serverId) {
+async function getCategoriesByServer(serverId) {
 	return await apiFetch(`/api/category/get/`, {
 		method: "POST",
 		body: JSON.stringify({
@@ -9,7 +7,7 @@ export async function getCategoriesByServer(serverId) {
 	})
 }
 
-export async function createCategory(serverId, name) {
+async function createCategory(serverId, name) {
 	return await apiFetch(`/api/category/`, {
 		method: "POST",
 		body: JSON.stringify({
@@ -19,7 +17,7 @@ export async function createCategory(serverId, name) {
 	})
 }
 
-export async function deleteCategory(categoryId) {
+async function deleteCategory(categoryId) {
 	return await apiFetch(`/api/category/`, {
 		method: "DELETE",
 		body: JSON.stringify({

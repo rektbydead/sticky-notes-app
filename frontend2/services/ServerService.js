@@ -1,6 +1,4 @@
-import {apiFetch} from "../../apiFetch.js";
-
-export async function createServer(name, password, is_personal, userId) {
+async function createServer(name, password, is_personal, userId) {
 	return await apiFetch('/api/server/', {
         method: 'POST',
         body: JSON.stringify({
@@ -12,7 +10,7 @@ export async function createServer(name, password, is_personal, userId) {
     })
 }
 
-export async function getServers(userId) {
+async function getServers(userId) {
 	return await apiFetch('/api/server/get/', {
         method: 'POST',
 		body: JSON.stringify({
@@ -21,7 +19,7 @@ export async function getServers(userId) {
     })
 }
 
-export async function getServerContent(serverId) {
+async function getServerContent(serverId) {
 	return await apiFetch(`/api/server/info/`, {
         method: 'POST',
 		body: JSON.stringify({
@@ -30,7 +28,7 @@ export async function getServerContent(serverId) {
     })
 }
 
-export async function joinServer(serverId, password, userId) {
+async function joinServer(serverId, password, userId) {
 	console.log(serverId, password, userId)
 	return await apiFetch(`/api/server/join/`, {
         method: 'POST',
@@ -42,7 +40,7 @@ export async function joinServer(serverId, password, userId) {
     })
 }
 
-export async function deleteServer(serverId) {
+async function deleteServer(serverId) {
     return await apiFetch(`/api/server/`, {
         method: 'DELETE',
 		body: JSON.stringify({
@@ -51,7 +49,7 @@ export async function deleteServer(serverId) {
     })
 }
 
-export async function kickUser(serverId, userId) {
+async function kickUser(serverId, userId) {
     return await apiFetch(`/api/server/kick-user/`, {
         method: 'DELETE',
 		body: JSON.stringify({
@@ -61,7 +59,7 @@ export async function kickUser(serverId, userId) {
     })
 }
 
-export async function deleteUserNotesInServer(serverId, userId) {
+async function deleteUserNotesInServer(serverId, userId) {
 	return await apiFetch(`/api/server/delete-all-user-notes/`, {
 		method: 'DELETE',
 		body: JSON.stringify({

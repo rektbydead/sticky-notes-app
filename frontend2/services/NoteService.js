@@ -1,6 +1,4 @@
-import { apiFetch } from "../../apiFetch.js";
-
-export async function getNotesByCategory(categoryId) {
+async function getNotesByCategory(categoryId) {
     return await apiFetch(`/api/note/get/`, {
         method: "POST",
 		body: JSON.stringify({
@@ -9,7 +7,7 @@ export async function getNotesByCategory(categoryId) {
     })
 }
 
-export async function createNote(categoryId, title, content, server_it_belongs, userId) {
+async function createNote(categoryId, title, content, server_it_belongs, userId) {
 	return await apiFetch(`/api/note/`, {
         method: "POST",
         body: JSON.stringify({
@@ -22,7 +20,7 @@ export async function createNote(categoryId, title, content, server_it_belongs, 
     })
 }
 
-export async function updateNote(noteId, title, content, category_it_belongs) {
+async function updateNote(noteId, title, content, category_it_belongs) {
     return await apiFetch(`/api/note/`, {
         method: "PUT",
         body: JSON.stringify({
@@ -34,7 +32,7 @@ export async function updateNote(noteId, title, content, category_it_belongs) {
     })
 }
 
-export async function archiveNote(noteId) {
+async function archiveNote(noteId) {
     return await apiFetch(`/api/note/archive`, {
         method: "POST",
 		body: JSON.stringify({
@@ -43,7 +41,7 @@ export async function archiveNote(noteId) {
     })
 }
 
-export async function unarchiveNote(noteId) {
+async function unarchiveNote(noteId) {
 	return await apiFetch(`/api/note/unarchive`, {
 		method: "POST",
 		body: JSON.stringify({
@@ -52,7 +50,7 @@ export async function unarchiveNote(noteId) {
 	})
 }
 
-export async function deleteNote(noteId) {
+async function deleteNote(noteId) {
     return await apiFetch(`/api/note/`, {
         method: "DELETE",
 		body: JSON.stringify({
