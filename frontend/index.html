@@ -1,16 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sticky notes</title>
-  </head>
-  <body>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/App.css">
+    <link rel="stylesheet" href="./assets/css/ClickableIcon.css">
+    <link rel="stylesheet" href="./assets/css/CreateNewNoteButton.css">
+    <link rel="stylesheet" href="./assets/css/CreateNewNoteNote.css">
+    <link rel="stylesheet" href="./assets/css/CreateNoteButton.css">
+    <link rel="stylesheet" href="./assets/css/InviteMemberButton.css">
+    <link rel="stylesheet" href="./assets/css/Menu.css">
+    <link rel="stylesheet" href="./assets/css/NoteSearchBox.css">
+    <link rel="stylesheet" href="./assets/css/ServerDisplayer.css">
+</head>
+<body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+    <script type="text/javascript" src="./apiFetch.js"></script>
+    <script type="text/javascript" src="./services/AuthenticationService.js"></script>
+    <script type="text/javascript" src="./services/CategoryService.js"></script>
+    <script type="text/javascript" src="./services/NoteService.js"></script>
+    <script type="text/javascript" src="./services/ServerService.js"></script>
+
+    <script type="text/babel" src="./components/dialogs/BaseModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/CategoryCreateModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/ChangePasswordModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/CreateNoteModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/DeleteCategoryModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/DeleteNoteModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/DeleteServerModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/PersonalServerCreateModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/ServerCreateModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/ServerJoinModal.js"></script>
+    <script type="text/babel" src="./components/dialogs/UpdateNoteModal.js"></script>
+
+    <script type="text/babel" src="./components/menus/LoggedUserMenu.js"></script>
+    <script type="text/babel" src="./components/menus/PersonalCategoryMenu.js"></script>
+    <script type="text/babel" src="./components/menus/ServerCategoryMenu.js"></script>
+    <script type="text/babel" src="./components/menus/ServerUserMenu.js"></script>
+
+    <script type="text/babel" src="./components/CategoryDisplayer.js"></script>
+    <script type="text/babel" src="./components/CreateNewNoteButton.js"></script>
+    <script type="text/babel" src="./components/CreateNewNoteNote.js"></script>
+    <script type="text/babel" src="./components/InviteMemberButton.js"></script>
+    <script type="text/babel" src="./components/Note.js"></script>
+    <script type="text/babel" src="./components/NoteSearchBox.js"></script>
+    <script type="text/babel" src="./components/ServerCategoryBar.js"></script>
+    <script type="text/babel" src="./components/ServerDisplayer.js"></script>
+    <script type="text/babel" src="./components/Toast.js"></script>
+    <script type="text/babel" src="./components/UserDisplayer.js"></script>
+
+    <script type="text/babel" src="./components/common/RightSideBar.js"></script>
+    <script type="text/babel" src="./components/common/CenterSideBar.js"></script>
+    <script type="text/babel" src="./components/common/LeftSideBar.js"></script>
+
+    <script type="text/babel" src="./pages/StickyNotesPage.js"></script>
+    <script type="text/babel" src="./pages/RegisterPage.js"></script>
+    <script type="text/babel" src="./pages/LoginPage.js"></script>
+
+    <script type="text/babel" src="./pages/StickyNotesPage.js"></script>
+    <script type="text/babel" src="./pages/RegisterPage.js"></script>
+    <script type="text/babel" src="./pages/LoginPage.js"></script>
+
+    <script type="text/babel" src="./context/NavigateContext.js"></script>
+    <script type="text/babel" src="./context/AuthenticationContext.js"></script>
+
+    <script type="text/babel" src="app.js"></script>
+</body>
 </html>

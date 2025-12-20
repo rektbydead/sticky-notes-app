@@ -1,0 +1,20 @@
+#root {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+    --outside-color: #E0E4E8;
+    --inside-color: #F5F6FA;
+    --note-color: #FFFFFF;
+    --border-color: #bbbbbb;
+    --hover-color: #FFFFFF;
+
+}

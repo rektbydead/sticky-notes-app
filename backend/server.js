@@ -1,4 +1,6 @@
 const http = require('http')
+const fs = require('fs')
+const path = require('path')
 const { createClientInstance } = require('./database')
 const authenticationRoutes = require("./routes/AuthRoute");
 const serverRoutes = require("./routes/ServerRoute");
@@ -23,6 +25,17 @@ function parseBody(req) {
 	})
 }
 
+const FRONTEND_DIRECTORY = path.join(__dirname, '../frontend/');
+
+const mimeTypes = {
+	'.html': 'text/html',
+	'.js': 'text/javascript',
+	'.css': 'text/css',
+	'.png': 'image/png',
+	'.jpg': 'image/jpeg',
+	'.svg': 'image/svg+xml'
+};
+
 
 const server = http.createServer(async (request, response) => {
 	response.setHeader("Access-Control-Allow-Origin", "*");
@@ -41,16 +54,36 @@ const server = http.createServer(async (request, response) => {
 		if (request.url.startsWith('/api/auth/')) {
 			const responseData = await authenticationRoutes[request.url](body)
 			response.end(JSON.stringify(responseData))
+			return
 		} else if (request.url.startsWith('/api/category/')) {
 			const responseData = await categoryRoutes[`${request.method}:${request.url}`](body)
 			response.end(JSON.stringify(responseData))
+			return
 		} else if (request.url.startsWith('/api/note/')) {
 			const responseData = await noteRoutes[`${request.method}:${request.url}`](body)
 			response.end(JSON.stringify(responseData))
+			return
 		} else if (request.url.startsWith('/api/server/')) {
 			const responseData = await serverRoutes[`${request.method}:${request.url}`](body)
 			response.end(JSON.stringify(responseData))
+			return
 		}
+
+		let filePath = request.url === '/' ? 'index.html' : request.url;
+		if (filePath.startsWith('/')) filePath = filePath.slice(1);
+
+		filePath = path.join(FRONTEND_DIRECTORY, filePath)
+
+		fs.readFile(filePath, (error, fileContent) => {
+			if (error) {
+				response.writeHead(404)
+				response.end('File not found')
+			} else {
+				const extension = path.extname(filePath)
+				response.writeHead(200, { 'Content-Type': mimeTypes[extension] || 'text/plain' })
+				response.end(fileContent)
+			}
+		});
 	} catch(e) {
 		console.log(e)
 		response.writeHead(400)

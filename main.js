@@ -1,0 +1,25 @@
+const { app, Menu, BrowserWindow } = require('electron')
+const path = require('path')
+
+
+async function main() {
+    const window = new BrowserWindow({
+		// webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: false },
+		width: 1920,
+        height: 1080,
+        minWidth: 1280,
+        minHeight: 800,
+
+		titleBarOverlay: {
+		  symbolColor: '#FFF',
+		  color: '#2b252c',
+		  height: 10
+		}
+	})
+
+    Menu.setApplicationMenu(null)
+    window.loadURL("http://localhost:5000/")
+}
+
+app.whenReady()
+    .then(main)
