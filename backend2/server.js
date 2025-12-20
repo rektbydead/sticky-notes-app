@@ -1,6 +1,7 @@
 const http = require('http')
 const { createClientInstance } = require('./database')
 const authenticationRoutes = require("./routes/AuthRoute");
+const serverRoutes = require("./routes/ServerRoute");
 
 
 
@@ -35,13 +36,13 @@ const server = http.createServer(async (request, response) => {
 		if (request.url.startsWith('/api/auth/')) {
 			const responseData = await authenticationRoutes[request.url](body)
 			response.end(JSON.stringify(responseData))
-			return
 		} else if (request.url.startsWith('/api/category/')) {
 
 		} else if (request.url.startsWith('/api/note/')) {
 
 		} else if (request.url.startsWith('/api/server/')) {
-
+			const responseData = await serverRoutes[`${request.method}:${request.url}`](body)
+			response.end(JSON.stringify(responseData))
 		}
 	} catch(e) {
 		console.log(e)
