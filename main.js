@@ -18,7 +18,7 @@ async function main() {
 	})
 
     Menu.setApplicationMenu(null)
-    window.loadURL("http://localhost:5000/")
+    window.loadURL("http://web-dev-grupo01.dei.uc.pt/")
 }
 
 app.whenReady()
