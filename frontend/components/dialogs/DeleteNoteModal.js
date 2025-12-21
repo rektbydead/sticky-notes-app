@@ -1,4 +1,4 @@
-function DeleteNoteModal ({ isOpen, onClose, children, maxWidth = '500px', note, onDelete }) {
+function DeleteNoteModal({ isOpen, onClose, children, maxWidth = '500px', note, onDelete }) {
 	const [showToast, setShowToast] = React.useState(false)
 
 	async function handleSubmit(e) {
@@ -87,23 +87,23 @@ function DeleteNoteModal ({ isOpen, onClose, children, maxWidth = '500px', note,
 				<form style={styles.form} onSubmit={handleSubmit}>
 					<div style={styles.inputGroup}>
 						Are you sure you want to permanently delete the {note?.title} Note?
-						<br/>
-						<span style={{color: "red"}}> This action cannot be undone.</span>
+						<br />
+						<span style={{ color: "red" }}> This action cannot be undone.</span>
 					</div>
 
 					<div style={styles.footer}>
-                        <div style={{display: "flex", marginBottom: "0.5rem", justifyContent: "end", flexDirection: "column", gap: "0.5rem"}}>
-                            <button type="submit" style={styles.cancelButton}>
-                                Delete note
-                            </button>
-                            <button type="button" onClick={handleClose} style={styles.submitButton}>
-                                Cancel
-                            </button>
-                        </div>
+						<div style={{ display: "flex", marginBottom: "0.5rem", justifyContent: "end", flexDirection: "column", gap: "0.5rem" }}>
+							<button type="submit" style={styles.cancelButton}>
+								Delete note
+							</button>
+							<button type="button" onClick={handleClose} style={styles.submitButton}>
+								Cancel
+							</button>
+						</div>
 
-                        <div style={{ maxWidth:'450px', minWidth:'450px'  }}>
-                            <Note note={note} showIcons={false} style={{height: "100%"}} isBeingDeleted={true}/>
-                        </div>
+						<div style={{ maxWidth: '450px', minWidth: '450px' }}>
+							<Note note={note} showIcons={false} style={{ height: "100%" }} isBeingDeleted={true} />
+						</div>
 					</div>
 				</form>
 			</Modal>
