@@ -1,9 +1,9 @@
-function DeleteAllNotesModal({ isOpen, onClose, onDelete, serverId, userId }) {
+function BanModal({ isOpen, onClose, onBan, serverId, userId }) {
 	const [showToast, setShowToast] = React.useState(false)
 
 	async function handleSubmit(e) {
 		e.preventDefault()
-		await onDelete(serverId, userId);
+		await onBan(serverId, userId);
 		setShowToast(true)
 		onClose()
 	}
@@ -56,23 +56,23 @@ function DeleteAllNotesModal({ isOpen, onClose, onDelete, serverId, userId }) {
 		<>
 			{showToast &&
 				<Toast
-					message={`All Notes deleted successfully.`}
+					message={`User kicked successfully.`}
 					onClose={() => setShowToast(false)}
 				/>
 			}
 
 			<div onMouseDown={(e) => e.stopPropagation()}>
-				<Modal isOpen={isOpen} onClose={handleClose} title="Delete all notes">
+				<Modal isOpen={isOpen} onClose={handleClose} title="Kick User from Server">
 					<form style={styles.form} onSubmit={handleSubmit}>
 						<div style={styles.inputGroup}>
-							Are you sure you want to permanently delete <strong>all notes</strong> from this user?
+							Are you sure you want to kick user from this server?
 							<br />
-							<span style={{ color: 'red' }}> This action cannot be undone.</span>
+							<span style={{ color: 'red' }}> This action does not clean notes.</span>
 						</div>
 
 						<div style={styles.footer}>
 							<button type="submit" style={styles.cancelButton}>
-								Delete all notes
+								Kick user
 							</button>
 							<button type="button" onClick={handleClose} style={styles.submitButton}>
 								Cancel

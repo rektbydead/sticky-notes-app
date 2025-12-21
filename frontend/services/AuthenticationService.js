@@ -37,6 +37,16 @@ async function changePassword(currentPassword, newPassword, userId) {
     })
 }
 
+async function changeName(newName, email) {
+	return await apiFetch('/api/auth/change-name/', {
+        method: 'PUT',
+        body: JSON.stringify({
+            newName,
+			email
+        }),
+    })
+}
+
 async function logout() {
     return await apiFetch('/api/auth/logout/', {
         method: 'POST',

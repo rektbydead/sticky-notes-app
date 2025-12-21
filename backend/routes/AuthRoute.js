@@ -64,10 +64,37 @@ async function changePassword(data) {
 	}
 }
 
+async function changeName(data) {
+	const { email, newName } = data
+	const users = await getCollection('users')
+
+	const user = await users.findOne({ email: email })
+	if (!user) {
+		throw Error(`Wrong ID`)
+	}
+
+	await users.updateOne(
+		{ _id: new ObjectId(user._id) },
+		{
+			$set: {
+				name: newName,
+				updated_at: new Date()
+			}
+		}
+	)
+
+	return {
+		_id: user._id,
+		email: user.email,
+		name: newName,
+	}
+}
+
 const authenticationRoutes = {
 	'/api/auth/register/': register,
 	'/api/auth/login/': login,
 	'/api/auth/change-password/': changePassword,
+	'/api/auth/change-name/': changeName,
 }
 
 module.exports = authenticationRoutes

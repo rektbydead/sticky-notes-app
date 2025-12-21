@@ -1,5 +1,6 @@
 function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetchServers, refetchNotes }) {
     const [showDeleteAllNotesModal, setShowDeleteAllNotesModal] = React.useState(false);
+    const [showBanModal, setShowBanModal] = React.useState(false);
     const menuRef = React.useRef(null);
 
     React.useEffect(() => {
@@ -13,10 +14,6 @@ function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetch
 
         if (isOpen) {
             document.addEventListener('mousedown', handleClickOutside);
-        }
-
-        if (!isOpen) {
-            setShowDeleteAllNotesModal(false);
         }
 
         return () => {
@@ -65,9 +62,20 @@ function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetch
                 onClose={() => setShowDeleteAllNotesModal(false)}
                 serverId={serverId}
                 userId={userId}
-                onConfirm={async (serverId, userId) => {
+                onDelete={async (serverId, userId) => {
                     await deleteUserNotesInServer(serverId, userId);
                     await refetchNotes();
+                    onClose();
+                }}
+            />
+            <BanModal
+                isOpen={showBanModal}
+                onClose={() => setShowBanModal(false)}
+                serverId={serverId}
+                userId={userId}
+                onBan={async (serverId, userId) => {
+                    await kickUser(serverId, userId);
+                    await refetchServers();
                     onClose();
                 }}
             />
@@ -78,15 +86,13 @@ function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetch
                     className="menu-item"
                     onClick={async (e) => {
                         e.stopPropagation();
-                        console.log("ban user logic")
-                        await kickUser(serverId, userId)
-                        await refetchServers()
-                        onClose()
+                        setShowBanModal(true);
                     }}
                 >
                     <img src="../../assets/icon/mdiCancel.svg" alt="Ban" style={styles.menuItemIcon} />
                     <span>Kick user</span>
                 </div>
+
                 <div
                     style={styles.menuItem}
                     className="menu-item"

@@ -1,4 +1,5 @@
-const BASE_URL = 'http://web-dev-grupo01.dei.uc.pt'
+//const BASE_URL = 'http://web-dev-grupo01.dei.uc.pt'
+const BASE_URL = 'http://localhost'
 
 async function apiFetch(path, options) {
     const response = await fetch(`${BASE_URL}${path}`, {

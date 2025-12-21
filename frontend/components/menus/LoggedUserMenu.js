@@ -4,6 +4,7 @@ function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
     const { logout } = useAuthentication()
 
 	const [isChangePasswordModalOpen, setIsChangePasswordModal] = React.useState(false)
+	const [isChangeNameModalOpen, setIsChangeNameModal] = React.useState(false)
 
 	React.useEffect(() => {
         function handleClickOutside(event) {
@@ -64,6 +65,18 @@ function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
                 className="menu-item"
                 onClick={(e) => {
                     e.stopPropagation();
+					setIsChangeNameModal(true)
+                }}
+            >
+                <img src="../../assets/icon/userName.svg" alt="Key" style={styles.menuItemIcon} />
+                <span>Change Name</span>
+            </div>
+
+            <div
+                style={styles.menuItem}
+                className="menu-item"
+                onClick={(e) => {
+                    e.stopPropagation();
 					setIsChangePasswordModal(true)
                 }}
             >
@@ -85,6 +98,7 @@ function LoggedUserMenu({ isOpen, onClose, triggerRef }) {
             </div>
 
 			<ChangePasswordDialog isOpen={isChangePasswordModalOpen} onClose={() => setIsChangePasswordModal(false)} />
+			<ChangeNameDialog isOpen={isChangeNameModalOpen} onClose={() => setIsChangeNameModal(false)} />
         </div>
     )
 }
