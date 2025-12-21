@@ -46,14 +46,16 @@ Each server has two categories by default (General & Archived) and it is possibl
 
 ### Requirements
 + Node.js
-+ Mongodb
++ MongoDB + Command Line Database Tool
 
 ### Instructions
 
 1. Navigate to the *backend* folder
 2. Create data folder: `mkdir data`
 3. Start mongod: `mongod --dbpath data --port 6000`
-4. Start server: `node server.js`
+4. Restore mongodb dump: `mongorestore --port 6000 --db sticky-notes --drop ../mongodb-dump/sticky-notes`
+5. Install dependencies: `npm install`
+6. Start server: `node server.js`
 
 
 This will initialize the server on port `5000`.<br>
