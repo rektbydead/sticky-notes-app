@@ -53,6 +53,9 @@ function LoginPage() {
 			marginBottom: '24px',
 		},
 		avatar: {
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
 			width: '80px',
 			height: '80px',
 			borderRadius: '50%',
@@ -191,7 +194,16 @@ function LoginPage() {
 		<div style={styles.container}>
 			<div style={styles.card}>
 				<div style={styles.avatarContainer}>
-					<div style={styles.avatar}></div>
+					<div style={styles.avatar}>
+						<img style={{
+
+							width: "40px",
+							height: "40px",
+						}}
+							src="../assets/pageIcon.png"
+							alt="Icon"
+						/>
+					</div>
 				</div>
 
 				<h1 style={styles.title}>Welcome Back</h1>
