@@ -5,11 +5,20 @@ function ChangeNameDialog({ isOpen, onClose, children, maxWidth = '500px' }) {
 
 	async function handleSubmit(e) {
 		e.preventDefault()
+		const oldName = user.name
 		const data = await changeName(newName, user.email)
 		setUserLocalStore(data)
 		setShowToast(true)
-		window.location.reload(false)
+		setTimeout(() => { changeServerUserName(oldName, newName), 500 })
 		onClose()
+	}
+
+	async function changeServerUserName(oldName, newName) {
+		const element = document.querySelector(`.name[data-oldname="${oldName}"]`);
+		if (element) {
+			element.textContent = newName;
+			element.dataset.oldname = newName;
+		}
 	}
 
 	function handleClose() {

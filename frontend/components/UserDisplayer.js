@@ -69,7 +69,7 @@ function UserDisplayer({name, description, isOwner, onClick, hasMenu = true, men
                 </div>
 
                 <div style={styles.title}>
-                    <span style={styles.name}>{name}</span>
+                    <span className='name' data-oldname={name} style={styles.name}>{name}</span>
                     <span style={styles.email}>{description}</span>
                 </div>
             </div>

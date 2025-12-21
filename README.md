@@ -86,3 +86,26 @@ This is the data of the existing accounts in the mongodb dump...
 694728e47ae856cc382308f1:123
 
 ## 6. Student Contributors
+
+### Ruben
++ Convert Server to native http (instead of express) and fixed some bugs
++ Server also return HTML react project...
++ Develop website structure
++ Did most dialogs and menus
++ Created the services api calls
++ Handled Login, Register and communication with backend
++ Prepared electron to connect to server
+
+
+### Vito
++ Server using express (Ruben mistakenly told him to do in express)
++ Partially design the website and color chossing
++ Created base dialog and did some dialogs
++ Improved menus css
++ Improved css
++ Added icon + favicon
++ Ask question in modal window to confirm when Kick user
++ Ask question in modal window to confirm when Clear notes
++ Change Name in modal window to change the inicial register Name and update changes without logout
++ Add new service api to update name
++ Correct bugs when open and not close menu options

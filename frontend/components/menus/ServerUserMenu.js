@@ -1,7 +1,7 @@
 function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetchServers, refetchNotes }) {
+    const menuRef = React.useRef(null);
     const [showDeleteAllNotesModal, setShowDeleteAllNotesModal] = React.useState(false);
     const [showBanModal, setShowBanModal] = React.useState(false);
-    const menuRef = React.useRef(null);
 
     React.useEffect(() => {
         function handleClickOutside(event) {
@@ -21,7 +21,7 @@ function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetch
         }
     }, [isOpen, onClose, triggerRef])
 
-    if (!isOpen) return null;
+    //    if (!isOpen) return null;
 
     const styles = {
         dropdown: {
@@ -57,6 +57,36 @@ function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetch
 
     return (
         <>
+            {isOpen && (
+                <div style={styles.dropdown} ref={menuRef}>
+                    <div
+                        style={styles.menuItem}
+                        className="menu-item"
+                        onClick={async (e) => {
+                            e.stopPropagation();
+                            onClose()
+                            setShowBanModal(true);
+                        }}
+                    >
+                        <img src="../../assets/icon/mdiCancel.svg" alt="Ban" style={styles.menuItemIcon} />
+                        <span>Kick user</span>
+                    </div>
+
+                    <div
+                        style={styles.menuItem}
+                        className="menu-item"
+                        onClick={async (e) => {
+                            e.stopPropagation();
+                            onClose()
+                            setShowDeleteAllNotesModal(true);
+                        }}
+                    >
+                        <img src="../../assets/icon/mdiBroom.svg" alt="Clear" style={styles.menuItemIcon} />
+                        <span>Clear notes</span>
+                    </div>
+                </div>
+            )}
+
             <DeleteAllNotesModal
                 isOpen={showDeleteAllNotesModal}
                 onClose={() => setShowDeleteAllNotesModal(false)}
@@ -79,32 +109,6 @@ function ServerUserMenu({ isOpen, onClose, triggerRef, serverId, userId, refetch
                     onClose();
                 }}
             />
-
-            <div style={styles.dropdown} ref={menuRef}>
-                <div
-                    style={styles.menuItem}
-                    className="menu-item"
-                    onClick={async (e) => {
-                        e.stopPropagation();
-                        setShowBanModal(true);
-                    }}
-                >
-                    <img src="../../assets/icon/mdiCancel.svg" alt="Ban" style={styles.menuItemIcon} />
-                    <span>Kick user</span>
-                </div>
-
-                <div
-                    style={styles.menuItem}
-                    className="menu-item"
-                    onClick={async (e) => {
-                        e.stopPropagation();
-                        setShowDeleteAllNotesModal(true);
-                    }}
-                >
-                    <img src="../../assets/icon/mdiBroom.svg" alt="Clear" style={styles.menuItemIcon} />
-                    <span>Clear notes</span>
-                </div>
-            </div>
 
         </>
     );
